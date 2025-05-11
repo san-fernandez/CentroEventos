@@ -4,13 +4,6 @@ using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Interfaces;
 public class ValidadorPersona
 {
-    private readonly IRepositorio _repositorio;
-
-    public ValidadorPersona(IRepositorioPersona repositorio)
-    {
-        _repositorio = repositorio;
-    }
-
     public void Validar(Persona persona)
     {
         if (string.IsNullOrWhiteSpace(persona.Nombre))

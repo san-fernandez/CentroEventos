@@ -3,7 +3,7 @@ using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Excepciones;
 public class ValidadorActividad
 {
-    public static void Validar(ActividadDeportiva actividad) {
+    public static Boolean Validar(ActividadDeportiva actividad) {
 
         if (string.IsNullOrWhiteSpace(actividad.Nombre))
             throw new ValidacionException("El nombre de la actividad es obligatorio.");

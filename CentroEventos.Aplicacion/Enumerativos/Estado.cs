@@ -1,6 +1,5 @@
 public enum Estado { 
     Pendiente, 
-    Asistio, 
-    Ausente, 
-    Cancelada 
+    Presente, 
+    Ausente 
 }
