@@ -4,7 +4,7 @@ using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Interfaces;
 public class ValidadorPersona
 {
-    public void Validar(Persona persona)
+    public boolean Validar(Persona persona)
     {
         if (string.IsNullOrWhiteSpace(persona.Nombre))
             throw new ValidacionException("El nombre del responsable es obligatorio.");

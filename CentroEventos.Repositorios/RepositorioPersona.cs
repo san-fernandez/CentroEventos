@@ -28,6 +28,25 @@ namespace CentroEventos.Repositorios
             EscribirPersona(sw, persona);
         }
 
+        public bool Eliminar(int id)
+        {
+            var personas = Listar();
+            using var sw = new StreamWriter(_filePath, false);
+            bool eliminado = false;
+            foreach (var persona in personas)
+            {
+                if (persona.Id != id)
+                {
+                    EscribirPersona(sw, persona);
+                }
+                else {
+                    eliminado = true;
+                }
+            }
+            return eliminado;
+        }
+
+
         public Persona? ObtenerPorId(int id)
         {
             using var sr = new StreamReader(_filePath);
@@ -70,19 +89,7 @@ namespace CentroEventos.Repositorios
             }
         }
 
-        public void Eliminar(int id)
-        {
-            var personas = Listar();
-            using var sw = new StreamWriter(_filePath, false);
-            foreach (var persona in personas)
-            {
-                if (persona.Id != id)
-                {
-                    EscribirPersona(sw, persona);
-                }
-            }
-        }
-
+        
         public bool ExisteConDNI(int dni)
         {
             using var sr = new StreamReader(_filePath);
@@ -123,11 +130,11 @@ namespace CentroEventos.Repositorios
         {
             return new Persona
             {
-                Id = int.Parse(sr.ReadLine()),
-                Nombre = sr.ReadLine(),
-                Apellido = sr.ReadLine(),
-                Email = sr.ReadLine(),
-                Telefono = sr.ReadLine()
+                Id = int.Parse(sr.ReadLine() ?? "0"),
+                Nombre = sr.ReadLine() ?? "",
+                Apellido = sr.ReadLine() ?? "",
+                Email = sr.ReadLine() ?? "",
+                Telefono = sr.ReadLine() ?? ""
             };
         }
 

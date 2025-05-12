@@ -95,13 +95,13 @@ namespace CentroEventos.Repositorios
         {
             return new EventoDeportivo
             {
-                Id = int.Parse(sr.ReadLine()),
-                Nombre = sr.ReadLine(),
-                Descripcion = sr.ReadLine(),
-                FechaHoraInicio = DateTime.Parse(sr.ReadLine()),
-                DuracionHoras = double.Parse(sr.ReadLine()),
-                CupoMaximo = int.Parse(sr.ReadLine()),
-                ResponsableId = int.Parse(sr.ReadLine())
+                Id = int.Parse(sr.ReadLine() ?? "0"),
+                Nombre = sr.ReadLine() ?? "",
+                Descripcion = sr.ReadLine() ?? "",
+                FechaHoraInicio = DateTime.Parse(sr.ReadLine() ?? DateTime.MinValue.ToString("o")),
+                DuracionHoras = double.Parse(sr.ReadLine() ?? "0"),
+                CupoMaximo = int.Parse(sr.ReadLine() ?? "0"),
+                ResponsableId = int.Parse(sr.ReadLine() ?? "0")
             };
         }
 

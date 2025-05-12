@@ -4,7 +4,7 @@ using CentroEventos.Aplicacion.Entidades;
 
 public interface IRepositorioEventoDeportivo {
     void Agregar(EventoDeportivo e);
-    void Eliminar(int Id);
+    bool Eliminar(int Id);
     EventoDeportivo? ObtenerPorId(int Id);
     List<EventoDeportivo> Listar();
 }

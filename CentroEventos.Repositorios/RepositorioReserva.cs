@@ -95,11 +95,11 @@ namespace CentroEventos.Repositorios
         {
             return new Reserva
             {
-                Id = int.Parse(sr.ReadLine()),
-                PersonaId = int.Parse(sr.ReadLine()),
-                EventoDeportivoId = int.Parse(sr.ReadLine()),
-                FechaAltaReserva = DateTime.Parse(sr.ReadLine()),
-                EstadoAsistencia = Enum.Parse<Estado>(sr.ReadLine())
+                Id = int.Parse(sr.ReadLine() ?? "0"),
+                PersonaId = int.Parse(sr.ReadLine() ?? "0"),
+                EventoDeportivoId = int.Parse(sr.ReadLine() ?? "0"),
+                FechaAltaReserva = DateTime.Parse(sr.ReadLine() ?? DateTime.MinValue.ToString("o")),
+                EstadoAsistencia = Enum.Parse<Estado>(sr.ReadLine() ?? "Pendiente")
             };
         }
 
