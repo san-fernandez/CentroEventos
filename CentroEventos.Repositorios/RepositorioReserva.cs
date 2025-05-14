@@ -28,6 +28,18 @@ namespace CentroEventos.Repositorios
             EscribirReserva(sw, reserva);
         }
 
+        public bool Eliminar(int id)
+        {
+            var reservas = Listar();
+            using var sw = new StreamWriter(_filePath, false);
+            foreach (var reserva in reservas)
+            {
+                if (reserva.Id != id)
+                {
+                    EscribirReserva(sw, reserva);
+                }
+            }
+        }
         public Reserva? ObtenerPorId(int id)
         {
             using var sr = new StreamReader(_filePath);
@@ -66,19 +78,6 @@ namespace CentroEventos.Repositorios
                 else
                 {
                     EscribirReserva(sw, r);
-                }
-            }
-        }
-
-        public void Eliminar(int id)
-        {
-            var reservas = Listar();
-            using var sw = new StreamWriter(_filePath, false);
-            foreach (var reserva in reservas)
-            {
-                if (reserva.Id != id)
-                {
-                    EscribirReserva(sw, reserva);
                 }
             }
         }
