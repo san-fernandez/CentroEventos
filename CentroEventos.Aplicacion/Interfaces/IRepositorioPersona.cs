@@ -5,6 +5,7 @@ using CentroEventos.Aplicacion.Entidades;
 public interface IRepositorioPersona {
     void Agregar(Persona p);
     bool Eliminar(int Id);
+    bool Modificar(Persona p);
     Persona? ObtenerPorId(int Id);
     Boolean ExisteConDNI(int DNI);
     Boolean ExisteConEmail(string email);

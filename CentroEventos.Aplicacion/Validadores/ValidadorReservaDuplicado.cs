@@ -1,0 +1,17 @@
+namespace CentroEventos.Aplicacion.Validadores;
+using CentroEventos.Aplicacion.Entidades;
+using CentroEventos.Aplicacion.Excepciones;
+using CentroEventos.Aplicacion.Interfaces;
+
+public class ValidadorReservaDuplicado {
+    public static bool Validar(Reserva reserva, IRepositorioReserva repo, out string mensajeError) {
+        mensajeError = "";
+        if (repo.PersonaReserva(reserva.EventoDeportivoId, reserva.PersonaId)) {
+            mensajeError += "La persona ya tiene una reserva para este evento";
+        }
+        if (string.IsNullOrWhiteSpace(mensajeError)){
+            return true;
+        }
+        return false;
+    }
+}

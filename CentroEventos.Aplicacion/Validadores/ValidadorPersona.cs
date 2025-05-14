@@ -2,17 +2,21 @@ namespace CentroEventos.Aplicacion.Validadores;
 using CentroEventos.Aplicacion.Excepciones;
 using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Interfaces;
-public class ValidadorPersona
-{
-    public boolean Validar(Persona persona)
-    {
-        if (string.IsNullOrWhiteSpace(persona.Nombre))
-            throw new ValidacionException("El nombre del responsable es obligatorio.");
-
-        if (string.IsNullOrWhiteSpace(persona.CorreoElectronico))
-            throw new ValidacionException("El correo del responsable es obligatorio.");
-
-        if (_repositorio.ExisteDNI(persona.DNI))
-            throw new ValidacionException("Ya existe un responsable con el mismo DNI.");
+public class ValidadorPersona {
+    public static bool Validar(Persona persona, out string mensajeError) {
+        mensajeError = "";
+        if (string.IsNullOrWhiteSpace(persona.Nombre)) {
+            mensajeError += "Nombre esta vacio";
+        }
+        if (string.IsNullOrWhiteSpace(persona.Apellido)) {
+            mensajeError += "Apellido esta vacio";
+        }
+        if (string.IsNullOrWhiteSpace(persona.Email)) {
+            mensajeError += "Email en blanco";
+        }
+        if( string.IsNullOrWhiteSpace(mensajeError)){
+            return true;
+        }
+        return false;
     }
 }

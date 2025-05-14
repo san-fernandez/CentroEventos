@@ -53,34 +53,50 @@ namespace CentroEventos.Repositorios
             return eventos;
         }
 
-        public void Actualizar(EventoDeportivo evento)
+        public bool Modificar(EventoDeportivo evento)
         {
             var eventos = Listar();
+            bool encontrado = false;
+
             using var sw = new StreamWriter(_filePath, false);
-            foreach (var e in eventos)
-            {
-                if (e.Id == evento.Id)
-                {
+            foreach (var e in eventos) {
+                if (e.Id == evento.Id) {
                     EscribirEvento(sw, evento);
+                    encontrado = true;
                 }
-                else
-                {
+                else {
                     EscribirEvento(sw, e);
                 }
             }
+
+            return encontrado;
         }
 
-        public void Eliminar(int id)
+        public bool Eliminar(int id)
         {
             var eventos = Listar();
+            bool encontrado = false;
+
             using var sw = new StreamWriter(_filePath, false);
-            foreach (var evento in eventos)
-            {
-                if (evento.Id != id)
-                {
+            foreach (var evento in eventos) {
+                if (evento.Id != id) {
                     EscribirEvento(sw, evento);
                 }
+                else {
+                    encontrado = true;
+                }
             }
+            return encontrado;
+        }
+
+        public int ObtenerCupoMaximo(int idEvento)
+        {
+            var evento = ObtenerPorId(idEvento);
+            if (evento == null)
+            {
+                return -1;
+            }
+            return evento.CupoMaximo;
         }
 
         private int GenerarNuevoId()

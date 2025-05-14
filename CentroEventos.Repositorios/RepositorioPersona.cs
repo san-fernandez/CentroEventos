@@ -72,23 +72,24 @@ namespace CentroEventos.Repositorios
             return personas;
         }
 
-        public void Actualizar(Persona persona)
+        public bool Modificar(Persona persona)
         {
             var personas = Listar();
+            bool encontrado = false;
+
             using var sw = new StreamWriter(_filePath, false);
-            foreach (var p in personas)
-            {
-                if (p.Id == persona.Id)
-                {
+            foreach (var p in personas) {
+                if (p.Id == persona.Id) {
                     EscribirPersona(sw, persona);
+                    encontrado = true;
                 }
-                else
-                {
-                    EscribirPersona(sw, p);
-                }
+            else {
+                EscribirPersona(sw, p);
             }
         }
 
+        return encontrado;
+        }
         
         public bool ExisteConDNI(int dni)
         {

@@ -31,6 +31,8 @@ namespace CentroEventos.Repositorios
         public bool Eliminar(int id)
         {
             var reservas = Listar();
+            bool encontrado = false;
+
             using var sw = new StreamWriter(_filePath, false);
             foreach (var reserva in reservas)
             {
@@ -38,8 +40,15 @@ namespace CentroEventos.Repositorios
                 {
                     EscribirReserva(sw, reserva);
                 }
+                else
+                {
+                    encontrado = true;
+                }
             }
+
+            return encontrado;
         }
+
         public Reserva? ObtenerPorId(int id)
         {
             using var sr = new StreamReader(_filePath);
@@ -65,21 +74,45 @@ namespace CentroEventos.Repositorios
             return reservas;
         }
 
-        public void Actualizar(Reserva reserva)
+        public bool Modificar(Reserva reserva)
         {
             var reservas = Listar();
+            bool encontrado = false;
+
             using var sw = new StreamWriter(_filePath, false);
             foreach (var r in reservas)
             {
                 if (r.Id == reserva.Id)
                 {
                     EscribirReserva(sw, reserva);
+                    encontrado = true;
                 }
                 else
                 {
                     EscribirReserva(sw, r);
                 }
             }
+
+            return encontrado;
+        }
+
+        public int ContarReservas(int eventoDeportivoId)
+        {
+            var reservas = Listar();
+            return reservas.Count(r => r.EventoDeportivoId == eventoDeportivoId);
+        }
+
+        public bool PersonaReserva(int idPersona, int idEventoDeportivo)
+        {
+            var reservas = Listar();
+            foreach (var reserva in reservas)
+            {
+                if (reserva.PersonaId == idPersona && reserva.EventoDeportivoId == idEventoDeportivo)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private int GenerarNuevoId()
