@@ -99,6 +99,19 @@ namespace CentroEventos.Repositorios
             return evento.CupoMaximo;
         }
 
+        public bool PersonaResponsable(int idPersona)
+        {
+            var eventos = Listar();
+            foreach (var evento in eventos)
+            {
+                if (evento.ResponsableId == idPersona)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private int GenerarNuevoId()
         {
             var ultimoId = int.Parse(File.ReadAllText(_idFilePath));

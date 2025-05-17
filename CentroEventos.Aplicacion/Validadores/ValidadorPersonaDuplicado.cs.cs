@@ -6,7 +6,7 @@ public class ValidadorPersonaDuplicado {
     public static bool Validar(Persona persona, IRepositorioPersona repo, out string mensajeError) {
         mensajeError = "";
         if (repo.ExisteConDNI(persona.DNI)) {
-            mensajeError += "DNi duplicado";
+            mensajeError += "DNI duplicado";
         }
         if (repo.ExisteConEmail(persona.Email)){
             mensajeError += "Email duplicado";

@@ -1,4 +1,4 @@
 namespace CentroEventos.Aplicacion.Excepciones;
 public class OperacionInvalidaException : Exception {
-    public OperacionInvalidaException() : base("Operación inválida") { }
+    public OperacionInvalidaException(string message) : base(message) { }
 }

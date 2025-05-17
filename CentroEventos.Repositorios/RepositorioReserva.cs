@@ -102,7 +102,20 @@ namespace CentroEventos.Repositorios
             return reservas.Count(r => r.EventoDeportivoId == eventoDeportivoId);
         }
 
-        public bool PersonaReserva(int idPersona, int idEventoDeportivo)
+        public bool PersonaReserva(int idPersona)
+        {
+            var reservas = Listar();
+            foreach (var reserva in reservas)
+            {
+                if (reserva.PersonaId == idPersona)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool PersonaReservaEvento(int idPersona, int idEventoDeportivo)
         {
             var reservas = Listar();
             foreach (var reserva in reservas)
@@ -113,6 +126,33 @@ namespace CentroEventos.Repositorios
                 }
             }
             return false;
+        }
+
+        public bool EventoDeportivoReserva(int idEventoDeportivo)
+        {
+            var reservas = Listar();
+            foreach (var reserva in reservas)
+            {
+                if (reserva.EventoDeportivoId == idEventoDeportivo)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public List<Reserva> ListarPresenteId(int eventoDeportivoId)
+        {
+            var reservas = Listar();
+            var resultado = new List<Reserva>();
+            foreach (var reserva in reservas)
+            {
+                if (reserva.EventoDeportivoId == eventoDeportivoId && reserva.EstadoAsistencia == Estado.Presente)
+                {
+                    resultado.Add(reserva);
+                }
+            }
+            return resultado;
         }
 
         private int GenerarNuevoId()

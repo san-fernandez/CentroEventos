@@ -12,7 +12,11 @@ public class ValidadorEventoDeportivo
         if (string.IsNullOrWhiteSpace(evento.Descripcion)) {
             mensajeError += "Descripcion esta vacia ";
         }
-        if (evento.DuracionHoras<=0) {
+        if (evento.FechaHoraInicio < DateTime.Now) {
+            mensajeError += "La fecha del evento debe ser futura";
+        }
+        if (evento.DuracionHoras <= 0)
+        {
             mensajeError += "Duracion tiene que ser mayor a 0 ";
         }
         if (evento.CupoMaximo<=0){

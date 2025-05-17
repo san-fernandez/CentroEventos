@@ -7,7 +7,7 @@ public interface IRepositorioPersona {
     bool Eliminar(int Id);
     bool Modificar(Persona p);
     Persona? ObtenerPorId(int Id);
-    Boolean ExisteConDNI(int DNI);
+    Boolean ExisteConDNI(string DNI);
     Boolean ExisteConEmail(string email);
     List<Persona> Listar();
 }

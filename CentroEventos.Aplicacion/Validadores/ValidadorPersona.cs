@@ -11,6 +11,9 @@ public class ValidadorPersona {
         if (string.IsNullOrWhiteSpace(persona.Apellido)) {
             mensajeError += "Apellido esta vacio";
         }
+        if (string.IsNullOrWhiteSpace(persona.DNI)) {
+            mensajeError += "DNI está vacío";
+        }
         if (string.IsNullOrWhiteSpace(persona.Email)) {
             mensajeError += "Email en blanco";
         }

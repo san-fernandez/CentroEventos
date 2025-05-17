@@ -10,6 +10,9 @@ public class EventoDeportivoModificacionUseCase(IRepositorioEventoDeportivo repo
         if (!servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.EventoModificacion)) {
             throw new FalloAutorizacionException();
         }
+        if (evento.FechaHoraInicio <= DateTime.Now) {
+            throw new OperacionInvalidaException("No se puede modificar un evento pasado");
+        }
         bool modificado = repositorio.Modificar(evento);
         if (!modificado)
         {

@@ -1,10 +1,13 @@
 namespace CentroEventos.Aplicacion.Entidades;
 public class Persona {
     public int Id { get; set; }
-    public int DNI { get; set; }
-    public string Nombre { get; set; }
-    public string Apellido { get; set; }
-    public string Email { get; set; }
-    public string Telefono { get; set; }
-    public override string ToString() => $"{Nombre} {Apellido} ({DNI})";
+    public required string DNI { get; set; }
+    public required string Nombre { get; set; }
+    public required string Apellido { get; set; }
+    public required string Email { get; set; }
+    public required string Telefono { get; set; }
+    public override string ToString()
+    {
+        return $"ID: {Id} | DNI: {DNI} | Nombre: {Nombre} {Apellido} | Email: {Email} | Teléfono: {Telefono}";
+    }
 }

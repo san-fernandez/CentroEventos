@@ -91,7 +91,7 @@ namespace CentroEventos.Repositorios
         return encontrado;
         }
         
-        public bool ExisteConDNI(int dni)
+        public bool ExisteConDNI(string dni)
         {
             using var sr = new StreamReader(_filePath);
             while (!sr.EndOfStream)
@@ -132,6 +132,7 @@ namespace CentroEventos.Repositorios
             return new Persona
             {
                 Id = int.Parse(sr.ReadLine() ?? "0"),
+                DNI = sr.ReadLine() ?? "",
                 Nombre = sr.ReadLine() ?? "",
                 Apellido = sr.ReadLine() ?? "",
                 Email = sr.ReadLine() ?? "",
@@ -142,6 +143,7 @@ namespace CentroEventos.Repositorios
         private void EscribirPersona(StreamWriter sw, Persona persona)
         {
             sw.WriteLine(persona.Id);
+            sw.WriteLine(persona.DNI);
             sw.WriteLine(persona.Nombre);
             sw.WriteLine(persona.Apellido);
             sw.WriteLine(persona.Email);

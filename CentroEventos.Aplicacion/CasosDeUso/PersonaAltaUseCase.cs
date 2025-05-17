@@ -13,7 +13,6 @@ public class PersonaAltaUseCase(IRepositorioPersona repositorio, IServicioAutori
         if (!ValidadorPersona.Validar(persona, out string mensajeError)) {
             throw new ValidacionException(mensajeError);
         }
-
         if (!ValidadorPersonaDuplicado.Validar(persona, repositorio, out string mensajeErrorDuplicado)) {
             throw new DuplicadoException(mensajeErrorDuplicado);
         }

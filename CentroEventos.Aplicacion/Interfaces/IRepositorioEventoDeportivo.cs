@@ -9,4 +9,5 @@ public interface IRepositorioEventoDeportivo {
     EventoDeportivo? ObtenerPorId(int Id);
     List<EventoDeportivo> Listar();
     int ObtenerCupoMaximo(int Id);
+    bool PersonaResponsable(int IdPersona);
 }

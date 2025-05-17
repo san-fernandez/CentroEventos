@@ -5,15 +5,18 @@ using CentroEventos.Aplicacion.Entidades;
 
 namespace Almacen.Aplicacion.CasosDeUso;
 
-public class EventoDeportivoBajaUseCase(IRepositorioEventoDeportivo repositorio, IServicioAutorizacion servicioAutorizacion) {
-    public void Ejecutar(EventoDeportivo evento, int idUsuario) {
+public class EventoDeportivoBajaUseCase(IRepositorioEventoDeportivo repositorio, IRepositorioReserva repositorioReserva, IServicioAutorizacion servicioAutorizacion) {
+    public void Ejecutar(int IdEvento, int idUsuario) {
         if (!servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.EventoBaja)) {
             throw new FalloAutorizacionException();
         }
-        bool eliminada = repositorio.Eliminar(evento.Id);
+        if (!ValidadorEventoDeportivoDependencia.Validar(IdEvento, repositorioReserva, out string mensajeErrorDependencia)) {
+            throw new OperacionInvalidaException(mensajeErrorDependencia);
+        }
+        bool eliminada = repositorio.Eliminar(IdEvento);
         if (!eliminada)
         {
-            throw new EntidadNotFoundException(evento.Id);
+            throw new EntidadNotFoundException(IdEvento);
         }
     }
 }

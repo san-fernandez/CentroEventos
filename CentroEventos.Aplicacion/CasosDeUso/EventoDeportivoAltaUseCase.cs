@@ -13,11 +13,9 @@ public class EventoDeportivoAltaUseCase(IRepositorioEventoDeportivo repositorio,
         if (!ValidadorEventoDeportivo.Validar(evento, out string mensajeError)) {
             throw new ValidacionException(mensajeError);
         }
-
         if (!ValidadorEventoDeportivoExistePersona.Validar(evento, repositorioPersona, out string mensajePersonaNoExiste)) {
             throw new EntidadNotFoundException(evento.ResponsableId);
-        }
-
+        }   
         repositorio.Agregar(evento);
     }
 }

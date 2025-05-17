@@ -11,11 +11,8 @@ public class ReservaModificacionUseCase(IRepositorioReserva repositorioReserva, 
         if (!servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.ReservaModificacion)) {
             throw new FalloAutorizacionException();
         }
-        if (repositorioPersona.ObtenerPorId(reserva.PersonaId) == null) {
-            throw new EntidadNotFoundException(reserva.PersonaId);
-        }
-        if (repositorioEvento.ObtenerPorId(reserva.EventoDeportivoId) == null) {
-            throw new EntidadNotFoundException(reserva.EventoDeportivoId);
+        if (!ValidadorReservaExiste.Validar(reserva, repositorioEvento, repositorioPersona, out string mensajeErrorEntidadNoEncontrada)) {
+            throw new EntidadNotFoundException(mensajeErrorEntidadNoEncontrada);
         }
         if (!ValidadorReservaCupo.Validar(reserva, repositorioReserva, repositorioEvento, out string mensajeErrorCupoExcedido)) {
             throw new CupoExcedidoException(mensajeErrorCupoExcedido);
