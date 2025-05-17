@@ -7,22 +7,21 @@ using CentroEventos.Repositorios;
 
 class Program
 {
-    static PersonaAltaUseCase agregarPersona;
-    static PersonaBajaUseCase eliminarPersona;
-    static PersonaModificacionUseCase modificarPersona;
-    static ListarPersonasUseCase listarPersonas;
+    static PersonaAltaUseCase? agregarPersona;
+    static PersonaBajaUseCase? eliminarPersona;
+    static PersonaModificacionUseCase? modificarPersona;
+    static ListarPersonasUseCase? listarPersonas;
+    static EventoDeportivoAltaUseCase? agregarEvento;
+    static EventoDeportivoBajaUseCase? eliminarEvento;
+    static EventoDeportivoModificacionUseCase? modificarEvento;
+    static ListarEventosDeportivosUseCase? listarEventos;
+    static ListarAsistenciaAEventoUseCase? listarAsistentes;
+    static ListarEventosConCupoDisponibleUseCase? listarEventosConCupo;
 
-    static EventoDeportivoAltaUseCase agregarEvento;
-    static EventoDeportivoBajaUseCase eliminarEvento;
-    static EventoDeportivoModificacionUseCase modificarEvento;
-    static ListarEventosDeportivosUseCase listarEventos;
-    static ListarAsistenciaAEventoUseCase listarAsistentes;
-    static ListarEventosConCupoDisponibleUseCase listarEventosConCupo;
-
-    static ReservaAltaUseCase agregarReserva;
-    static ReservaBajaUseCase eliminarReserva;
-    static ReservaModificacionUseCase modificarReserva;
-    static ListarReservasUseCase listarReservas;
+    static ReservaAltaUseCase? agregarReserva;
+    static ReservaBajaUseCase? eliminarReserva;
+    static ReservaModificacionUseCase? modificarReserva;
+    static ListarReservasUseCase? listarReservas;
 
     public static void Main()
     {
@@ -97,12 +96,18 @@ class Program
             switch (op)
             {
                 case "1":
-                    // Alta persona
                     try
                     {
                         var persona = LeerPersona();
-                        agregarPersona.Ejecutar(persona, 1); 
-                        Console.WriteLine("Persona cargada correctamente.");
+                        if (agregarPersona != null)
+                        {
+                            agregarPersona.Ejecutar(persona, 1);
+                            Console.WriteLine("Persona cargada correctamente.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Caso de uso no disponible.");
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -110,13 +115,19 @@ class Program
                     }
                     break;
                 case "2":
-                    // Baja persona
                     try
                     {
                         Console.Write("Ingrese ID de persona a eliminar: ");
                         int idBaja = int.Parse(Console.ReadLine() ?? "0");
-                        eliminarPersona.Ejecutar(idBaja, 1);
-                        Console.WriteLine("Persona eliminada correctamente.");
+                        if (eliminarPersona != null)
+                        {
+                            eliminarPersona.Ejecutar(idBaja, 1);
+                            Console.WriteLine("Persona eliminada correctamente.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Caso de uso no disponible.");
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -124,15 +135,21 @@ class Program
                     }
                     break;
                 case "3":
-                    // Modificación persona
                     try
                     {
                         Console.Write("Ingrese ID de persona a modificar: ");
                         int idMod = int.Parse(Console.ReadLine() ?? "0");
                         var personaMod = LeerPersona();
                         personaMod.Id = idMod;
-                        modificarPersona.Ejecutar(personaMod, 1); 
-                        Console.WriteLine("Persona modificada correctamente.");
+                        if (modificarPersona != null)
+                        {
+                            modificarPersona.Ejecutar(personaMod, 1);
+                            Console.WriteLine("Persona modificada correctamente.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Caso de uso no disponible.");
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -140,14 +157,20 @@ class Program
                     }
                     break;
                 case "4":
-                    // Listado personas
                     try
                     {
-                        var personas = listarPersonas.Ejecutar();
-                        Console.WriteLine("\n--- Listado de Personas ---");
-                        foreach (var p in personas)
+                        if (listarPersonas != null)
                         {
-                            Console.WriteLine(p);
+                            var personas = listarPersonas.Ejecutar();
+                            Console.WriteLine("\n--- Listado de Personas ---");
+                            foreach (var p in personas)
+                            {
+                                Console.WriteLine(p);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Caso de uso no disponible.");
                         }
                     }
                     catch (Exception ex)
@@ -182,12 +205,18 @@ class Program
             switch (op)
             {
                 case "1":
-                    // Alta evento
                     try
                     {
                         var evento = LeerEventoDeportivo();
-                        agregarEvento.Ejecutar(evento, 1); // 1 = idUsuario provisorio
-                        Console.WriteLine("Evento cargado correctamente.");
+                        if (agregarEvento != null)
+                        {
+                            agregarEvento.Ejecutar(evento, 1);
+                            Console.WriteLine("Evento cargado correctamente.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Caso de uso no disponible.");
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -195,13 +224,19 @@ class Program
                     }
                     break;
                 case "2":
-                    // Baja evento
                     try
                     {
                         Console.Write("Ingrese ID de evento a eliminar: ");
                         int idBaja = int.Parse(Console.ReadLine() ?? "0");
-                        eliminarEvento.Ejecutar(idBaja, 1); // 1 = idUsuario provisorio
-                        Console.WriteLine("Evento eliminado correctamente.");
+                        if (eliminarEvento != null)
+                        {
+                            eliminarEvento.Ejecutar(idBaja, 1);
+                            Console.WriteLine("Evento eliminado correctamente.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Caso de uso no disponible.");
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -209,15 +244,21 @@ class Program
                     }
                     break;
                 case "3":
-                    // Modificación evento
                     try
                     {
                         Console.Write("Ingrese ID de evento a modificar: ");
                         int idMod = int.Parse(Console.ReadLine() ?? "0");
                         var eventoMod = LeerEventoDeportivo();
                         eventoMod.Id = idMod;
-                        modificarEvento.Ejecutar(eventoMod, 1); // 1 = idUsuario provisorio
-                        Console.WriteLine("Evento modificado correctamente.");
+                        if (modificarEvento != null)
+                        {
+                            modificarEvento.Ejecutar(eventoMod, 1);
+                            Console.WriteLine("Evento modificado correctamente.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Caso de uso no disponible.");
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -225,14 +266,20 @@ class Program
                     }
                     break;
                 case "4":
-                    // Listado eventos
                     try
                     {
-                        var eventos = listarEventos.Ejecutar();
-                        Console.WriteLine("\n--- Listado de Eventos Deportivos ---");
-                        foreach (var e in eventos)
+                        if (listarEventos != null)
                         {
-                            Console.WriteLine(e);
+                            var eventos = listarEventos.Ejecutar();
+                            Console.WriteLine("\n--- Listado de Eventos Deportivos ---");
+                            foreach (var e in eventos)
+                            {
+                                Console.WriteLine(e);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Caso de uso no disponible.");
                         }
                     }
                     catch (Exception ex)
@@ -241,14 +288,20 @@ class Program
                     }
                     break;
                 case "5":
-                    // Listar eventos con cupo disponible
                     try
                     {
-                        var eventos = listarEventosConCupo.Ejecutar();
-                        Console.WriteLine("\n--- Eventos con Cupo Disponible ---");
-                        foreach (var e in eventos)
+                        if (listarEventosConCupo != null)
                         {
-                            Console.WriteLine(e);
+                            var eventos = listarEventosConCupo.Ejecutar();
+                            Console.WriteLine("\n--- Eventos con Cupo Disponible ---");
+                            foreach (var e in eventos)
+                            {
+                                Console.WriteLine(e);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Caso de uso no disponible.");
                         }
                     }
                     catch (Exception ex)
@@ -257,16 +310,22 @@ class Program
                     }
                     break;
                 case "6":
-                    // Listar asistentes a un evento
                     try
                     {
                         Console.Write("Ingrese ID de evento para ver asistentes: ");
                         int idEvento = int.Parse(Console.ReadLine() ?? "0");
-                        var asistentes = listarAsistentes.Ejecutar(idEvento);
-                        Console.WriteLine("\n--- Asistentes al Evento ---");
-                        foreach (var persona in asistentes)
+                        if (listarAsistentes != null)
                         {
-                            Console.WriteLine(persona);
+                            var asistentes = listarAsistentes.Ejecutar(idEvento);
+                            Console.WriteLine("\n--- Asistentes al Evento ---");
+                            foreach (var persona in asistentes)
+                            {
+                                Console.WriteLine(persona);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Caso de uso no disponible.");
                         }
                     }
                     catch (Exception ex)
@@ -299,12 +358,18 @@ class Program
             switch (op)
             {
                 case "1":
-                    // Alta reserva
                     try
                     {
                         var reserva = LeerReserva();
-                        agregarReserva.Ejecutar(reserva, 1); // 1 = idUsuario provisorio
-                        Console.WriteLine("Reserva cargada correctamente.");
+                        if (agregarReserva != null)
+                        {
+                            agregarReserva.Ejecutar(reserva, 1);
+                            Console.WriteLine("Reserva cargada correctamente.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Caso de uso no disponible.");
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -312,13 +377,19 @@ class Program
                     }
                     break;
                 case "2":
-                    // Baja reserva
                     try
                     {
                         Console.Write("Ingrese ID de reserva a eliminar: ");
                         int idBaja = int.Parse(Console.ReadLine() ?? "0");
-                        eliminarReserva.Ejecutar(idBaja, 1); // 1 = idUsuario provisorio
-                        Console.WriteLine("Reserva eliminada correctamente.");
+                        if (eliminarReserva != null)
+                        {
+                            eliminarReserva.Ejecutar(idBaja, 1);
+                            Console.WriteLine("Reserva eliminada correctamente.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Caso de uso no disponible.");
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -326,15 +397,21 @@ class Program
                     }
                     break;
                 case "3":
-                    // Modificación reserva
                     try
                     {
                         Console.Write("Ingrese ID de reserva a modificar: ");
                         int idMod = int.Parse(Console.ReadLine() ?? "0");
                         var reservaMod = LeerReserva();
                         reservaMod.Id = idMod;
-                        modificarReserva.Ejecutar(reservaMod, 1); // 1 = idUsuario provisorio
-                        Console.WriteLine("Reserva modificada correctamente.");
+                        if (modificarReserva != null)
+                        {
+                            modificarReserva.Ejecutar(reservaMod, 1);
+                            Console.WriteLine("Reserva modificada correctamente.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Caso de uso no disponible.");
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -342,14 +419,20 @@ class Program
                     }
                     break;
                 case "4":
-                    // Listado reservas
                     try
                     {
-                        var reservas = listarReservas.Ejecutar();
-                        Console.WriteLine("\n--- Listado de Reservas ---");
-                        foreach (var r in reservas)
+                        if (listarReservas != null)
                         {
-                            Console.WriteLine(r);
+                            var reservas = listarReservas.Ejecutar();
+                            Console.WriteLine("\n--- Listado de Reservas ---");
+                            foreach (var r in reservas)
+                            {
+                                Console.WriteLine(r);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Caso de uso no disponible.");
                         }
                     }
                     catch (Exception ex)
