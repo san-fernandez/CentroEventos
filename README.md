@@ -77,7 +77,7 @@ Una vez iniciado el programa, se mostrará el siguiente menú principal:
 
 ### 🧭 Menú Principal
 
-![Menú Principal](./Screenshots consola/menu_principal.png)
+![Menú Principal](./Screenshots_Consola/Menú%20principal.png)
 
 ---
 
@@ -85,23 +85,23 @@ Una vez iniciado el programa, se mostrará el siguiente menú principal:
 
 ### 📋 Menú de Personas
 
-![Menú Personas](./screenshots/menu_personas.png)
+![Menú Personas](./Screenshots_Consola/Menú%20personas.png)
 
 #### ➕ Alta de Persona
 
-![Alta Persona](./screenshots/alta_persona.png)
+![Alta Persona](./Screenshots_Consola/Alta%20persona.png)
 
 #### ➖ Baja de Persona
 
-![Baja Persona](./screenshots/baja_persona.png)
+![Baja Persona](./Screenshots_Consola/Eliminar%20persona.png)
 
 #### ✏️ Modificación de Persona
 
-![Modificación Persona](./screenshots/modificacion_persona.png)
+![Modificación Persona](./Screenshots_Consola/Modificar%20persona.png)
 
 #### 📄 Listado de Personas
 
-![Listado Personas](./screenshots/listado_personas.png)
+![Listado Personas](./Screenshots_Consola/Listar%20personas.png)
 
 ---
 
@@ -109,31 +109,31 @@ Una vez iniciado el programa, se mostrará el siguiente menú principal:
 
 ### 📋 Menú de Eventos
 
-![Menú Eventos](./screenshots/menu_eventos.png)
+![Menú Eventos](./Screenshots_Consola/Menú%20eventos.png)
 
 #### ➕ Alta de Evento Deportivo
 
-![Alta Evento](./screenshots/alta_evento.png)
+![Alta Evento](./Screenshots_Consola/Alta%20evento.png)
 
 #### ➖ Baja de Evento Deportivo
 
-![Baja Evento](./screenshots/baja_evento.png)
+![Baja Evento](./Screenshots_Consola/Eliminar%20evento.png)
 
 #### ✏️ Modificación de Evento Deportivo
-  
-![Modificación Evento](./screenshots/modificacion_evento.png)
+
+![Modificación Evento](./Screenshots_Consola/Modificar%20evento.png)
 
 #### 📄 Listado de Eventos Deportivos
 
-![Listado Eventos](./screenshots/listado_eventos.png)
+![Listado Eventos](./Screenshots_Consola/Listar%20eventos.png)
 
 #### ✅ Listado de Eventos con Cupo Disponible
 
-![Eventos con Cupo](./screenshots/eventos_con_cupo.png)
+![Eventos con Cupo](./Screenshots_Consola/Listar%20eventos%20con%20cupo.png)
 
 #### 👥 Listado de Asistentes a un Evento
-  
-![Asistentes Evento](./screenshots/asistentes_evento.png)
+
+![Asistentes Evento](./Screenshots_Consola/Listar%20asistentes.png)
 
 ---
 
@@ -141,30 +141,26 @@ Una vez iniciado el programa, se mostrará el siguiente menú principal:
 
 ### 📋 Menú de Reservas
 
-[]  
-![Menú Reservas](./screenshots/menu_reservas.png)
+![Menú Reservas](./Screenshots_Consola/Menú%20reservas.png)
 
 #### ➕ Alta de Reserva
 
-[]  
-![Alta Reserva](./screenshots/alta_reserva.png)
+![Alta Reserva](./Screenshots_Consola/Alta%20reserva.png)
 
 #### ➖ Baja de Reserva
 
-[]  
-![Baja Reserva](./screenshots/baja_reserva.png)
+![Baja Reserva](./Screenshots_Consola/Eliminar%20reserva.png)
 
 #### ✏️ Modificación de Reserva
 
-[]  
-![Modificación Reserva](./screenshots/modificacion_reserva.png)
+![Modificación Reserva](./Screenshots_Consola/Modificar%20reserva.png)
 
 #### 📄 Listado de Reservas
 
-[]  
-![Listado Reservas](./screenshots/listado_reservas.png)
+![Listado Reservas](./Screenshots_Consola/Listar%20reservas.png)
 
 ---
+
 
 ## 🧑‍🤝‍🧑 Integrantes del Proyecto
 
