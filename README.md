@@ -46,8 +46,8 @@ Antes de ejecutar la aplicación, asegurate de tener instalado lo siguiente:
 #### Opción A - Clonación
 
 ```bash
-git clone [URL_DEL_REPOSITORIO]
-cd [NOMBRE_DEL_PROYECTO]
+git clone https://github.com/san-fernandez/CentroEventos.git
+cd CentroEventos
 ```
 
 #### Opción B - Descarga del ZIP
