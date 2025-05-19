@@ -77,8 +77,7 @@ Una vez iniciado el programa, se mostrará el siguiente menú principal:
 
 ### 🧭 Menú Principal
 
-[]  
-![Menú Principal](./screenshots/menu_principal.png)
+![Menú Principal](./Screenshots consola/menu_principal.png)
 
 ---
 
@@ -86,27 +85,22 @@ Una vez iniciado el programa, se mostrará el siguiente menú principal:
 
 ### 📋 Menú de Personas
 
-[]  
 ![Menú Personas](./screenshots/menu_personas.png)
 
 #### ➕ Alta de Persona
 
-[]  
 ![Alta Persona](./screenshots/alta_persona.png)
 
 #### ➖ Baja de Persona
 
-[]  
 ![Baja Persona](./screenshots/baja_persona.png)
 
 #### ✏️ Modificación de Persona
 
-[]  
 ![Modificación Persona](./screenshots/modificacion_persona.png)
 
 #### 📄 Listado de Personas
 
-[]  
 ![Listado Personas](./screenshots/listado_personas.png)
 
 ---
@@ -115,37 +109,30 @@ Una vez iniciado el programa, se mostrará el siguiente menú principal:
 
 ### 📋 Menú de Eventos
 
-[]  
 ![Menú Eventos](./screenshots/menu_eventos.png)
 
 #### ➕ Alta de Evento Deportivo
 
-[]  
 ![Alta Evento](./screenshots/alta_evento.png)
 
 #### ➖ Baja de Evento Deportivo
 
-[]  
 ![Baja Evento](./screenshots/baja_evento.png)
 
 #### ✏️ Modificación de Evento Deportivo
-
-[]  
+  
 ![Modificación Evento](./screenshots/modificacion_evento.png)
 
 #### 📄 Listado de Eventos Deportivos
 
-[]  
 ![Listado Eventos](./screenshots/listado_eventos.png)
 
 #### ✅ Listado de Eventos con Cupo Disponible
 
-[]  
 ![Eventos con Cupo](./screenshots/eventos_con_cupo.png)
 
 #### 👥 Listado de Asistentes a un Evento
-
-[]  
+  
 ![Asistentes Evento](./screenshots/asistentes_evento.png)
 
 ---
