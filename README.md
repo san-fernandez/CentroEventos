@@ -111,6 +111,7 @@ Una vez iniciado el programa, se mostrará el siguiente menú principal:
 
 ---
 
+## 🏆 Gestión de Eventos Deportivos
 
 ### 📋 Menú de Eventos
 
