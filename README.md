@@ -75,3 +75,120 @@ cd [NOMBRE_DEL_PROYECTO]
 Una vez iniciado el programa, se mostrará el siguiente menú principal:
 
 
+### 🧭 Menú Principal
+
+[]  
+![Menú Principal](./screenshots/menu_principal.png)
+
+---
+
+## 👤 Gestión de Personas
+
+### 📋 Menú de Personas
+
+[]  
+![Menú Personas](./screenshots/menu_personas.png)
+
+#### ➕ Alta de Persona
+
+[]  
+![Alta Persona](./screenshots/alta_persona.png)
+
+#### ➖ Baja de Persona
+
+[]  
+![Baja Persona](./screenshots/baja_persona.png)
+
+#### ✏️ Modificación de Persona
+
+[]  
+![Modificación Persona](./screenshots/modificacion_persona.png)
+
+#### 📄 Listado de Personas
+
+[]  
+![Listado Personas](./screenshots/listado_personas.png)
+
+---
+
+
+### 📋 Menú de Eventos
+
+[]  
+![Menú Eventos](./screenshots/menu_eventos.png)
+
+#### ➕ Alta de Evento Deportivo
+
+[]  
+![Alta Evento](./screenshots/alta_evento.png)
+
+#### ➖ Baja de Evento Deportivo
+
+[]  
+![Baja Evento](./screenshots/baja_evento.png)
+
+#### ✏️ Modificación de Evento Deportivo
+
+[]  
+![Modificación Evento](./screenshots/modificacion_evento.png)
+
+#### 📄 Listado de Eventos Deportivos
+
+[]  
+![Listado Eventos](./screenshots/listado_eventos.png)
+
+#### ✅ Listado de Eventos con Cupo Disponible
+
+[]  
+![Eventos con Cupo](./screenshots/eventos_con_cupo.png)
+
+#### 👥 Listado de Asistentes a un Evento
+
+[]  
+![Asistentes Evento](./screenshots/asistentes_evento.png)
+
+---
+
+## 📅 Gestión de Reservas
+
+### 📋 Menú de Reservas
+
+[]  
+![Menú Reservas](./screenshots/menu_reservas.png)
+
+#### ➕ Alta de Reserva
+
+[]  
+![Alta Reserva](./screenshots/alta_reserva.png)
+
+#### ➖ Baja de Reserva
+
+[]  
+![Baja Reserva](./screenshots/baja_reserva.png)
+
+#### ✏️ Modificación de Reserva
+
+[]  
+![Modificación Reserva](./screenshots/modificacion_reserva.png)
+
+#### 📄 Listado de Reservas
+
+[]  
+![Listado Reservas](./screenshots/listado_reservas.png)
+
+---
+
+## 🧑‍🤝‍🧑 Integrantes del Proyecto
+
+| Nombre y Apellido     | Legajo     | Rol en el Proyecto      |
+|-----------------------|------------|--------------------------|
+| [Nombre Apellido]     | [12345]    | Desarrollo y documentación |
+| [Nombre Apellido]     | [67890]    | Desarrollo y testing       |
+| [Nombre Apellido]     | [13579]    | Modelado y diseño          |
+
+
+## 🏫 Contexto Académico
+
+Este proyecto fue desarrollado como parte del Seminario de .NET en la Facultad de Informática de la UNLP, con el objetivo de aplicar conceptos de programación orientada a objetos y arquitectura limpia.
+
+Agradecemos a la cátedra por la guía durante el desarrollo.
