@@ -477,13 +477,24 @@ class Program
         Console.Write("Descripción: ");
         string descripcion = Console.ReadLine() ?? "";
         Console.Write("Fecha y hora de inicio (yyyy-MM-dd HH:mm): ");
-        DateTime fechaHoraInicio = DateTime.Parse(Console.ReadLine() ?? "");
+        string fechaHoraInicioStr = Console.ReadLine() ?? "";
+        DateTime fechaHoraInicio = DateTime.MinValue;
+        DateTime.TryParse(fechaHoraInicioStr, out fechaHoraInicio);
+
         Console.Write("Duración en horas: ");
-        double duracionHoras = double.Parse(Console.ReadLine() ?? "0");
+        string duracionHorasStr = Console.ReadLine() ?? "";
+        double duracionHoras = 0;
+        double.TryParse(duracionHorasStr, out duracionHoras);
+
         Console.Write("Cupo máximo: ");
-        int cupoMaximo = int.Parse(Console.ReadLine() ?? "0");
+        string cupoMaximoStr = Console.ReadLine() ?? "";
+        int cupoMaximo = 0;
+        int.TryParse(cupoMaximoStr, out cupoMaximo);
+
         Console.Write("ID Responsable: ");
-        int responsableId = int.Parse(Console.ReadLine() ?? "0");
+        string responsableIdStr = Console.ReadLine() ?? "";
+        int responsableId = 0;
+        int.TryParse(responsableIdStr, out responsableId);
 
         return new EventoDeportivo
         {
@@ -499,9 +510,14 @@ class Program
     static Reserva LeerReserva()
     {
         Console.Write("ID Persona: ");
-        int personaId = int.Parse(Console.ReadLine() ?? "");
+        string personaIdStr = Console.ReadLine() ?? "";
+        int personaId = 0;
+        int.TryParse(personaIdStr, out personaId);
+
         Console.Write("ID Evento Deportivo: ");
-        int eventoDeportivoId = int.Parse(Console.ReadLine() ?? "");
+        string eventoDeportivoIdStr = Console.ReadLine() ?? "";
+        int eventoDeportivoId = 0;
+        int.TryParse(eventoDeportivoIdStr, out eventoDeportivoId);
 
         return new Reserva
         {
