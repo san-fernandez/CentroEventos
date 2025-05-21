@@ -167,8 +167,8 @@ Una vez iniciado el programa, se mostrará el siguiente menú principal:
 | Nombre y Apellido     | Legajo     | Rol en el Proyecto         |
 |-----------------------|------------|----------------------------|
 | Santiago Fernández    | [25595/7]  | Desarrollo y documentación |
-| Ezequiel Prieto       | [67890]    | Desarrollo y testing       |
-| Ignacio Fernández     | [13579]    | Modelado y diseño          |
+| Ezequiel Prieto       | [25953/9]  | Desarrollo y testing       |
+| Ignacio Fernández     | [27150/8]  | Modelado y diseño          |
 
 
 ## 🏫 Contexto Académico
