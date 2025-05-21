@@ -1,6 +1,6 @@
 # 🏟️ Sistema de Gestión de Eventos Deportivos
 
-Este proyecto fue desarrollado como parte del seminario de .NET en la facultad. Se trata de una aplicación de consola que permite la gestión de **personas**, **eventos deportivos** y **reservas**. El sistema permite dar de alta, baja, modificar y listar información relacionada, todo a través de un menú interactivo por consola.
+Este proyecto fue desarrollado como parte del seminario de .NET de la Facultad de Informática de la UNLP. Se trata de una aplicación de consola que permite la gestión de **personas**, **eventos deportivos** y **reservas**. El sistema permite dar de alta, baja, modificar y listar información relacionada, todo a través de un menú interactivo por consola.
 
 ---
 
@@ -164,11 +164,11 @@ Una vez iniciado el programa, se mostrará el siguiente menú principal:
 
 ## 🧑‍🤝‍🧑 Integrantes del Proyecto
 
-| Nombre y Apellido     | Legajo     | Rol en el Proyecto      |
-|-----------------------|------------|--------------------------|
-| [Nombre Apellido]     | [12345]    | Desarrollo y documentación |
-| [Nombre Apellido]     | [67890]    | Desarrollo y testing       |
-| [Nombre Apellido]     | [13579]    | Modelado y diseño          |
+| Nombre y Apellido     | Legajo     | Rol en el Proyecto         |
+|-----------------------|------------|----------------------------|
+| Santiago Fernández    | [25595/7]  | Desarrollo y documentación |
+| Ezequiel Prieto       | [67890]    | Desarrollo y testing       |
+| Ignacio Fernández     | [13579]    | Modelado y diseño          |
 
 
 ## 🏫 Contexto Académico
