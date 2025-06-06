@@ -1,17 +1,178 @@
-# Sistema de Gestión del Centro Deportivo Universitario
+# 🏟️ Sistema de Gestión de Eventos Deportivos
 
-## 🎯 Objetivo
+Este proyecto fue desarrollado como parte del seminario de .NET de la Facultad de Informática de la UNLP. Se trata de una aplicación de consola que permite la gestión de **personas**, **eventos deportivos** y **reservas**. El sistema permite dar de alta, baja, modificar y listar información relacionada, todo a través de un menú interactivo por consola.
 
-Se requiere desarrollar un sistema para la gestión de **eventos deportivos específicos** y las **inscripciones (reservas)** correspondientes dentro de un centro universitario. Este sistema permitirá:
+---
 
-  - Registrar **Personas**, quienes podrán ser participantes en eventos o responsables de la organización de los mismos.
-  
-  - Definir **Eventos Deportivos concretos**, cada uno con su **fecha**, **hora de inicio**, **duración** y **cupo máximo** de participantes.
-  
-  - Gestionar las **Reservas** que las personas realizan para participar en dichos eventos, incluyendo un control básico del estado de su asistencia.
+## 📌 Descripción del Proyecto
 
-El diseño del sistema se fundamentará en los principios de la **Arquitectura Limpia**, priorizando la separación de responsabilidades y el desacoplamiento de componentes mediante el uso del patrón de **Inyección de Dependencia (DI)**. 
+El sistema está dividido en tres módulos principales:
 
-Cada una de las entidades principales – **Persona**, **EventoDeportivo** y **Reserva** – será identificable de forma única.
+1. **Personas**  
+   - Alta de personas  
+   - Baja de personas  
+   - Modificación de datos  
+   - Listado de todas las personas registradas
 
-El sistema deberá soportar las operaciones fundamentales de gestión de datos (altas, bajas, modificaciones y listados) a través de **casos de uso** bien definidos.
+2. **Eventos Deportivos**  
+   - Alta de eventos deportivos  
+   - Baja de eventos deportivos  
+   - Modificación de eventos  
+   - Listado de eventos  
+   - Listado de eventos con cupo disponible  
+   - Listado de asistentes a un evento específico
+
+3. **Reservas**  
+   - Alta de reserva  
+   - Baja de reserva  
+   - Modificación de reserva  
+   - Listado de reservas
+
+Cada funcionalidad está acompañada por una interfaz clara y amigable por consola, con validaciones adecuadas y mensajes informativos.
+
+---
+
+## ▶️ Cómo Ejecutar el Proyecto
+
+### 1. Requisitos Previos
+
+Antes de ejecutar la aplicación, asegurate de tener instalado lo siguiente:
+
+- ✅ [.NET SDK 8.0 o superior](https://dotnet.microsoft.com/en-us/download)
+- ✅ [Visual Studio 2022 o superior](https://visualstudio.microsoft.com/es/) con el componente de desarrollo para .NET
+
+### 2. Clonar o Descargar el Proyecto
+
+#### Opción A - Clonación
+
+```bash
+git clone https://github.com/san-fernandez/CentroEventos.git
+cd CentroEventos
+```
+
+#### Opción B - Descarga del ZIP
+
+1. Hacé clic en el botón verde **"Code"** en este repositorio y seleccioná **"Download ZIP"**.
+2. Extraé el archivo ZIP en una carpeta local de tu preferencia.
+3. Abrí la carpeta extraída. Deberías ver los archivos del proyecto, incluyendo el archivo `.csproj` principal y la carpeta `screenshots`.
+
+---
+
+### 3. Abrir y Ejecutar el Proyecto
+
+1. Abrí **Visual Studio**.
+2. Seleccioná **"Abrir un proyecto o solución"** y buscá el archivo `program.cs` dentro de la carpeta del proyecto.
+3. Para ejecutar la aplicación, presioná `Ctrl + F5` o hacé clic en el botón **"Iniciar sin depurar"** en la barra superior.
+4. Se abrirá una consola con el menú principal del sistema.
+
+> 📌 Si estás usando otra IDE o la terminal, también podés ejecutar el proyecto desde la línea de comandos:
+> ```bash
+> dotnet run
+> ```
+
+## 💡 Cómo Usar el Sistema
+
+Una vez iniciado el programa, se mostrará el siguiente menú principal:
+
+
+### 🧭 Menú Principal
+
+![Menú Principal](./Screenshots_Consola/Menú%20principal.png)
+
+---
+
+## 👤 Gestión de Personas
+
+### 📋 Menú de Personas
+
+![Menú Personas](./Screenshots_Consola/Menú%20personas.png)
+
+#### ➕ Alta de Persona
+
+![Alta Persona](./Screenshots_Consola/Alta%20persona.png)
+
+#### ➖ Baja de Persona
+
+![Baja Persona](./Screenshots_Consola/Eliminar%20persona.png)
+
+#### ✏️ Modificación de Persona
+
+![Modificación Persona](./Screenshots_Consola/Modificar%20persona.png)
+
+#### 📄 Listado de Personas
+
+![Listado Personas](./Screenshots_Consola/Listar%20personas.png)
+
+---
+
+## 🏆 Gestión de Eventos Deportivos
+
+### 📋 Menú de Eventos
+
+![Menú Eventos](./Screenshots_Consola/Menú%20eventos.png)
+
+#### ➕ Alta de Evento Deportivo
+
+![Alta Evento](./Screenshots_Consola/Alta%20evento.png)
+
+#### ➖ Baja de Evento Deportivo
+
+![Baja Evento](./Screenshots_Consola/Eliminar%20evento.png)
+
+#### ✏️ Modificación de Evento Deportivo
+
+![Modificación Evento](./Screenshots_Consola/Modificar%20evento.png)
+
+#### 📄 Listado de Eventos Deportivos
+
+![Listado Eventos](./Screenshots_Consola/Listar%20eventos.png)
+
+#### ✅ Listado de Eventos con Cupo Disponible
+
+![Eventos con Cupo](./Screenshots_Consola/Listar%20eventos%20con%20cupo.png)
+
+#### 👥 Listado de Asistentes a un Evento
+
+![Asistentes Evento](./Screenshots_Consola/Listar%20asistentes.png)
+
+---
+
+## 📅 Gestión de Reservas
+
+### 📋 Menú de Reservas
+
+![Menú Reservas](./Screenshots_Consola/Menú%20reservas.png)
+
+#### ➕ Alta de Reserva
+
+![Alta Reserva](./Screenshots_Consola/Alta%20reserva.png)
+
+#### ➖ Baja de Reserva
+
+![Baja Reserva](./Screenshots_Consola/Eliminar%20reserva.png)
+
+#### ✏️ Modificación de Reserva
+
+![Modificación Reserva](./Screenshots_Consola/Modificar%20reserva.png)
+
+#### 📄 Listado de Reservas
+
+![Listado Reservas](./Screenshots_Consola/Listar%20reservas.png)
+
+---
+
+
+## 🧑‍🤝‍🧑 Integrantes del Proyecto
+
+| Nombre y Apellido     | Legajo     | Rol en el Proyecto         |
+|-----------------------|------------|----------------------------|
+| Santiago Fernández    | [25595/7]  | Desarrollo y documentación |
+| Ezequiel Prieto       | [25953/9]  | Desarrollo y testing       |
+| Ignacio Fernández     | [27150/8]  | Modelado y diseño          |
+
+
+## 🏫 Contexto Académico
+
+Este proyecto fue desarrollado como parte del Seminario de .NET en la Facultad de Informática de la UNLP, con el objetivo de aplicar conceptos de programación orientada a objetos y arquitectura limpia.
+
+Agradecemos a la cátedra por la guía durante el desarrollo.
