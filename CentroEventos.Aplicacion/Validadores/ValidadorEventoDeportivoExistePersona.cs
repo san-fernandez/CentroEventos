@@ -5,7 +5,7 @@ using CentroEventos.Aplicacion.Interfaces;
 
 public class ValidadorEventoDeportivoExistePersona
 {
-    public static bool Validar(EventoDeportivo evento, IRepositorioPersona repo, out string mensajeError) {
+    public bool Validar(EventoDeportivo evento, IRepositorioPersona repo, out string mensajeError) {
         mensajeError = "";
         if (repo.ObtenerPorId(evento.ResponsableId) == null){
             mensajeError += "Responsable del evento no existe";

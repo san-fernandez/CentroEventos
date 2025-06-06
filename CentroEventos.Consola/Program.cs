@@ -4,6 +4,7 @@ using CentroEventos.Aplicacion.CasosDeUso;
 using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Servicios;
 using CentroEventos.Repositorios;
+using CentroEventos.Aplicacion.Validadores;
 
 class Program
 {
@@ -17,11 +18,20 @@ class Program
     static ListarEventosDeportivosUseCase? listarEventos;
     static ListarAsistenciaAEventoUseCase? listarAsistentes;
     static ListarEventosConCupoDisponibleUseCase? listarEventosConCupo;
-
     static ReservaAltaUseCase? agregarReserva;
     static ReservaBajaUseCase? eliminarReserva;
     static ReservaModificacionUseCase? modificarReserva;
     static ListarReservasUseCase? listarReservas;
+
+    static ValidadorEventoDeportivo? validadorEventoDeportivo;
+    static ValidadorEventoDeportivoDependencia? validadorEventoDeportivoDependencia;
+    static ValidadorEventoDeportivoExistePersona? validadorEventoDeportivoExistePersona;
+    static ValidadorPersona? validadorPersona;
+    static ValidadorPersonaDependencia? validadorPersonaDependencia;
+    static ValidadorPersonaDuplicado? validadorPersonaDuplicado;
+    static ValidadorReservaCupo? validadorReservaCupo;
+    static ValidadorReservaDuplicado? validadorReservaDuplicado;
+    static ValidadorReservaExiste? validadorReservaExiste;
 
     public static void Main()
     {
@@ -31,21 +41,31 @@ class Program
 
         var servicioAutorizacion = new ServicioAutorizacionProvisorio();
 
-        agregarPersona = new PersonaAltaUseCase(repoPersona, servicioAutorizacion);
-        eliminarPersona = new PersonaBajaUseCase(repoPersona, repoEvento, repoReserva, servicioAutorizacion);
-        modificarPersona = new PersonaModificacionUseCase(repoPersona, servicioAutorizacion);
+        validadorEventoDeportivo = new ValidadorEventoDeportivo();
+        validadorEventoDeportivoDependencia = new ValidadorEventoDeportivoDependencia();
+        validadorEventoDeportivoExistePersona = new ValidadorEventoDeportivoExistePersona();
+        validadorPersona = new ValidadorPersona();
+        validadorPersonaDependencia = new ValidadorPersonaDependencia();
+        validadorPersonaDuplicado = new ValidadorPersonaDuplicado();
+        validadorReservaCupo = new ValidadorReservaCupo();
+        validadorReservaDuplicado = new ValidadorReservaDuplicado();
+        validadorReservaExiste = new ValidadorReservaExiste();
+
+        agregarPersona = new PersonaAltaUseCase(repoPersona, servicioAutorizacion, validadorPersona, validadorPersonaDuplicado);
+        eliminarPersona = new PersonaBajaUseCase(repoPersona, repoEvento, repoReserva, servicioAutorizacion, validadorPersonaDependencia);
+        modificarPersona = new PersonaModificacionUseCase(repoPersona, servicioAutorizacion, validadorPersona);
         listarPersonas = new ListarPersonasUseCase(repoPersona);
 
-        agregarEvento = new EventoDeportivoAltaUseCase(repoEvento, repoPersona, servicioAutorizacion);
-        eliminarEvento = new EventoDeportivoBajaUseCase(repoEvento, repoReserva, servicioAutorizacion);
-        modificarEvento = new EventoDeportivoModificacionUseCase(repoEvento, servicioAutorizacion);
+        agregarEvento = new EventoDeportivoAltaUseCase(repoEvento, repoPersona, servicioAutorizacion, validadorEventoDeportivo, validadorEventoDeportivoExistePersona);
+        eliminarEvento = new EventoDeportivoBajaUseCase(repoEvento, repoReserva, servicioAutorizacion, validadorEventoDeportivoDependencia);
+        modificarEvento = new EventoDeportivoModificacionUseCase(repoEvento, servicioAutorizacion, validadorEventoDeportivo);
         listarEventos = new ListarEventosDeportivosUseCase(repoEvento);
         listarAsistentes = new ListarAsistenciaAEventoUseCase(repoEvento, repoReserva, repoPersona);
         listarEventosConCupo = new ListarEventosConCupoDisponibleUseCase(repoEvento, repoReserva);
 
-        agregarReserva = new ReservaAltaUseCase(repoReserva, repoEvento, repoPersona, servicioAutorizacion);
+        agregarReserva = new ReservaAltaUseCase(repoReserva, repoEvento, repoPersona, servicioAutorizacion, validadorReservaExiste, validadorReservaCupo, validadorReservaDuplicado);
         eliminarReserva = new ReservaBajaUseCase(repoReserva, servicioAutorizacion);
-        modificarReserva = new ReservaModificacionUseCase(repoReserva, repoPersona, repoEvento, servicioAutorizacion);
+        modificarReserva = new ReservaModificacionUseCase(repoReserva, repoPersona, repoEvento, servicioAutorizacion, validadorReservaExiste, validadorReservaCupo, validadorReservaDuplicado);
         listarReservas = new ListarReservasUseCase(repoReserva);
 
         while (true)
@@ -519,10 +539,17 @@ class Program
         int eventoDeportivoId = 0;
         int.TryParse(eventoDeportivoIdStr, out eventoDeportivoId);
 
+        Console.Write("Estado (Pendiente, Confirmada, Cancelada): ");
+        string estadoStr = Console.ReadLine() ?? "";
+        Estado estado = Estado.Pendiente;
+        if (!string.IsNullOrWhiteSpace(estadoStr) && Enum.TryParse(estadoStr, true, out Estado parsedEstado))
+            estado = parsedEstado;
+
         return new Reserva
         {
             PersonaId = personaId,
-            EventoDeportivoId = eventoDeportivoId
+            EventoDeportivoId = eventoDeportivoId,
+            EstadoAsistencia = estado
         };
     }
 }

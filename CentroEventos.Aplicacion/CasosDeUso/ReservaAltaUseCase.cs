@@ -5,19 +5,19 @@ using CentroEventos.Aplicacion.Validadores;
 
 namespace CentroEventos.Aplicacion.CasosDeUso;
 
-public class ReservaAltaUseCase (IRepositorioReserva repositorioReserva, IRepositorioEventoDeportivo repositorioEvento, IRepositorioPersona repositorioPersona, IServicioAutorizacion servicioAutorizacion)
+public class ReservaAltaUseCase (IRepositorioReserva repositorioReserva, IRepositorioEventoDeportivo repositorioEvento, IRepositorioPersona repositorioPersona, IServicioAutorizacion servicioAutorizacion, ValidadorReservaExiste validadorReservaExiste, ValidadorReservaCupo validadorReservaCupo, ValidadorReservaDuplicado validadorReservaDuplicado)
 {
     public void Ejecutar(Reserva reserva, int idUsuario) {
         if (!servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.ReservaAlta)) {
             throw new FalloAutorizacionException();
         }
-        if (!ValidadorReservaExiste.Validar(reserva, repositorioEvento, repositorioPersona, out string mensajeErrorEntidadNoEncontrada)) {
+        if (!validadorReservaExiste.Validar(reserva, repositorioEvento, repositorioPersona, out string mensajeErrorEntidadNoEncontrada)) {
             throw new EntidadNotFoundException(mensajeErrorEntidadNoEncontrada);
         }
-        if (!ValidadorReservaCupo.Validar(reserva, repositorioReserva, repositorioEvento, out string mensajeErrorCupoExcedido)) {
+        if (!validadorReservaCupo.Validar(reserva, repositorioReserva, repositorioEvento, out string mensajeErrorCupoExcedido)) {
             throw new CupoExcedidoException(mensajeErrorCupoExcedido);
         }
-        if (!ValidadorReservaDuplicado.Validar(reserva, repositorioReserva, out string mensajeErrorPersonaDuplicada)) {
+        if (!validadorReservaDuplicado.Validar(reserva, repositorioReserva, out string mensajeErrorPersonaDuplicada)) {
             throw new DuplicadoException(mensajeErrorPersonaDuplicada);
         }
         reserva.EstadoAsistencia = Estado.Pendiente;

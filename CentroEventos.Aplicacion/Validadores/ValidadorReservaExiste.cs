@@ -4,7 +4,7 @@ using CentroEventos.Aplicacion.Excepciones;
 using CentroEventos.Aplicacion.Interfaces;
 
 public class ValidadorReservaExiste {
-    public static bool Validar(Reserva reserva, IRepositorioEventoDeportivo repod,IRepositorioPersona repop, out string mensajeError) {
+    public bool Validar(Reserva reserva, IRepositorioEventoDeportivo repod,IRepositorioPersona repop, out string mensajeError) {
         mensajeError = "";
         if (repod.ObtenerPorId(reserva.EventoDeportivoId) == null) {
             mensajeError += "Evento no existe\n";

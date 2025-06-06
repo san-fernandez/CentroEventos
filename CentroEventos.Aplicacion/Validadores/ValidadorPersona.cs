@@ -3,7 +3,7 @@ using CentroEventos.Aplicacion.Excepciones;
 using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Interfaces;
 public class ValidadorPersona {
-    public static bool Validar(Persona persona, out string mensajeError) {
+    public bool Validar(Persona persona, out string mensajeError) {
         mensajeError = "";
         if (string.IsNullOrWhiteSpace(persona.Nombre)) {
             mensajeError += "Nombre esta vacio\n";

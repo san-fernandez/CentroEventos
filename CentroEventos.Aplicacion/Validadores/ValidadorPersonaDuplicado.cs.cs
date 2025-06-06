@@ -3,7 +3,7 @@ using CentroEventos.Aplicacion.Excepciones;
 using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Interfaces;
 public class ValidadorPersonaDuplicado {
-    public static bool Validar(Persona persona, IRepositorioPersona repo, out string mensajeError) {
+    public bool Validar(Persona persona, IRepositorioPersona repo, out string mensajeError) {
         mensajeError = "";
         if (repo.ExisteConDNI(persona.DNI)) {
             mensajeError += "DNI duplicado\n";

@@ -4,7 +4,7 @@ using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Interfaces;
 public class ValidadorEventoDeportivo
 {
-    public static bool Validar(EventoDeportivo evento, out string mensajeError) {
+    public bool Validar(EventoDeportivo evento, out string mensajeError) {
         mensajeError = "";
         if (string.IsNullOrWhiteSpace(evento.Nombre)) {
             mensajeError += "Nombre esta vacio\n";

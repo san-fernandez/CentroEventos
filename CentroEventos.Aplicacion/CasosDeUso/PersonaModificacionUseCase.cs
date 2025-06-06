@@ -5,13 +5,13 @@ using CentroEventos.Aplicacion.Entidades;
 
 namespace Almacen.Aplicacion.CasosDeUso;
 
-public class PersonaModificacionUseCase(IRepositorioPersona repositorio, IServicioAutorizacion servicioAutorizacion)
+public class PersonaModificacionUseCase(IRepositorioPersona repositorio, IServicioAutorizacion servicioAutorizacion, ValidadorPersona validadorPersona)
 {
     public void Ejecutar(Persona persona, int idUsuario) {
         if (!servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioModificacion)) {
             throw new FalloAutorizacionException();
         }
-        if (!ValidadorPersona.Validar(persona, out string mensajeError)) {
+        if (!validadorPersona.Validar(persona, out string mensajeError)) {
             throw new ValidacionException(mensajeError);
         }
         bool modificada = repositorio.Modificar(persona);

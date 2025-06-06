@@ -4,13 +4,13 @@ using CentroEventos.Aplicacion.Excepciones;
 
 namespace Almacen.Aplicacion.CasosDeUso;
 
-public class PersonaBajaUseCase(IRepositorioPersona repositorio, IRepositorioEventoDeportivo repositorioEventoDeportivo, IRepositorioReserva repositorioReserva, IServicioAutorizacion servicioAutorizacion)
+public class PersonaBajaUseCase(IRepositorioPersona repositorio, IRepositorioEventoDeportivo repositorioEventoDeportivo, IRepositorioReserva repositorioReserva, IServicioAutorizacion servicioAutorizacion, ValidadorPersonaDependencia validadorPersonaDependencia)
 {
     public void Ejecutar(int id, int idUsuario) {
         if (!servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioBaja)) {
             throw new FalloAutorizacionException();
         }
-        if (!ValidadorPersonaDependencia.Validar(id, repositorioEventoDeportivo, repositorioReserva, out string mensajeErrorDependencia)) {
+        if (!validadorPersonaDependencia.Validar(id, repositorioEventoDeportivo, repositorioReserva, out string mensajeErrorDependencia)) {
             throw new OperacionInvalidaException(mensajeErrorDependencia);
         }
         bool eliminada = repositorio.Eliminar(id);

@@ -5,7 +5,7 @@ using CentroEventos.Aplicacion.Interfaces;
 
 public class ValidadorEventoDeportivoDependencia
 {
-    public static bool Validar(int IdEvento, IRepositorioReserva repo, out string mensajeError) {
+    public bool Validar(int IdEvento, IRepositorioReserva repo, out string mensajeError) {
         mensajeError = "";
         if (repo.EventoDeportivoReserva(IdEvento)){
             mensajeError += "Existen reservas para ese evento deportivo";

@@ -5,12 +5,12 @@ using CentroEventos.Aplicacion.Entidades;
 
 namespace Almacen.Aplicacion.CasosDeUso;
 
-public class EventoDeportivoBajaUseCase(IRepositorioEventoDeportivo repositorio, IRepositorioReserva repositorioReserva, IServicioAutorizacion servicioAutorizacion) {
+public class EventoDeportivoBajaUseCase(IRepositorioEventoDeportivo repositorio, IRepositorioReserva repositorioReserva, IServicioAutorizacion servicioAutorizacion, ValidadorEventoDeportivoDependencia validadorEventoDeportivoDependencia) {
     public void Ejecutar(int IdEvento, int idUsuario) {
         if (!servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.EventoBaja)) {
             throw new FalloAutorizacionException();
         }
-        if (!ValidadorEventoDeportivoDependencia.Validar(IdEvento, repositorioReserva, out string mensajeErrorDependencia)) {
+        if (!validadorEventoDeportivoDependencia.Validar(IdEvento, repositorioReserva, out string mensajeErrorDependencia)) {
             throw new OperacionInvalidaException(mensajeErrorDependencia);
         }
         bool eliminada = repositorio.Eliminar(IdEvento);
