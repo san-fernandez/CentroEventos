@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/santi/Desktop/CentroEventos/CentroEventos.Aplicacion/CentroEventos.Aplicacion.csproj",
+      "projectUniqueName": "/home/santi/Desktop/proyectosDotnet/CentroEventos/CentroEventos.Aplicacion/CentroEventos.Aplicacion.csproj",
       "projectName": "CentroEventos.Aplicacion",
-      "projectPath": "/home/santi/Desktop/CentroEventos/CentroEventos.Aplicacion/CentroEventos.Aplicacion.csproj",
+      "projectPath": "/home/santi/Desktop/proyectosDotnet/CentroEventos/CentroEventos.Aplicacion/CentroEventos.Aplicacion.csproj",
       "packagesPath": "/home/santi/.nuget/packages/",
-      "outputPath": "/home/santi/Desktop/CentroEventos/CentroEventos.Aplicacion/obj/",
+      "outputPath": "/home/santi/Desktop/proyectosDotnet/CentroEventos/CentroEventos.Aplicacion/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/santi/.nuget/NuGet/NuGet.Config"
