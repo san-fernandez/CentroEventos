@@ -1,7 +1,128 @@
 ﻿@page "/home"
+@rendermode InteractiveServer
+@inject IServicioUsuarioSesion Sesion
+@inject IServicioAutorizacion Autorizacion
+@inject NavigationManager Navigation
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Centro Deportivo | Inicio</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="container py-4">
+    <h2 class="mb-4">
+        Bienvenido,
+        <strong>
+            @(Sesion.UsuarioActual != null
+                ? $"{Sesion.UsuarioActual.Nombre} {Sesion.UsuarioActual.Apellido}"
+                : "Usuario")
+        </strong>
+    </h2>
 
-Welcome to your new app.
+    <div class="row g-4">
+        <!-- PERSONAS -->
+        <div class="col-md-4">
+            <div class="card shadow-sm rounded-4">
+                <div class="card-body">
+                    <h5 class="card-title">Personas</h5>
+                    <ul class="list-unstyled">
+                        <li><NavLink class="nav-link" href="/persona/alta">➕ Registrar persona</NavLink></li>
+                        <li><NavLink class="nav-link" href="/persona/modificar">✏️ Modificar persona</NavLink></li>
+                        <li><NavLink class="nav-link" href="/persona/listar">📋 Lista de personas</NavLink></li>
+                        <li><NavLink class="nav-link" href="/persona/consultaid">🔍 Buscar por ID</NavLink></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- EVENTOS -->
+        <div class="col-md-4">
+            <div class="card shadow-sm rounded-4">
+                <div class="card-body">
+                    <h5 class="card-title">Eventos</h5>
+                    <ul class="list-unstyled">
+                        <li><NavLink class="nav-link" href="/evento/alta">➕ Crear evento</NavLink></li>
+                        <li><NavLink class="nav-link" href="/evento/modificar">✏️ Modificar evento</NavLink></li>
+                        <li><NavLink class="nav-link" href="/evento/listar">📋 Lista de eventos</NavLink></li>
+                        <li><NavLink class="nav-link" href="/evento/consultaid">🔍 Buscar por ID</NavLink></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESERVAS -->
+        <div class="col-md-4">
+            <div class="card shadow-sm rounded-4">
+                <div class="card-body">
+                    <h5 class="card-title">Reservas</h5>
+                    <ul class="list-unstyled">
+                        <li><NavLink class="nav-link" href="/reserva/alta">➕ Hacer reserva</NavLink></li>
+                        <li><NavLink class="nav-link" href="/reserva/modificar">✏️ Modificar reserva</NavLink></li>
+                        <li><NavLink class="nav-link" href="/reserva/listar">📋 Lista de reservas</NavLink></li>
+                        <li><NavLink class="nav-link" href="/reserva/consultaid">🔍 Buscar por ID</NavLink></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GESTIÓN DE USUARIOS (si tiene permisos) -->
+    @if (PuedeGestionarUsuarios)
+    {
+        <div class="card mt-5 shadow-sm rounded-4">
+            <div class="card-body">
+                <h5 class="card-title">Gestión de Usuarios</h5>
+                <div class="d-flex flex-wrap gap-3">
+                    @if (PuedeCrearUsuario)
+                    {
+                        <NavLink href="/usuario/alta" class="btn btn-success">➕ Alta</NavLink>
+                    }
+                    @if (PuedeModificarUsuario)
+                    {
+                        <NavLink href="/usuario/modificar" class="btn btn-warning">✏️ Modificar</NavLink>
+                    }
+                    @if (PuedeEliminarUsuario)
+                    {
+                        <NavLink href="/usuario/baja" class="btn btn-danger">❌ Baja</NavLink>
+                    }
+                    <NavLink href="/usuario/listar" class="btn btn-danger"> Listar</NavLink>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- PERFIL Y CIERRE DE SESIÓN -->
+    <div class="mt-5 d-flex flex-column flex-md-row gap-3">
+        @if (Sesion.UsuarioActual != null)
+        {
+            <button class="btn btn-outline-secondary" @onclick="@(() => Navigation.NavigateTo($"/perfil/{Sesion.UsuarioActual.Id}"))">
+                👤 Editar perfil
+            </button>
+        }
+
+        <button class="btn btn-danger" @onclick="Cerrar">
+            🔒 Cerrar sesión
+        </button>
+    </div>
+</div>
+
+@code {
+    bool PuedeCrearUsuario;
+    bool PuedeEliminarUsuario;
+    bool PuedeModificarUsuario;
+    bool PuedeGestionarUsuarios;
+
+    protected override void OnInitialized()
+    {
+        Usuario? usuario = Sesion.UsuarioActual;
+        if (usuario != null) {
+            PuedeCrearUsuario = Autorizacion.PoseeElPermiso(usuario.Id, Permiso.UsuarioAlta);
+            PuedeEliminarUsuario = Autorizacion.PoseeElPermiso(usuario.Id, Permiso.UsuarioBaja);
+            PuedeModificarUsuario = Autorizacion.PoseeElPermiso(usuario.Id, Permiso.UsuarioModificacion);
+            PuedeGestionarUsuarios = PuedeCrearUsuario || PuedeEliminarUsuario || PuedeModificarUsuario;
+        }
+    }
+
+    void Cerrar()
+    {
+        Sesion.CerrarSesion();
+        Navigation.NavigateTo("/");
+    }
+}

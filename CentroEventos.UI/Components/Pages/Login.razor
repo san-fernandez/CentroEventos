@@ -1,5 +1,5 @@
 @rendermode InteractiveServer
-@inject ServicioUsuarioSesion sesion
+@inject IServicioUsuarioSesion sesion
 @inject NavigationManager Navigation
 @inject UsuarioLoginUseCase loginUseCase
 <PageTitle>SGCED | Login</PageTitle>
@@ -28,7 +28,7 @@
                 sesion.IniciarSesion(usuario);
                 Navigation.NavigateTo($"/home");
             } else {
-                error += "Email o contraseña incorrectos";
+                error = "Email o contraseña incorrectos";
                 dialogo.Mostrar();
             }
         }
@@ -39,5 +39,4 @@
         }
     }
     void Registrarse() => Navigation.NavigateTo($"/signup");
-}using Microsoft.VisualBasic;
-#line default
+}

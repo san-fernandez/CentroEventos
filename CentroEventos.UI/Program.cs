@@ -52,7 +52,7 @@ builder.Services
 
     // Servicios
     .AddScoped<IServicioAutorizacion, ServicioAutorizacion>()
-    .AddScoped<ServicioUsuarioSesion>();
+    .AddScoped<IServicioUsuarioSesion, ServicioUsuarioSesion>();
 
 var app = builder.Build();
 
