@@ -3,10 +3,10 @@ using CentroEventos.Aplicacion.Entidades;
 
 namespace CentroEventos.Aplicacion.CasosDeUso;
 
-public class ListarPersonasUseCase(IRepositorioPersona repositorio)
+public class ListarUsuariosUseCase(IRepositorioUsuario repositorio)
 {
-    public List<Persona> Ejecutar()
+    public List<Usuario> Ejecutar()
     {
-        return repositorio.Listar();
+        return repositorio.ObtenerTodos();
     }
 }

@@ -4,7 +4,7 @@ namespace CentroEventos.Repositorios;
 
 public class CentroDeportivoInicializar
 {
-    public void InicializarBaseDeDatos()
+    public static void InicializarBaseDeDatos()
     {
         using (var context = new CentroDeportivoContext())
         {

@@ -1,6 +1,7 @@
 using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Interfaces;
 
+namespace CentroEventos.Aplicacion.Servicios;
 public class ServicioUsuarioSesion : IServicioUsuarioSesion
 {
     public Usuario? UsuarioActual { get; private set; }

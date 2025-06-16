@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CentroEventos.Repositorios;
 
+namespace CentroEventos.Repositorios;
 public class RepositorioUsuario : IRepositorioUsuario
 {
     public void Agregar(Usuario usuario)
@@ -16,16 +17,25 @@ public class RepositorioUsuario : IRepositorioUsuario
         }
     }
 
-    public void Modificar(Usuario usuario)
+    public bool Modificar(Usuario usuario)
     {
         using (var context = new CentroDeportivoContext())
         {
-            context.Set<Usuario>().Update(usuario);
-            context.SaveChanges();
+            var existe = context.Set<Usuario>().Any(x => x.Id == usuario.Id);
+            if (existe)
+            {
+                context.Set<Usuario>().Update(usuario);
+                context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 
-    public void Eliminar(int id)
+    public bool Eliminar(int id)
     {
         using (var context = new CentroDeportivoContext())
         {
@@ -34,6 +44,11 @@ public class RepositorioUsuario : IRepositorioUsuario
             {
                 context.Set<Usuario>().Remove(usuario);
                 context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }
@@ -79,18 +94,18 @@ public class RepositorioUsuario : IRepositorioUsuario
     }
 
     public bool UsuarioTienePermiso(int usuarioId, Permiso permisoBuscado)
-{
-    using (var context = new CentroDeportivoContext())
     {
-        var usuario = context.Set<Usuario>()
-            .Include(u => u.Permisos)
-            .FirstOrDefault(u => u.Id == usuarioId);
-
-        if (usuario != null && usuario.Permisos != null)
+        using (var context = new CentroDeportivoContext())
         {
-            return usuario.Permisos.Any(p => p == permisoBuscado);
+            var usuario = context.Set<Usuario>()
+                .Include(u => u.Permisos)
+                .FirstOrDefault(u => u.Id == usuarioId);
+
+            if (usuario != null && usuario.Permisos != null)
+            {
+                return usuario.Permisos.Any(p => p == permisoBuscado);
+            }
+            return false;
         }
-        return false;
     }
-}
 }

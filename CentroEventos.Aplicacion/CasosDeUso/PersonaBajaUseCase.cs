@@ -3,7 +3,7 @@ using CentroEventos.Aplicacion.Interfaces;
 using CentroEventos.Aplicacion.Excepciones;
 using CentroEventos.Aplicacion.Entidades;
 
-namespace Almacen.Aplicacion.CasosDeUso;
+namespace CentroEventos.Aplicacion.CasosDeUso;
 
 public class PersonaBajaUseCase(IRepositorioPersona repositorio, IRepositorioEventoDeportivo repositorioEventoDeportivo, IRepositorioReserva repositorioReserva, IServicioAutorizacion servicioAutorizacion, ValidadorPersonaDependencia validadorPersonaDependencia)
 {

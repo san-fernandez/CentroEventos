@@ -5,18 +5,18 @@ using CentroEventos.Aplicacion.Entidades;
 
 namespace CentroEventos.Aplicacion.CasosDeUso;
 
-public class PersonaModificacionUseCase(IRepositorioPersona repositorio, IServicioAutorizacion servicioAutorizacion, ValidadorPersona validadorPersona)
+public class UsuarioModificacionUseCase(IRepositorioUsuario repositorio, IServicioAutorizacion servicioAutorizacion, ValidadorUsuario validador)
 {
-    public void Ejecutar(Persona persona, int usuarioId) {
+    public void Ejecutar(Usuario usuario, int usuarioId) {
         if (!servicioAutorizacion.PoseeElPermiso(usuarioId, Permiso.UsuarioModificacion)) {
             throw new FalloAutorizacionException();
         }
-        if (!validadorPersona.Validar(persona, out string mensajeError)) {
+        if (!validador.Validar(usuario, out string mensajeError)) {
             throw new ValidacionException(mensajeError);
         }
-        bool modificada = repositorio.Modificar(persona);
+        bool modificada = repositorio.Modificar(usuario);
         if (!modificada) {
-            throw new EntidadNotFoundException(persona.Id);
+            throw new EntidadNotFoundException(usuario.Id);
         }
     }
 }

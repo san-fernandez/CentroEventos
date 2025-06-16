@@ -1,0 +1,57 @@
+@page "/signup"
+@rendermode InteractiveServer
+@inject UsuarioAltaUseCase signup
+@inject ServicioUsuarioSesion servicioUsuarioSesion
+@inject NavigationManager NavigationManager
+<PageTitle>SGE | Signup</PageTitle>
+
+<h3>Ingrese sus datos personales</h3>
+<form>
+    <input class="form-control" type="text" placeholder="Nombre" @bind="nombre"><br>
+    <input class="form-control" type="text" placeholder="Apellido" @bind="apellido"><br>
+    <input class="form-control" type="email" placeholder="Email" @bind="correoElectronico"><br>
+    <input class="form-control" type="password" placeholder="Contraseña" @bind="contraseña"><br>
+</form>
+<button class="btn btn-primary mt-2" @onclick="Agregar">Aceptar</button><br>
+<button class="btn btn-secondary mt-2" @onclick="Volver">Volver al inicio</button>
+<DialogoConfirmacion @ref=dialogo Mensaje=@error />
+
+@code {
+    string nombre = "";
+    string apellido = "";
+    string correoElectronico = "";
+    string contraseña = "";
+    string error = "";
+    DialogoConfirmacion dialogo = null!;
+
+    void Agregar()
+    {
+        try
+        {
+            Usuario usuario = new Usuario
+            {
+                Nombre = nombre,
+                Apellido = apellido,
+                CorreoElectronico = correoElectronico,
+                Contraseña = contraseña
+            };
+            if (servicioUsuarioSesion.UsuarioActual != null)
+            {
+                signup.Ejecutar(usuario, servicioUsuarioSesion.UsuarioActual.Id);
+                Volver();
+            }
+            else
+            {
+                error = "No hay un usuario en sesión.";
+                dialogo.Mostrar();
+            }
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+            dialogo.Mostrar();
+        }
+    }
+
+    void Volver() => NavigationManager.NavigateTo($"/");
+}

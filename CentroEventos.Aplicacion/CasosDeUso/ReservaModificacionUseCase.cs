@@ -3,7 +3,7 @@ using CentroEventos.Aplicacion.Interfaces;
 using CentroEventos.Aplicacion.Excepciones;
 using CentroEventos.Aplicacion.Entidades;
 
-namespace Almacen.Aplicacion.CasosDeUso;
+namespace CentroEventos.Aplicacion.CasosDeUso;
 
 public class ReservaModificacionUseCase(IRepositorioReserva repositorioReserva, IRepositorioPersona repositorioPersona, IRepositorioEventoDeportivo repositorioEvento, IServicioAutorizacion servicioAutorizacion, ValidadorReservaExiste validadorReservaExiste, ValidadorReservaCupo validadorReservaCupo, ValidadorReservaDuplicado validadorReservaDuplicado)
 {

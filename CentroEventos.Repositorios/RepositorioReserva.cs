@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using CentroEventos.Repositorios;
 
+namespace CentroEventos.Repositorios;
+
 public class RepositorioReserva : IRepositorioReserva
 {
     public void Agregar(Reserva reserva)

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using CentroEventos.Repositorios;
 
+namespace CentroEventos.Repositorios;
+
 public class RepositorioPersona : IRepositorioPersona
 {
     public void Agregar(Persona p)

@@ -1,0 +1,43 @@
+@rendermode InteractiveServer
+@inject ServicioUsuarioSesion sesion
+@inject NavigationManager Navigation
+@inject UsuarioLoginUseCase loginUseCase
+<PageTitle>SGCED | Login</PageTitle>
+
+<h3>Ingrese a su cuenta</h3>
+<form>
+    <input class="form-control" type="email" placeholder="Email" @bind="email"><br>
+    <input class="form-control" type="password" placeholder="Contraseña" @bind="pass"><br>
+</form>
+<button class="btn btn-primary mt-2" @onclick="Ingresar">Ingresar</button>
+<button class="btn btn-secondary mt-2" @onclick="Registrarse">Registrarse</button>
+<DialogoConfirmacion @ref=dialogo Mensaje=@error />
+
+@code {
+    string email = "";
+    string pass = "";
+    string error = "";
+    DialogoConfirmacion dialogo = null!;
+
+    void Ingresar()
+    {
+        try
+        {
+            Usuario? usuario = loginUseCase.Ejecutar(email, pass);
+            if (usuario != null) {
+                sesion.IniciarSesion(usuario);
+                Navigation.NavigateTo($"/home");
+            } else {
+                error += "Email o contraseña incorrectos";
+                dialogo.Mostrar();
+            }
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+            dialogo.Mostrar();
+        }
+    }
+    void Registrarse() => Navigation.NavigateTo($"/signup");
+}using Microsoft.VisualBasic;
+#line default
