@@ -35,16 +35,7 @@
                 CorreoElectronico = correoElectronico,
                 Contraseña = contraseña
             };
-            if (servicioUsuarioSesion.UsuarioActual != null)
-            {
-                signup.Ejecutar(usuario, servicioUsuarioSesion.UsuarioActual.Id);
-                Volver();
-            }
-            else
-            {
-                error = "No hay un usuario en sesión.";
-                dialogo.Mostrar();
-            }
+            signup.Ejecutar(usuario);
         }
         catch (Exception ex)
         {

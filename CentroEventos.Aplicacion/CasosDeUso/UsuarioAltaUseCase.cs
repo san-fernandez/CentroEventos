@@ -6,17 +6,17 @@ using CentroEventos.Aplicacion.Utilidades;
 
 namespace CentroEventos.Aplicacion.CasosDeUso;
 
-public class UsuarioAltaUseCase(IRepositorioUsuario repositorio, IServicioAutorizacion servicioAutorizacion, ValidadorUsuario validador)
+public class UsuarioAltaUseCase(IRepositorioUsuario repositorio, ValidadorUsuario validador, ValidadorUsuarioDuplicado validadorUsuarioDuplicado)
 {
-    public void Ejecutar(Usuario usuario, int usuarioSolicitanteId)
+    public void Ejecutar(Usuario usuario)
     {
-        if (!servicioAutorizacion.PoseeElPermiso(usuarioSolicitanteId, Permiso.UsuarioAlta))
-            throw new FalloAutorizacionException();
-
         if (!validador.Validar(usuario, out var mensajeError))
             throw new ValidacionException(mensajeError);
 
         usuario.Contraseña = HashHelper.CalcularSha256(usuario.Contraseña);
+        if (!validadorUsuarioDuplicado.Validar(usuario, repositorio, out var mensajeErrorDuplicado))
+            throw new DuplicadoException(mensajeErrorDuplicado);
+
         repositorio.Agregar(usuario);
     }
 }

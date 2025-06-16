@@ -22,26 +22,27 @@ builder.Services
     .AddTransient<ListarUsuariosUseCase>()
 
     // Casos de uso Persona
-   /* .AddTransient<PersonaAltaUseCase>()
-    .AddTransient<PersonaBajaUseCase>()
-    .AddTransient<PersonaModificacionUseCase>()
-    .AddTransient<ListarPersonasUseCase>()
+    /* .AddTransient<PersonaAltaUseCase>()
+     .AddTransient<PersonaBajaUseCase>()
+     .AddTransient<PersonaModificacionUseCase>()
+     .AddTransient<ListarPersonasUseCase>()
 
-    // Casos de uso Evento Deportivo
-    .AddTransient<EventoDeportivoAltaUseCase>()
-    .AddTransient<EventoDeportivoBajaUseCase>()
-    .AddTransient<EventoDeportivoModificacionUseCase>()
-    .AddTransient<ListarEventosDeportivosUseCase>()
+     // Casos de uso Evento Deportivo
+     .AddTransient<EventoDeportivoAltaUseCase>()
+     .AddTransient<EventoDeportivoBajaUseCase>()
+     .AddTransient<EventoDeportivoModificacionUseCase>()
+     .AddTransient<ListarEventosDeportivosUseCase>()
 
-    // Casos de uso Reserva
-    .AddTransient<ReservaAltaUseCase>()
-    .AddTransient<ReservaBajaUseCase>()
-    .AddTransient<ReservaModificacionUseCase>()
-    .AddTransient<ListarReservasUseCase>()
-    */
+     // Casos de uso Reserva
+     .AddTransient<ReservaAltaUseCase>()
+     .AddTransient<ReservaBajaUseCase>()
+     .AddTransient<ReservaModificacionUseCase>()
+     .AddTransient<ListarReservasUseCase>()
+     */
 
     // Validadores
     .AddScoped<ValidadorUsuario>()
+    .AddScoped<ValidadorUsuarioDuplicado>()
 
     // Repositorios
     .AddScoped<IRepositorioUsuario, RepositorioUsuario>()

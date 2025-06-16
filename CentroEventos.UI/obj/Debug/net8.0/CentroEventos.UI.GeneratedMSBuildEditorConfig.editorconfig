@@ -26,10 +26,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9CaWVudmVuaWRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/Counter.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Db3VudGVyLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
 [/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/DialogoConfirmacion.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9EaWFsb2dvQ29uZmlybWFjaW9uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -48,10 +44,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/Signup.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9TaWdudXAucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/Weather.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9XZWF0aGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Routes.razor]
