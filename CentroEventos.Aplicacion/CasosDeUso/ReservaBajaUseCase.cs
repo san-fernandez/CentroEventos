@@ -7,8 +7,8 @@ namespace Almacen.Aplicacion.CasosDeUso;
 
 public class ReservaBajaUseCase(IRepositorioReserva repositorio, IServicioAutorizacion servicioAutorizacion)
 {
-    public void Ejecutar(int id, Usuario usuario) {
-        if (!servicioAutorizacion.PoseeElPermiso(usuario, Permiso.ReservaBaja)) {
+    public void Ejecutar(int id, int usuarioId) {
+        if (!servicioAutorizacion.PoseeElPermiso(usuarioId, Permiso.ReservaBaja)) {
             throw new FalloAutorizacionException();
         }
         bool eliminada = repositorio.Eliminar(id);

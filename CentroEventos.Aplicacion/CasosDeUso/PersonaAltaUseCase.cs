@@ -6,8 +6,10 @@ using CentroEventos.Aplicacion.Entidades;
 namespace CentroEventos.Aplicacion.CasosDeUso;
 
 public class PersonaAltaUseCase(IRepositorioPersona repositorio, IServicioAutorizacion servicioAutorizacion, ValidadorPersona validadorPersona, ValidadorPersonaDuplicado validadorPersonaDuplicado) {
-    public void Ejecutar(Persona persona, Usuario usuario) {
-        if (!servicioAutorizacion.PoseeElPermiso(usuario, Permiso.UsuarioAlta)) {
+    public void Ejecutar(Persona persona, int usuarioId) {
+        
+        if (!servicioAutorizacion.PoseeElPermiso(usuarioId, Permiso.UsuarioAlta))
+        {
             throw new FalloAutorizacionException();
         }
         if (!validadorPersona.Validar(persona, out string mensajeError)) {

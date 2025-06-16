@@ -7,8 +7,8 @@ namespace Almacen.Aplicacion.CasosDeUso;
 
 public class ReservaModificacionUseCase(IRepositorioReserva repositorioReserva, IRepositorioPersona repositorioPersona, IRepositorioEventoDeportivo repositorioEvento, IServicioAutorizacion servicioAutorizacion, ValidadorReservaExiste validadorReservaExiste, ValidadorReservaCupo validadorReservaCupo, ValidadorReservaDuplicado validadorReservaDuplicado)
 {
-    public void Ejecutar(Reserva reserva, Usuario usuario) {
-        if (!servicioAutorizacion.PoseeElPermiso(usuario, Permiso.ReservaModificacion)) {
+    public void Ejecutar(Reserva reserva, int usuarioId) {
+        if (!servicioAutorizacion.PoseeElPermiso(usuarioId, Permiso.ReservaModificacion)) {
             throw new FalloAutorizacionException();
         }
         if (!validadorReservaExiste.Validar(reserva, repositorioEvento, repositorioPersona, out string mensajeErrorEntidadNoEncontrada)) {

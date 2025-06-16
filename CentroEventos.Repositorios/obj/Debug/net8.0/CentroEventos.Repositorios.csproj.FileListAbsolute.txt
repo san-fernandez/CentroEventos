@@ -1,0 +1,16 @@
+/home/santi/Desktop/CentroEventos/CentroEventos.Repositorios/bin/Debug/net8.0/CentroEventos.Repositorios.deps.json
+/home/santi/Desktop/CentroEventos/CentroEventos.Repositorios/bin/Debug/net8.0/CentroEventos.Repositorios.dll
+/home/santi/Desktop/CentroEventos/CentroEventos.Repositorios/bin/Debug/net8.0/CentroEventos.Repositorios.pdb
+/home/santi/Desktop/CentroEventos/CentroEventos.Repositorios/bin/Debug/net8.0/CentroEventos.Aplicacion.dll
+/home/santi/Desktop/CentroEventos/CentroEventos.Repositorios/bin/Debug/net8.0/CentroEventos.Aplicacion.pdb
+/home/santi/Desktop/CentroEventos/CentroEventos.Repositorios/obj/Debug/net8.0/CentroEventos.Repositorios.csproj.AssemblyReference.cache
+/home/santi/Desktop/CentroEventos/CentroEventos.Repositorios/obj/Debug/net8.0/CentroEventos.Repositorios.GeneratedMSBuildEditorConfig.editorconfig
+/home/santi/Desktop/CentroEventos/CentroEventos.Repositorios/obj/Debug/net8.0/CentroEventos.Repositorios.AssemblyInfoInputs.cache
+/home/santi/Desktop/CentroEventos/CentroEventos.Repositorios/obj/Debug/net8.0/CentroEventos.Repositorios.AssemblyInfo.cs
+/home/santi/Desktop/CentroEventos/CentroEventos.Repositorios/obj/Debug/net8.0/CentroEventos.Repositorios.csproj.CoreCompileInputs.cache
+/home/santi/Desktop/CentroEventos/CentroEventos.Repositorios/obj/Debug/net8.0/CentroEventos.Repositorios.sourcelink.json
+/home/santi/Desktop/CentroEventos/CentroEventos.Repositorios/obj/Debug/net8.0/CentroEventos.Repositorios.csproj.CopyComplete
+/home/santi/Desktop/CentroEventos/CentroEventos.Repositorios/obj/Debug/net8.0/CentroEventos.Repositorios.dll
+/home/santi/Desktop/CentroEventos/CentroEventos.Repositorios/obj/Debug/net8.0/refint/CentroEventos.Repositorios.dll
+/home/santi/Desktop/CentroEventos/CentroEventos.Repositorios/obj/Debug/net8.0/CentroEventos.Repositorios.pdb
+/home/santi/Desktop/CentroEventos/CentroEventos.Repositorios/obj/Debug/net8.0/ref/CentroEventos.Repositorios.dll
