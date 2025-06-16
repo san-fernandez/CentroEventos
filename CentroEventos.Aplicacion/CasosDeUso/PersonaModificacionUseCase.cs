@@ -7,8 +7,8 @@ namespace Almacen.Aplicacion.CasosDeUso;
 
 public class PersonaModificacionUseCase(IRepositorioPersona repositorio, IServicioAutorizacion servicioAutorizacion, ValidadorPersona validadorPersona)
 {
-    public void Ejecutar(Persona persona, int idUsuario) {
-        if (!servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioModificacion)) {
+    public void Ejecutar(Persona persona, Usuario usuario) {
+        if (!servicioAutorizacion.PoseeElPermiso(usuario, Permiso.UsuarioModificacion)) {
             throw new FalloAutorizacionException();
         }
         if (!validadorPersona.Validar(persona, out string mensajeError)) {

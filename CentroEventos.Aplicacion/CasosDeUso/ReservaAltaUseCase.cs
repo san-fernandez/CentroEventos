@@ -7,8 +7,8 @@ namespace CentroEventos.Aplicacion.CasosDeUso;
 
 public class ReservaAltaUseCase (IRepositorioReserva repositorioReserva, IRepositorioEventoDeportivo repositorioEvento, IRepositorioPersona repositorioPersona, IServicioAutorizacion servicioAutorizacion, ValidadorReservaExiste validadorReservaExiste, ValidadorReservaCupo validadorReservaCupo, ValidadorReservaDuplicado validadorReservaDuplicado)
 {
-    public void Ejecutar(Reserva reserva, int idUsuario) {
-        if (!servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.ReservaAlta)) {
+    public void Ejecutar(Reserva reserva, int usuarioId) {
+        if (!servicioAutorizacion.PoseeElPermiso(usuarioId, Permiso.ReservaAlta)) {
             throw new FalloAutorizacionException();
         }
         if (!validadorReservaExiste.Validar(reserva, repositorioEvento, repositorioPersona, out string mensajeErrorEntidadNoEncontrada)) {

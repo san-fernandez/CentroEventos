@@ -3,11 +3,11 @@ using CentroEventos.Aplicacion.Interfaces;
 using CentroEventos.Aplicacion.Excepciones;
 using CentroEventos.Aplicacion.Entidades;
 
-namespace Almacen.Aplicacion.CasosDeUso;
+namespace CentroEventos.Aplicacion.CasosDeUso;
 
 public class PersonaAltaUseCase(IRepositorioPersona repositorio, IServicioAutorizacion servicioAutorizacion, ValidadorPersona validadorPersona, ValidadorPersonaDuplicado validadorPersonaDuplicado) {
-    public void Ejecutar(Persona persona, int idUsuario) {
-        if (!servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.UsuarioAlta)) {
+    public void Ejecutar(Persona persona, Usuario usuario) {
+        if (!servicioAutorizacion.PoseeElPermiso(usuario, Permiso.UsuarioAlta)) {
             throw new FalloAutorizacionException();
         }
         if (!validadorPersona.Validar(persona, out string mensajeError)) {

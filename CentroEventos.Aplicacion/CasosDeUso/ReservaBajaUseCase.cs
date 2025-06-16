@@ -1,13 +1,14 @@
 using CentroEventos.Aplicacion.Validadores;
 using CentroEventos.Aplicacion.Interfaces;
 using CentroEventos.Aplicacion.Excepciones;
+using CentroEventos.Aplicacion.Entidades;
 
 namespace Almacen.Aplicacion.CasosDeUso;
 
 public class ReservaBajaUseCase(IRepositorioReserva repositorio, IServicioAutorizacion servicioAutorizacion)
 {
-    public void Ejecutar(int id, int idUsuario) {
-        if (!servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.ReservaBaja)) {
+    public void Ejecutar(int id, Usuario usuario) {
+        if (!servicioAutorizacion.PoseeElPermiso(usuario, Permiso.ReservaBaja)) {
             throw new FalloAutorizacionException();
         }
         bool eliminada = repositorio.Eliminar(id);

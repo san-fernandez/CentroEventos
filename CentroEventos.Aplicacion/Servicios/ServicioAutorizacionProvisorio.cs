@@ -3,7 +3,10 @@ using CentroEventos.Aplicacion.Entidades;
 
 namespace CentroEventos.Aplicacion.Servicios;
 
-public class ServicioAutorizacionProvisorio : IServicioAutorizacion
+public class ServicioAutorizacion (IRepositorioUsuario repositorio) : IServicioAutorizacion 
 {
-    public bool PoseeElPermiso(Usuario usuario, Permiso permiso) => usuario.Permisos.Contains(permiso);
+    public bool PoseeElPermiso(int usuarioId, Permiso permiso)
+    {
+        return repositorio.UsuarioTienePermiso(usuarioId, permiso);
+    }
 }

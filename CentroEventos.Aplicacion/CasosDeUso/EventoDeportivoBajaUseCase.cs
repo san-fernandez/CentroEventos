@@ -6,8 +6,8 @@ using CentroEventos.Aplicacion.Entidades;
 namespace Almacen.Aplicacion.CasosDeUso;
 
 public class EventoDeportivoBajaUseCase(IRepositorioEventoDeportivo repositorio, IRepositorioReserva repositorioReserva, IServicioAutorizacion servicioAutorizacion, ValidadorEventoDeportivoDependencia validadorEventoDeportivoDependencia) {
-    public void Ejecutar(int IdEvento, int idUsuario) {
-        if (!servicioAutorizacion.PoseeElPermiso(idUsuario, Permiso.EventoBaja)) {
+    public void Ejecutar(int IdEvento, Usuario usuario) {
+        if (!servicioAutorizacion.PoseeElPermiso(usuario, Permiso.EventoBaja)) {
             throw new FalloAutorizacionException();
         }
         if (!validadorEventoDeportivoDependencia.Validar(IdEvento, repositorioReserva, out string mensajeErrorDependencia)) {

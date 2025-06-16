@@ -2,6 +2,7 @@ namespace CentroEventos.Aplicacion.Validadores;
 using CentroEventos.Aplicacion.Excepciones;
 using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Interfaces;
+
 public class ValidadorPersonaDependencia {
     public bool Validar(int IdPersona, IRepositorioEventoDeportivo repositorioEventoDeportivo, IRepositorioReserva repositorioReserva, out string mensajeError) {
         mensajeError = "";

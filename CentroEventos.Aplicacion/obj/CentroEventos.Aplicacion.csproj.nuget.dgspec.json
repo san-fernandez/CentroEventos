@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/santi/Desktop/proyectosDotnet/CentroEventos/CentroEventos.Aplicacion/CentroEventos.Aplicacion.csproj": {}
+    "/home/santi/Desktop/CentroEventos/CentroEventos.Aplicacion/CentroEventos.Aplicacion.csproj": {}
   },
   "projects": {
-    "/home/santi/Desktop/proyectosDotnet/CentroEventos/CentroEventos.Aplicacion/CentroEventos.Aplicacion.csproj": {
+    "/home/santi/Desktop/CentroEventos/CentroEventos.Aplicacion/CentroEventos.Aplicacion.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/santi/Desktop/proyectosDotnet/CentroEventos/CentroEventos.Aplicacion/CentroEventos.Aplicacion.csproj",
+        "projectUniqueName": "/home/santi/Desktop/CentroEventos/CentroEventos.Aplicacion/CentroEventos.Aplicacion.csproj",
         "projectName": "CentroEventos.Aplicacion",
-        "projectPath": "/home/santi/Desktop/proyectosDotnet/CentroEventos/CentroEventos.Aplicacion/CentroEventos.Aplicacion.csproj",
+        "projectPath": "/home/santi/Desktop/CentroEventos/CentroEventos.Aplicacion/CentroEventos.Aplicacion.csproj",
         "packagesPath": "/home/santi/.nuget/packages/",
-        "outputPath": "/home/santi/Desktop/proyectosDotnet/CentroEventos/CentroEventos.Aplicacion/obj/",
+        "outputPath": "/home/santi/Desktop/CentroEventos/CentroEventos.Aplicacion/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/santi/.nuget/NuGet/NuGet.Config"
@@ -37,6 +37,16 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.6, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
