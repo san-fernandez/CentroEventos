@@ -1,6 +1,6 @@
 @page "/signup"
 @rendermode InteractiveServer
-@inject UsuarioAltaUseCase signup
+@inject UsuarioRegistroUseCase signup
 @inject IServicioUsuarioSesion servicioUsuarioSesion
 @inject NavigationManager NavigationManager
 <PageTitle>SGE | Signup</PageTitle>
@@ -46,5 +46,5 @@
         }
     }
 
-    void Volver() => NavigationManager.NavigateTo($"/login");
+    void Volver() => NavigationManager.NavigateTo($"/");
 }

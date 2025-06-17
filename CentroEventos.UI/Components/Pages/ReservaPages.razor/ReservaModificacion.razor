@@ -1,0 +1,128 @@
+@page "/reserva/modificar"
+@rendermode InteractiveServer
+@inject ReservaModificacionUseCase CasoModificacion
+@inject ReservaConsultaUseCase ReservaConsulta
+@inject ListarPersonasUseCase ListarPersonas
+@inject ListarEventosDeportivosUseCase ListarEventos
+@inject NavigationManager Navigation
+@inject IServicioUsuarioSesion Sesion
+
+<PageTitle>SGCD | Reservas</PageTitle>
+
+<h3>Modificar Reserva</h3>
+
+@if (!visible)
+{
+    <label class="mt-2" for="inp">ID de reserva a modificar:</label>
+    <InputNumber @bind-Value="idReserva" class="form-control" id="inp" />
+    <button class="btn btn-primary mt-2" @onclick="Buscar">Buscar</button>
+}
+else
+{
+    @if (r != null)
+    {
+        <EditForm Model="r" OnValidSubmit="Modificar">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-group mt-2">
+                <label>Persona</label>
+                <select class="form-select" @bind="r.PersonaId">
+                    @foreach (var persona in PersonasDisponibles)
+                    {
+                        <option value="@persona.Id">@persona.Nombre @persona.Apellido (@persona.DNI)</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group mt-2">
+                <label>Evento Deportivo</label>
+                <select class="form-select" @bind="r.EventoDeportivoId">
+                    @foreach (var evento in EventosDisponibles)
+                    {
+                        <option value="@evento.Id">@evento.Nombre</option>
+                    }
+                </select>
+            </div>
+            <button class="btn btn-success mt-3" type="submit">Guardar cambios</button>
+        </EditForm>
+    }
+}
+<br>
+<button class="btn btn-secondary mt-2" @onclick="Volver">Volver al menú</button>
+<br>
+<DialogoConfirmacion @ref=dialogo Mensaje=@mensaje />
+
+@code {
+    Reserva? r = null;
+    int idReserva;
+    string mensaje = "";
+    bool visible = false;
+    DialogoConfirmacion dialogo = null!;
+    List<Persona> PersonasDisponibles = new();
+    List<EventoDeportivo> EventosDisponibles = new();
+
+    protected override void OnInitialized()
+    {
+        PersonasDisponibles = ListarPersonas.Ejecutar();
+        EventosDisponibles = ListarEventos.Ejecutar();
+    }
+
+    void Buscar()
+    {
+        try
+        {
+            r = ReservaConsulta.Ejecutar(idReserva);
+
+            if (r != null)
+            {
+                visible = true;
+                mensaje = "";
+            }
+            else
+            {
+                mensaje = $"No se encontró una reserva con ID {idReserva}";
+                visible = false;
+                dialogo.Mostrar();
+            }
+        }
+        catch (Exception ex)
+        {
+            mensaje = ex.Message;
+            visible = false;
+            dialogo.Mostrar();
+        }
+    }
+
+    void Modificar()
+    {
+        try
+        {
+            if (Sesion.UsuarioActual == null)
+            {
+                mensaje = "Debes iniciar sesión";
+                dialogo.Mostrar();
+                Navigation.NavigateTo("/login");
+                return;
+            }
+
+            if (r == null)
+            {
+                mensaje = "No hay reserva seleccionada para modificar.";
+                dialogo.Mostrar();
+                return;
+            }
+
+            CasoModificacion.Ejecutar(r, Sesion.UsuarioActual.Id);
+            mensaje = "Reserva modificada correctamente.";
+            dialogo.Mostrar();
+        }
+        catch (Exception ex)
+        {
+            mensaje = ex.Message;
+            dialogo.Mostrar();
+        }
+    }
+
+    void Volver() => Navigation.NavigateTo("/home");
+}

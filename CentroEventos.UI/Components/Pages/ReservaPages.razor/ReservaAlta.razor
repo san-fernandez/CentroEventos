@@ -1,0 +1,84 @@
+@page "/reserva/alta"
+@rendermode InteractiveServer
+@inject ReservaAltaUseCase AltaReserva
+@inject ListarPersonasUseCase ListarPersonas
+@inject ListarEventosDeportivosUseCase ListarEventos
+@inject NavigationManager Navigation
+@inject IServicioUsuarioSesion Sesion
+
+<h3>Alta de Reserva</h3>
+
+<form>
+    <label for="persona">Persona:</label>
+    <select class="form-select" id="persona" @bind="PersonaId">
+        <option value="">Seleccione una persona</option>
+        @foreach (var persona in PersonasDisponibles)
+        {
+            <option value="@persona.Id">@persona.Nombre @persona.Apellido (@persona.DNI)</option>
+        }
+    </select><br>
+
+    <label for="evento">Evento Deportivo:</label>
+    <select class="form-select" id="evento" @bind="EventoId">
+        <option value="">Seleccione un evento</option>
+        @foreach (var evento in EventosDisponibles)
+        {
+            <option value="@evento.Id">@evento.Nombre</option>
+        }
+    </select><br>
+    <button type="button" class="btn btn-primary" @onclick="Agregar">Aceptar</button>
+    <button type="button" class="btn btn-secondary ms-2" @onclick="Volver">Volver al menú</button>
+</form>
+
+<DialogoConfirmacion @ref="dialogo" Mensaje="@error" />
+
+@code {
+    int PersonaId;
+    int EventoId;
+    DateTime FechaReserva = DateTime.Today;
+    string error = "";
+    DialogoConfirmacion dialogo = null!;
+    List<Persona> PersonasDisponibles = new();
+    List<EventoDeportivo> EventosDisponibles = new();
+
+    protected override void OnInitialized()
+    {
+        PersonasDisponibles = ListarPersonas.Ejecutar();
+        EventosDisponibles = ListarEventos.Ejecutar();
+    }
+
+    void Agregar()
+    {
+        try
+        {
+            if (PersonaId == 0 || EventoId == 0)
+            {
+                error = "Debe seleccionar una persona y un evento.";
+                dialogo.Mostrar();
+                return;
+            }
+
+            var reserva = new Reserva
+            {
+                PersonaId = PersonaId,
+                EventoDeportivoId = EventoId,
+            };
+
+            if (Sesion.UsuarioActual != null) {
+                AltaReserva.Ejecutar(reserva, Sesion.UsuarioActual.Id);
+                error = "Reserva registrada exitosamente";
+                dialogo.Mostrar();
+            }
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+            dialogo.Mostrar();
+        }
+    }
+
+    void Volver()
+    {
+        Navigation.NavigateTo("/home");
+    }
+}

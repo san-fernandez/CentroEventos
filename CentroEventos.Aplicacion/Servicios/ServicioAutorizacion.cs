@@ -15,4 +15,11 @@ public class ServicioAutorizacion(IRepositorioUsuario repositorio) : IServicioAu
         }
         return false;
     }
+
+    public bool PuedeModificarUsuario(int idUsuarioActual, int idUsuarioObjetivo)
+    {
+        if (idUsuarioActual == idUsuarioObjetivo)
+            return true;
+        return PoseeElPermiso(idUsuarioActual, Permiso.UsuarioModificacion);
+    }
 }

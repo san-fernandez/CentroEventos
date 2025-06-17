@@ -17,8 +17,10 @@ builder.Services
     // Casos de uso Usuario
     .AddTransient<UsuarioAltaUseCase>()
     .AddTransient<UsuarioBajaUseCase>()
+    .AddTransient<UsuarioConsultaUseCase>()
     .AddTransient<UsuarioModificacionUseCase>()
     .AddTransient<UsuarioLoginUseCase>()
+    .AddTransient<UsuarioRegistroUseCase>()
     .AddTransient<ListarUsuariosUseCase>()
 
     // Casos de uso Persona
@@ -32,13 +34,13 @@ builder.Services
     .AddTransient<EventoDeportivoConsultaUseCase>()
     .AddTransient<EventoDeportivoModificacionUseCase>()
     .AddTransient<ListarEventosDeportivosUseCase>()
-    /*
-    // Casos de uso Reserva
+    .AddTransient<ListarEventosConCupoDisponibleUseCase>()
+    .AddTransient<ListarAsistenciaAEventoUseCase>()
     .AddTransient<ReservaAltaUseCase>()
     .AddTransient<ReservaBajaUseCase>()
+    .AddTransient<ReservaConsultaUseCase>()
     .AddTransient<ReservaModificacionUseCase>()
     .AddTransient<ListarReservasUseCase>()
-    */
 
     // Validadores
     .AddScoped<ValidadorUsuario>()
@@ -49,6 +51,9 @@ builder.Services
     .AddScoped<ValidadorEventoDeportivo>()
     .AddScoped<ValidadorEventoDeportivoDependencia>()
     .AddScoped<ValidadorEventoDeportivoExistePersona>()
+    .AddScoped<ValidadorReservaExiste>()
+    .AddScoped<ValidadorReservaCupo>()
+    .AddScoped<ValidadorReservaDuplicado>()
 
     // Repositorios
     .AddScoped<IRepositorioUsuario, RepositorioUsuario>()

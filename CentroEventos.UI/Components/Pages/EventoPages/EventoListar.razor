@@ -1,0 +1,122 @@
+@page "/Evento/listar/"
+@rendermode InteractiveServer
+@inject ListarEventosDeportivosUseCase ListEve
+@inject ListarEventosConCupoDisponibleUseCase ListCupEve
+@inject EventoDeportivoBajaUseCase RemEve
+@inject EventoDeportivoModificacionUseCase ModEve
+@inject NavigationManager Navigation
+@inject IServicioUsuarioSesion Sesion
+@inject IJSRuntime JSRuntime
+
+<FormModEve @ref="form" />
+<DialogoConfirmacion @ref="dialogo" Mensaje="@MensajeDialogo" MostrarEliminar="true" OnEliminar="ConfirmarEliminar" />
+
+<label>
+    <input type="checkbox" @bind="mostrarSoloCupos" @bind:after="ActualizarEventosMostrados" />
+    Solo Cupos Disponibles
+</label>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>Fecha Inicio</th>
+            <th>Duracion (hs.)</th>
+            <th>Cupo Maximo</th>
+            <th>Responsable ID</th>
+            <th>Descripcion</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var eve in _eventosMostrados)
+        {
+            <tr>
+                <td>@eve.Id</td>
+                <td>@eve.Nombre</td>
+                <td>@eve.FechaHoraInicio</td>
+                <td>@eve.DuracionHoras</td>
+                <td>@eve.CupoMaximo</td>
+                <td>@eve.ResponsableId</td>
+                <td>@eve.Descripcion</td>
+                <td>
+                    <button class="btn btn-mod" @onclick="() => Modificar(eve)">Editar</button>
+                    <button class="btn btn-baja" @onclick="() => MostrarDialogoEliminar(eve)">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<EventoDeportivo> _eventosMostrados = new();
+    private DialogoConfirmacion dialogo = null!;
+    private FormModEve form = null!;
+    private EventoDeportivo? EventoAEliminar;
+
+    private bool mostrarSoloCupos = false;
+    private string MensajeDialogo = "";
+
+    protected override void OnInitialized()
+    {
+        ActualizarEventosMostrados();
+    }
+
+    private void ActualizarEventosMostrados()
+    {
+        if (mostrarSoloCupos)
+            _eventosMostrados = ListCupEve.Ejecutar();
+        else
+            _eventosMostrados = ListEve.Ejecutar();
+
+        StateHasChanged();
+    }
+
+    public void Modificar(EventoDeportivo eve)
+    {
+        form.OnConfirmado = EventCallback.Factory.Create<EventoDeportivo>(this, GuardarCambios);
+        form.Eve = eve;
+        form.Mostrar();
+    }
+
+    public void GuardarCambios(EventoDeportivo eve)
+    {
+        if (Sesion.UsuarioActual != null)
+        {
+            ModEve.Ejecutar(eve, Sesion.UsuarioActual.Id);
+            ActualizarEventosMostrados();
+        }
+        else
+        {
+            MensajeDialogo = "Debes iniciar sesión";
+            dialogo.Mostrar();
+            Navigation.NavigateTo("/login");
+        }
+    }
+
+    public void MostrarDialogoEliminar(EventoDeportivo eve)
+    {
+        EventoAEliminar = eve;
+        MensajeDialogo = $"¿Seguro que desea eliminar el evento {eve.Id}?";
+        dialogo.Mostrar();
+    }
+
+    public void ConfirmarEliminar()
+    {
+        if (EventoAEliminar != null)
+        {
+            if (Sesion.UsuarioActual != null)
+            {
+                RemEve.Ejecutar(EventoAEliminar.Id, Sesion.UsuarioActual.Id);
+                EventoAEliminar = null;
+                ActualizarEventosMostrados();
+            }
+            else
+            {
+                MensajeDialogo = "Debes iniciar sesión";
+                Navigation.NavigateTo("/login");
+            }
+        }
+    }
+}

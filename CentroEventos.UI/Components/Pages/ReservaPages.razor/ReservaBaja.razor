@@ -1,39 +1,38 @@
-@page "/usuario/baja"
+@page "/reserva/eliminar"
 @rendermode InteractiveServer
-@inject UsuarioBajaUseCase CasoBaja
-@inject UsuarioConsultaUseCase UsuarioConsulta
+@inject ReservaBajaUseCase CasoBaja
+@inject ReservaConsultaUseCase ReservaConsulta
 @inject NavigationManager Navigation
 @inject IServicioUsuarioSesion Sesion
 
-<PageTitle>SGCD | Usuarios</PageTitle>
+<PageTitle>SGCD | Reservas</PageTitle>
 
-<h3>Eliminar Usuario</h3>
+<h3>Eliminar Reserva</h3>
 
 @if (!visible)
 {
-    <label class="mt-2" for="inp">ID a eliminar:</label>
-    <InputNumber @bind-Value="idUsuario" class="form-control" id="inp" />
+    <label class="mt-2" for="inp">ID de reserva a eliminar:</label>
+    <InputNumber @bind-Value="idReserva" class="form-control" id="inp" />
     <button class="btn btn-primary mt-2" @onclick="Buscar">Buscar</button>
 }
 else
 {
-    @if (u != null)
+    @if (r != null)
     {
         <table class="table">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Correo electrónico</th>
+                    <th>PersonaId</th>
+                    <th>EventoId</th>
+                    <th>Fecha</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>@u.Id</td>
-                    <td>@u.Nombre</td>
-                    <td>@u.Apellido</td>
-                    <td>@u.CorreoElectronico</td>
+                    <td>@r.Id</td>
+                    <td>@r.PersonaId</td>
+                    <td>@r.EventoDeportivoId</td>
                 </tr>
             </tbody>
         </table>
@@ -46,8 +45,8 @@ else
 <DialogoConfirmacion @ref=dialogo Mensaje=@error />
 
 @code {
-    Usuario? u = null;
-    int idUsuario;
+    Reserva? r = null;
+    int idReserva;
     string error = "";
     bool visible = false;
     DialogoConfirmacion dialogo = null!;
@@ -56,16 +55,16 @@ else
     {
         try
         {
-            u = UsuarioConsulta.Ejecutar(idUsuario);
+            r = ReservaConsulta.Ejecutar(idReserva);
 
-            if (u != null)
+            if (r != null)
             {
                 visible = true;
                 error = "";
             }
             else
             {
-                error = $"No se encontró un usuario con ID {idUsuario}";
+                error = $"No se encontró una reserva con ID {idReserva}";
                 visible = false;
                 dialogo.Mostrar();
             }
@@ -90,17 +89,17 @@ else
                 return;
             }
 
-            if (u == null)
+            if (r == null)
             {
-                error = "No hay usuario seleccionado para eliminar.";
+                error = "No hay reserva seleccionada para eliminar.";
                 dialogo.Mostrar();
                 return;
             }
 
-            CasoBaja.Ejecutar(u.Id, Sesion.UsuarioActual.Id);
-            u = null;
+            CasoBaja.Ejecutar(r.Id, Sesion.UsuarioActual.Id);
+            r = null;
             visible = false;
-            error = "Usuario borrado correctamente";
+            error = "Reserva borrada correctamente";
             dialogo.Mostrar();
         }
         catch (Exception ex)
@@ -110,5 +109,8 @@ else
         }
     }
 
-    void Volver() => Navigation.NavigateTo("/home");
+    void Volver()
+    {
+        Navigation.NavigateTo("/home");
+    }
 }

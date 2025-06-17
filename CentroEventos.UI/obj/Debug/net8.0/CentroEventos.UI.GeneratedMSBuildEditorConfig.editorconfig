@@ -26,12 +26,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9Gb3JtTW9kLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/FormModEve.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9Gb3JtTW9kRXZlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/Bienvenida.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9CaWVudmVuaWRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/DialogoConfirmacion.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9EaWFsb2dvQ29uZmlybWFjaW9uLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/EditarPerfil.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9FZGl0YXJQZXJmaWwucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/Error.razor]
@@ -44,6 +52,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/EventoPages/EventoBaja.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9FdmVudG9QYWdlcy9FdmVudG9CYWphLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/EventoPages/EventoListar.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9FdmVudG9QYWdlcy9FdmVudG9MaXN0YXIucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/EventoPages/EventoModificacion.razor]
@@ -72,6 +84,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/PersonaPages/PersonaModificar.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9QZXJzb25hUGFnZXMvUGVyc29uYU1vZGlmaWNhci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/ReservaPages.razor/ReservaAlta.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9SZXNlcnZhUGFnZXMucmF6b3IvUmVzZXJ2YUFsdGEucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/ReservaPages.razor/ReservaBaja.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9SZXNlcnZhUGFnZXMucmF6b3IvUmVzZXJ2YUJhamEucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/ReservaPages.razor/ReservaModificacion.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9SZXNlcnZhUGFnZXMucmF6b3IvUmVzZXJ2YU1vZGlmaWNhY2lvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/Signup.razor]

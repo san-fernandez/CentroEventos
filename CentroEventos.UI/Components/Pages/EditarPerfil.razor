@@ -1,0 +1,140 @@
+@page "/perfil/{idUsuario:int}"
+@rendermode InteractiveServer
+@inject IServicioUsuarioSesion Sesion
+@inject UsuarioModificacionUseCase ModificarUsuario
+@inject NavigationManager Navigation
+
+<PageTitle>Editar Perfil</PageTitle>
+
+<h3>Mi Perfil</h3>
+
+@if (usuario == null)
+{
+    <div class="alert alert-warning">Debes iniciar sesión para ver tu perfil.</div>
+}
+else if (!editando)
+{
+    <table class="table">
+        <tr><th>Nombre</th><td>@perfil.Nombre</td></tr>
+        <tr><th>Apellido</th><td>@perfil.Apellido</td></tr>
+        <tr><th>Correo electrónico</th><td>@perfil.CorreoElectronico</td></tr>
+    </table>
+    <button class="btn btn-primary" @onclick="()=>editando=true">Modificar</button>
+    <button class="btn btn-secondary ms-2" @onclick="Volver">Volver</button>
+}
+else
+{
+    <EditForm Model="@perfil" OnValidSubmit="GuardarCambios">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="mb-2">
+            <label>Nombre</label>
+            <InputText class="form-control" @bind-Value="perfil.Nombre" />
+        </div>
+        <div class="mb-2">
+            <label>Apellido</label>
+            <InputText class="form-control" @bind-Value="perfil.Apellido" />
+        </div>
+        <div class="mb-2">
+            <label>Correo electrónico</label>
+            <InputText class="form-control" @bind-Value="perfil.CorreoElectronico" />
+        </div>
+        <div class="mb-2">
+            <label>Nueva Contraseña</label>
+            <InputText class="form-control" type="password" @bind-Value="perfil.NuevaContraseña" />
+            <small class="form-text text-muted">Dejar vacío para no cambiar la contraseña.</small>
+        </div>
+
+        <button class="btn btn-success" type="submit">Guardar</button>
+        <button class="btn btn-secondary ms-2" @onclick="Cancelar">Cancelar</button>
+    </EditForm>
+}
+
+<DialogoConfirmacion @ref="dialogo" Mensaje="@mensaje" />
+
+@code {
+    [Parameter] public int idUsuario { get; set; }
+    Usuario? usuario;
+    PerfilUsuarioModel perfil = new();
+    string mensaje = "";
+    bool editando = false;
+    DialogoConfirmacion dialogo = null!;
+
+    protected override void OnInitialized()
+    {
+        usuario = Sesion.UsuarioActual;
+        if (usuario != null)
+        {
+            idUsuario = usuario.Id;
+            perfil.Nombre = usuario.Nombre;
+            perfil.Apellido = usuario.Apellido;
+            perfil.CorreoElectronico = usuario.CorreoElectronico;
+        }
+    }
+
+    void Volver() => Navigation.NavigateTo("/home");
+
+    void Cancelar()
+    {
+        editando = false;
+        perfil.NuevaContraseña = "";
+        if (usuario != null)
+        {
+            perfil.Nombre = usuario.Nombre;
+            perfil.Apellido = usuario.Apellido;
+            perfil.CorreoElectronico = usuario.CorreoElectronico;
+        }
+    }
+
+    void GuardarCambios()
+    {
+        try
+        {
+            if (usuario == null)
+            {
+                mensaje = "Debes iniciar sesión.";
+                dialogo.Mostrar();
+                return;
+            }
+
+            var usuarioEditado = new Usuario
+            {
+                Id = usuario.Id,
+                Nombre = perfil.Nombre,
+                Apellido = perfil.Apellido,
+                CorreoElectronico = perfil.CorreoElectronico,
+                Contraseña = usuario.Contraseña 
+            };
+
+            if (!string.IsNullOrWhiteSpace(perfil.NuevaContraseña))
+            {
+                usuarioEditado.Contraseña = perfil.NuevaContraseña;
+            }
+
+            ModificarUsuario.Ejecutar(usuarioEditado, usuario.Id);
+
+            // Actualizar sesión
+            Sesion.IniciarSesion(usuarioEditado);
+            usuario = usuarioEditado;
+            perfil.NuevaContraseña = "";
+            editando = false;
+            mensaje = "Perfil actualizado correctamente.";
+            dialogo.Mostrar();
+        }
+        catch (Exception ex)
+        {
+            mensaje = ex.Message;
+            dialogo.Mostrar();
+        }
+    }
+
+    public class PerfilUsuarioModel
+    {
+        public string Nombre { get; set; } = "";
+        public string Apellido { get; set; } = "";
+        public string CorreoElectronico { get; set; } = "";
+
+        public string? NuevaContraseña { get; set; }
+    }
+}

@@ -6,26 +6,21 @@
 
 <h3>Alta de Usuario</h3>
 
-<div class="card p-4 mt-4" style="max-width: 500px;">
-    <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre</label>
-        <input id="nombre" class="form-control" @bind="Nombre" />
-    </div>
-    <div class="mb-3">
-        <label for="apellido" class="form-label">Apellido</label>
-        <input id="apellido" class="form-control" @bind="Apellido" />
-    </div>
-    <div class="mb-3">
-        <label for="correo" class="form-label">Correo electrónico</label>
-        <input id="correo" class="form-control" type="email" @bind="CorreoElectronico" />
-    </div>
-    <div class="mb-3">
-        <label for="contraseña" class="form-label">Contraseña</label>
-        <input id="contraseña" class="form-control" type="password" @bind="Contraseña" />
-    </div>
+    <form>
+        <label for="nombre">Nombre:</label>
+        <input class="form-control" id="nombre" placeholder="Nombre" @bind="Nombre"><br>
+
+        <label for="apellido">Apellido:</label>
+        <input class="form-control" id="apellido" placeholder="Apellido" @bind="Apellido"><br>
+
+        <label for="correo">Correo electrónico:</label>
+        <input class="form-control" id="correo" type="email" placeholder="Correo electrónico" @bind="CorreoElectronico"><br>
+
+        <label for="contraseña">Contraseña:</label>
+        <input class="form-control" id="contraseña" type="password" placeholder="Contraseña" @bind="Contraseña"><br>
+    </form>
     <button class="btn btn-primary" @onclick="Agregar">Aceptar</button>
     <button class="btn btn-secondary ms-2" @onclick="Volver">Volver al menú</button>
-</div>
 
 <DialogoConfirmacion @ref="dialogo" Mensaje="@error" />
 
@@ -67,6 +62,6 @@
 
     void Volver()
     {
-        Navigation.NavigateTo("/");
+        Navigation.NavigateTo("/home");
     }
 }
