@@ -25,14 +25,20 @@
     <div class="dialogo-contenedor">
         <div class="dialogo-contenido">
             <h5>@Mensaje</h5>
-            <button class="btn btn-primary" @onclick="Cerrar">Atras</button>
+            <button class="btn btn-primary" @onclick="Cerrar">Atrás</button>
+            @if (MostrarEliminar)
+            {
+                <button class="btn btn-danger ms-2" @onclick="Eliminar">Eliminar</button>
+            }
         </div>
     </div>
 }
 
 @code {
     [Parameter] public EventCallback OnConfirmado { get; set; }
+    [Parameter] public EventCallback OnEliminar { get; set; }
     [Parameter] public string Mensaje { get; set; } = "";
+    [Parameter] public bool MostrarEliminar { get; set; } = false;
     private bool visible = false;
 
     public void Mostrar()
@@ -44,5 +50,10 @@
     {
         visible = false;
         OnConfirmado.InvokeAsync();
+    }
+    void Eliminar()
+    {
+        visible = false;
+        OnEliminar.InvokeAsync();
     }
 }

@@ -26,7 +26,7 @@
                         <li><NavLink class="nav-link" href="/persona/alta">➕ Registrar persona</NavLink></li>
                         <li><NavLink class="nav-link" href="/persona/modificar">✏️ Modificar persona</NavLink></li>
                         <li><NavLink class="nav-link" href="/persona/listar">📋 Lista de personas</NavLink></li>
-                        <li><NavLink class="nav-link" href="/persona/consultaid">🔍 Buscar por ID</NavLink></li>
+                        <li><NavLink class="nav-link" href="/persona/eliminar">❌ Eliminar persona</NavLink></li>
                     </ul>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                         <li><NavLink class="nav-link" href="/evento/alta">➕ Crear evento</NavLink></li>
                         <li><NavLink class="nav-link" href="/evento/modificar">✏️ Modificar evento</NavLink></li>
                         <li><NavLink class="nav-link" href="/evento/listar">📋 Lista de eventos</NavLink></li>
-                        <li><NavLink class="nav-link" href="/evento/consultaid">🔍 Buscar por ID</NavLink></li>
+                        <li><NavLink class="nav-link" href="/evento/eliminar">❌ Eliminar evento</NavLink></li>
                     </ul>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                         <li><NavLink class="nav-link" href="/reserva/alta">➕ Hacer reserva</NavLink></li>
                         <li><NavLink class="nav-link" href="/reserva/modificar">✏️ Modificar reserva</NavLink></li>
                         <li><NavLink class="nav-link" href="/reserva/listar">📋 Lista de reservas</NavLink></li>
-                        <li><NavLink class="nav-link" href="/reserva/consultaid">🔍 Buscar por ID</NavLink></li>
+                        <li><NavLink class="nav-link" href="/reserva/eliminar">❌ Eliminar reserva</NavLink></li>
                     </ul>
                 </div>
             </div>
@@ -78,11 +78,11 @@
                     {
                         <NavLink href="/usuario/modificar" class="btn btn-warning">✏️ Modificar</NavLink>
                     }
+                    <NavLink href="/usuario/listar" class="btn btn-danger">📋 Listar</NavLink>
                     @if (PuedeEliminarUsuario)
                     {
                         <NavLink href="/usuario/baja" class="btn btn-danger">❌ Baja</NavLink>
-                    }
-                    <NavLink href="/usuario/listar" class="btn btn-danger"> Listar</NavLink>
+                    }  
                 </div>
             </div>
         </div>

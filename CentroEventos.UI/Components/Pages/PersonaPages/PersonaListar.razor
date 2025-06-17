@@ -1,0 +1,100 @@
+@page "/persona/listar/"
+@rendermode InteractiveServer
+@using CentroEventos.UI.Components
+@inject ListarPersonasUseCase ListPer
+@inject PersonaBajaUseCase RemPer
+@inject PersonaModificacionUseCase ModPer
+@inject NavigationManager Navigation
+@inject IServicioUsuarioSesion Sesion
+@inject IJSRuntime JSRuntime
+
+<FormMod @ref="form" />
+<DialogoConfirmacion @ref="dialogo" Mensaje="@MensajeDialogo" MostrarEliminar="true" OnEliminar="ConfirmarEliminar" />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>APELLIDO</th>
+            <th>DNI</th>
+            <th>TELEFONO</th>
+            <th>EMAIL</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in _lista)
+        {
+            <tr>
+                <td>@p.Id</td>
+                <td>@p.Nombre</td>
+                <td>@p.Apellido</td>
+                <td>@p.DNI</td>
+                <td>@p.Telefono</td>
+                <td>@p.Email</td>
+                <td>
+                    <button class="btn btn-mod" @onclick="() => Modificar(p)">Editar</button>
+                    <button class="btn btn-baja" @onclick="() => MostrarDialogoEliminar(p)">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    List<Persona> _lista = new List<Persona>();
+    DialogoConfirmacion dialogo = null!;
+    private FormMod form = null!;
+    private Persona? personaAEliminar;
+    string MensajeDialogo = "";
+    protected override void OnInitialized()
+    {
+        _lista = ListPer.Ejecutar();
+    }
+
+    public void Modificar(Persona p)
+    {
+        form.OnConfirmado = EventCallback.Factory.Create<Persona>(this, GuardarCambios);
+        form.P = p;
+        form.Mostrar();
+    }
+
+    public void GuardarCambios(Persona p)
+    {
+        if (Sesion.UsuarioActual != null) {
+            ModPer.Ejecutar(p, Sesion.UsuarioActual.Id);
+            StateHasChanged();
+        } else {
+                MensajeDialogo = "Debes iniciar sesión";
+                dialogo.Mostrar();
+                Navigation.NavigateTo("/login");
+            }
+            
+    }
+
+    public void MostrarDialogoEliminar(Persona p)
+    {
+        personaAEliminar = p;
+        MensajeDialogo = $"¿Seguro que desea eliminar a {p.Nombre} {p.Apellido}?";
+        dialogo.Mostrar();
+    }
+
+    public void ConfirmarEliminar()
+    {
+        if (personaAEliminar != null)
+        {
+            if (Sesion.UsuarioActual != null)
+                RemPer.Ejecutar(personaAEliminar.Id, Sesion.UsuarioActual.Id);
+                _lista.Remove(personaAEliminar);
+                personaAEliminar = null;
+                StateHasChanged();
+            } else {
+                MensajeDialogo = "Debes iniciar sesión";
+                dialogo.Mostrar();
+                Navigation.NavigateTo("/login");
+            }
+            
+        }
+    }
+}

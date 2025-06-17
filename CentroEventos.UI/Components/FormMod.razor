@@ -1,0 +1,41 @@
+@rendermode InteractiveServer
+@if(_visible) {
+    <div>
+        <div>
+            <h3>
+                Se va a modificar la Persona ID: @(P != null ? P.Id.ToString() : "N/A")
+            </h3>
+            <div>
+                <input placeholder="Nombre" @bind="P.Nombre" class="form-control">
+                <input placeholder="Apellido" @bind="P.Apellido" class="form-control">
+                <input placeholder="Dni" @bind="P.DNI" class="form-control">
+                <input placeholder="Telefono" @bind="P.Telefono" class="form-control">
+                <input placeholder="Email" @bind="P.Email" class="form-control">
+                <button class="btn btn-primary" @onclick="Guardar">Confirmar</button>
+                <button class="btn btn-primary" @onclick="Cancelar">Cancelar</button>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    public Persona? P { get; set; }
+
+    private bool _visible = false;
+
+     public EventCallback<Persona> OnConfirmado { get; set; }
+
+    public void Mostrar() {
+        _visible = true;
+        StateHasChanged();
+    }
+
+    void Guardar() {
+        _visible = false;
+        OnConfirmado.InvokeAsync(P);
+    }
+
+    void Cancelar() {
+        _visible = false;
+    }
+}

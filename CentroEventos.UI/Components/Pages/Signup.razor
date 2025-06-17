@@ -36,6 +36,8 @@
                 Contraseña = contraseña
             };
             signup.Ejecutar(usuario);
+            error = "Usuario registrado exitosamente";
+            dialogo.Mostrar();
         }
         catch (Exception ex)
         {
@@ -44,5 +46,5 @@
         }
     }
 
-    void Volver() => NavigationManager.NavigateTo($"/");
+    void Volver() => NavigationManager.NavigateTo($"/login");
 }

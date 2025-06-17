@@ -1,0 +1,73 @@
+@page "/persona/alta"
+@rendermode InteractiveServer
+@inject PersonaAltaUseCase CasoAlta
+@inject NavigationManager Navigation
+@inject IServicioUsuarioSesion Sesion
+<PageTitle>SGCD | Alta de Persona</PageTitle>
+
+<h3>Agregar Persona</h3>
+
+<form>
+    <label for="dni">DNI:</label>
+    <input class="form-control" id="dni" placeholder="DNI" @bind="DNI"><br>
+
+    <label for="nombre">Nombre:</label>
+    <input class="form-control" id="nombre" placeholder="Nombre" @bind="Nombre"><br>
+
+    <label for="apellido">Apellido:</label>
+    <input class="form-control" id="apellido" placeholder="Apellido" @bind="Apellido"><br>
+
+    <label for="email">Email:</label>
+    <input class="form-control" id="email" type="email" placeholder="Email" @bind="Email"><br>
+
+    <label for="telefono">Teléfono:</label>
+    <input class="form-control" id="telefono" placeholder="Teléfono" @bind="Telefono"><br>
+</form>
+
+<DialogoConfirmacion @ref=dialogo Mensaje=@error />
+<br>
+<button class="btn btn-primary" @onclick="Agregar">Aceptar</button><br>
+<button class="btn btn-secondary mt-2" @onclick="Volver">Volver al menú</button>
+
+@code {
+    string DNI = "";
+    string Nombre = "";
+    string Apellido = "";
+    string Email = "";
+    string Telefono = "";
+
+    string error = "";
+    DialogoConfirmacion dialogo = null!;
+
+    void Agregar()
+    {
+        try
+        {
+            Persona persona = new Persona
+            {
+                DNI = DNI,
+                Nombre = Nombre,
+                Apellido = Apellido,
+                Email = Email,
+                Telefono = Telefono
+            };
+            if (Sesion.UsuarioActual != null) {
+                CasoAlta.Ejecutar(persona, Sesion.UsuarioActual.Id);
+                error = "Persona registrada correctamente";
+                dialogo.Mostrar();
+            } else {
+                error = "Debes iniciar sesión";
+                dialogo.Mostrar();
+                Navigation.NavigateTo("/login");
+            }
+            
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+            dialogo.Mostrar();
+        }
+    }
+
+    void Volver() => Navigation.NavigateTo("/home");
+}
