@@ -1,0 +1,72 @@
+@page "/usuario/alta"
+@rendermode InteractiveServer
+@inject UsuarioAltaUseCase AltaUsuario
+@inject NavigationManager Navigation
+@inject IServicioUsuarioSesion Sesion
+
+<h3>Alta de Usuario</h3>
+
+<div class="card p-4 mt-4" style="max-width: 500px;">
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input id="nombre" class="form-control" @bind="Nombre" />
+    </div>
+    <div class="mb-3">
+        <label for="apellido" class="form-label">Apellido</label>
+        <input id="apellido" class="form-control" @bind="Apellido" />
+    </div>
+    <div class="mb-3">
+        <label for="correo" class="form-label">Correo electrónico</label>
+        <input id="correo" class="form-control" type="email" @bind="CorreoElectronico" />
+    </div>
+    <div class="mb-3">
+        <label for="contraseña" class="form-label">Contraseña</label>
+        <input id="contraseña" class="form-control" type="password" @bind="Contraseña" />
+    </div>
+    <button class="btn btn-primary" @onclick="Agregar">Aceptar</button>
+    <button class="btn btn-secondary ms-2" @onclick="Volver">Volver al menú</button>
+</div>
+
+<DialogoConfirmacion @ref="dialogo" Mensaje="@error" />
+
+@code {
+    string Nombre = "";
+    string Apellido = "";
+    string CorreoElectronico = "";
+    string Contraseña = "";
+    string error = "";
+    DialogoConfirmacion dialogo = null!;
+
+    void Agregar()
+    {
+        try
+        {
+            var usuario = new Usuario
+            {
+                Nombre = Nombre,
+                Apellido = Apellido,
+                CorreoElectronico = CorreoElectronico,
+                Contraseña = Contraseña
+            };
+            if (Sesion.UsuarioActual != null) {
+                AltaUsuario.Ejecutar(usuario, Sesion.UsuarioActual.Id);
+                error = "Usuario registrado correctamente";
+                dialogo.Mostrar();
+            } else {
+                error = "Debes iniciar sesión";
+                dialogo.Mostrar();
+                Navigation.NavigateTo("/login");
+            }
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+            dialogo.Mostrar();
+        }
+    }
+
+    void Volver()
+    {
+        Navigation.NavigateTo("/");
+    }
+}

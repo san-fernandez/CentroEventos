@@ -1,0 +1,93 @@
+@page "/usuario/baja"
+@rendermode InteractiveServer
+@inject UsuarioBajaUseCase BajaUsuario
+@inject UsuarioConsultaUseCase ConsultaUsuario
+@inject NavigationManager Navigation
+@inject IServicioUsuarioSesion Sesion
+
+<h3>Baja de Usuario</h3>
+
+<div class="card p-4 mt-4" style="max-width: 500px;">
+    <div class="mb-3">
+        <label for="idUsuario" class="form-label">ID de Usuario</label>
+        <input id="idUsuario" class="form-control" type="number" @bind="idUsuario" />
+        <button class="btn btn-primary mt-2" @onclick="Buscar">Buscar</button>
+    </div>
+
+    @if (usuario != null && visible)
+    {
+        <table class="table">
+            <tr><th>Nombre</th><td>@usuario.Nombre</td></tr>
+            <tr><th>Apellido</th><td>@usuario.Apellido</td></tr>
+            <tr><th>Correo</th><td>@usuario.CorreoElectronico</td></tr>
+        </table>
+        <button class="btn btn-danger mt-2" @onclick="Eliminar">Eliminar</button>
+    }
+</div>
+
+<button class="btn btn-secondary mt-2" @onclick="Volver">Volver al menú</button>
+<DialogoConfirmacion @ref="dialogo" Mensaje="@error" />
+
+@code {
+    int idUsuario;
+    Usuario? usuario = null;
+    string error = "";
+    bool visible = false;
+    DialogoConfirmacion dialogo = null!;
+
+    void Buscar()
+    {
+        try
+        {
+            usuario = ConsultaUsuario.Ejecutar(idUsuario);
+            visible = usuario != null;
+            if (!visible)
+            {
+                error = "No se encontró un usuario con ese ID.";
+                dialogo.Mostrar();
+            }
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+            dialogo.Mostrar();
+        }
+    }
+
+    void Eliminar()
+    {
+        try
+        {
+            if (Sesion.UsuarioActual == null)
+            {
+                error = "Debes iniciar sesión";
+                dialogo.Mostrar();
+                Navigation.NavigateTo("/login");
+                return;
+            }
+
+            if (usuario == null)
+            {
+                error = "No hay usuario seleccionado para eliminar.";
+                dialogo.Mostrar();
+                return;
+            }
+
+            BajaUsuario.Ejecutar(usuario.Id, Sesion.UsuarioActual.Id);
+            usuario = null;
+            visible = false;
+            error = "Usuario borrado correctamente";
+            dialogo.Mostrar();
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+            dialogo.Mostrar();
+        }
+    }
+
+    void Volver()
+    {
+        Navigation.NavigateTo("/");
+    }
+}

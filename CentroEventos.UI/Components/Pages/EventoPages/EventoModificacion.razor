@@ -1,0 +1,142 @@
+@page "/evento/modificar"
+@rendermode InteractiveServer
+@inject EventoDeportivoModificacionUseCase CasoModificacion
+@inject EventoDeportivoConsultaUseCase EventoConsulta
+@inject ListarPersonasUseCase ListarPersonas
+@inject NavigationManager Navigation
+@inject IServicioUsuarioSesion Sesion
+
+<PageTitle>SGCD | Eventos</PageTitle>
+
+<h3>Modificar Evento Deportivo</h3>
+
+@if (!visible)
+{
+    <label class="mt-2" for="inp">ID a modificar:</label>
+    <InputNumber @bind-Value="idEvento" class="form-control" id="inp" />
+    <button class="btn btn-primary mt-2" @onclick="Buscar">Buscar</button>
+}
+else
+{
+    @if (e != null)
+    {
+        <EditForm Model="e" OnValidSubmit="Modificar">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-group mt-2">
+                <label>Nombre</label>
+                <InputText class="form-control" @bind-Value="e.Nombre" />
+            </div>
+
+            <div class="form-group mt-2">
+                <label>Descripcion</label>
+                <InputText class="form-control" @bind-Value="e.Descripcion" />
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="fechainicio">Fecha inicio:</label>
+                <input class="form-control" id="fechainicio" type="datetime-local" @bind-value="e.FechaHoraInicio" />
+            </div>
+
+            <div class="form-group mt-2">
+                <label>Duración (horas)</label>
+                <InputNumber class="form-control" @bind-Value="e.DuracionHoras" />
+            </div>
+            
+            <div class="form-group mt-2">
+                <label>Cupo maximo</label>
+                <InputNumber class="form-control" @bind-Value="e.CupoMaximo" />
+            </div>
+
+            <div class="form-group mt-2">
+                <label for="responsable">Responsable:</label>
+                <select class="form-select" id="responsable" @bind="ResponsableId">
+                <option value="">Seleccione un responsable</option>
+                @foreach (var persona in PersonasDisponibles)
+                {
+                    <option value="@persona.Id">@persona.Nombre @persona.Apellido (@persona.DNI)</option>
+                }
+                </select>
+            </div>
+
+            <button class="btn btn-success mt-3" type="submit">Guardar cambios</button>
+        </EditForm>
+    }
+}
+<br>
+<button class="btn btn-secondary mt-2" @onclick="Volver">Volver al menú</button>
+<br>
+<DialogoConfirmacion @ref=dialogo Mensaje=@mensaje />
+
+@code {
+    EventoDeportivo? e = null;
+    int idEvento;
+    List<Persona> PersonasDisponibles = new();
+    int ResponsableId;
+    string mensaje = "";
+    bool visible = false;
+    DialogoConfirmacion dialogo = null!;
+
+    void Buscar()
+    {
+        try
+        {
+            e = EventoConsulta.Ejecutar(idEvento);
+
+            if (e != null)
+            {
+                visible = true;
+                mensaje = "";
+            }
+            else
+            {
+                mensaje = $"No se encontró un Evento deportivo con ID {idEvento}";
+                visible = false;
+                dialogo.Mostrar();
+            }
+        }
+        catch (Exception ex)
+        {
+            mensaje = ex.Message;
+            visible = false;
+            dialogo.Mostrar();
+        }
+    }
+
+    void Modificar()
+    {
+        try
+        {
+            if (Sesion.UsuarioActual == null)
+            {
+                mensaje = "Debes iniciar sesión";
+                dialogo.Mostrar();
+                Navigation.NavigateTo("/login");
+                return;
+            }
+
+            if (e == null)
+            {
+                mensaje = "No hay evento seleccionado para modificar.";
+                dialogo.Mostrar();
+                return;
+            }
+
+            CasoModificacion.Ejecutar(e, Sesion.UsuarioActual.Id);
+            mensaje = "Evento modificado correctamente.";
+            dialogo.Mostrar();
+        }
+        catch (Exception ex)
+        {
+            mensaje = ex.Message;
+            dialogo.Mostrar();
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        PersonasDisponibles = ListarPersonas.Ejecutar();
+    }
+    void Volver() => Navigation.NavigateTo("/home");
+}

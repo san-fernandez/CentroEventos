@@ -38,6 +38,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9FcnJvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/EventoPages/EventoAlta.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9FdmVudG9QYWdlcy9FdmVudG9BbHRhLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/EventoPages/EventoBaja.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9FdmVudG9QYWdlcy9FdmVudG9CYWphLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/EventoPages/EventoModificacion.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9FdmVudG9QYWdlcy9FdmVudG9Nb2RpZmljYWNpb24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Ib21lLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -64,6 +76,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/Signup.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9TaWdudXAucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/UsuarioPages/UsuarioAlta.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Vc3VhcmlvUGFnZXMvVXN1YXJpb0FsdGEucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/UsuarioPages/UsuarioBaja.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Vc3VhcmlvUGFnZXMvVXN1YXJpb0JhamEucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/UsuarioPages/UsuarioModificacion.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Vc3VhcmlvUGFnZXMvVXN1YXJpb01vZGlmaWNhY2lvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Routes.razor]

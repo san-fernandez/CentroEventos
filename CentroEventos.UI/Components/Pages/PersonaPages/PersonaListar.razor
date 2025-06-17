@@ -84,7 +84,7 @@
     {
         if (personaAEliminar != null)
         {
-            if (Sesion.UsuarioActual != null)
+            if (Sesion.UsuarioActual != null) {
                 RemPer.Ejecutar(personaAEliminar.Id, Sesion.UsuarioActual.Id);
                 _lista.Remove(personaAEliminar);
                 personaAEliminar = null;
@@ -94,7 +94,6 @@
                 dialogo.Mostrar();
                 Navigation.NavigateTo("/login");
             }
-            
-        }
+        }    
     }
 }

@@ -1,0 +1,119 @@
+@page "/usuario/modificar"
+@rendermode InteractiveServer
+@inject UsuarioModificacionUseCase CasoModificacion
+@inject UsuarioConsultaUseCase UsuarioConsulta
+@inject NavigationManager Navigation
+@inject IServicioUsuarioSesion Sesion
+
+<PageTitle>SGCD | Usuarios</PageTitle>
+
+<h3>Modificar Usuario</h3>
+
+@if (!visible)
+{
+    <label class="mt-2" for="inp">ID a modificar:</label>
+    <InputNumber @bind-Value="idUsuario" class="form-control" id="inp" />
+    <button class="btn btn-primary mt-2" @onclick="Buscar">Buscar</button>
+}
+else
+{
+    @if (u != null)
+    {
+        <EditForm Model="u" OnValidSubmit="Modificar">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-group mt-2">
+                <label>Nombre</label>
+                <InputText class="form-control" @bind-Value="u.Nombre" />
+            </div>
+
+            <div class="form-group mt-2">
+                <label>Apellido</label>
+                <InputText class="form-control" @bind-Value="u.Apellido" />
+            </div>
+
+            <div class="form-group mt-2">
+                <label>Correo electrónico</label>
+                <InputText class="form-control" @bind-Value="u.CorreoElectronico" />
+            </div>
+
+            <div class="form-group mt-2">
+                <label>Contraseña</label>
+                <InputText class="form-control" type="password" @bind-Value="u.Contraseña" />
+            </div>
+
+            <button class="btn btn-success mt-3" type="submit">Guardar cambios</button>
+        </EditForm>
+    }
+}
+<br>
+<button class="btn btn-secondary mt-2" @onclick="Volver">Volver al menú</button>
+<br>
+<DialogoConfirmacion @ref=dialogo Mensaje=@mensaje />
+
+@code {
+    Usuario? u = null;
+    int idUsuario;
+    string mensaje = "";
+    bool visible = false;
+    DialogoConfirmacion dialogo = null!;
+
+    void Buscar()
+    {
+        try
+        {
+            u = UsuarioConsulta.Ejecutar(idUsuario);
+
+            if (u != null)
+            {
+                visible = true;
+                mensaje = "";
+            }
+            else
+            {
+                mensaje = $"No se encontró un usuario con ID {idUsuario}";
+                visible = false;
+                dialogo.Mostrar();
+            }
+        }
+        catch (Exception ex)
+        {
+            mensaje = ex.Message;
+            visible = false;
+            dialogo.Mostrar();
+        }
+    }
+
+    void Modificar()
+    {
+        try
+        {
+            if (Sesion.UsuarioActual == null)
+            {
+                mensaje = "Debes iniciar sesión";
+                dialogo.Mostrar();
+                Navigation.NavigateTo("/login");
+                return;
+            }
+
+            if (u == null)
+            {
+                mensaje = "No hay usuario seleccionado para modificar.";
+                dialogo.Mostrar();
+                return;
+            }
+
+            CasoModificacion.Ejecutar(u, Sesion.UsuarioActual.Id);
+            mensaje = "Usuario modificado correctamente.";
+            dialogo.Mostrar();
+        }
+        catch (Exception ex)
+        {
+            mensaje = ex.Message;
+            dialogo.Mostrar();
+        }
+    }
+
+    void Volver() => Navigation.NavigateTo("/home");
+}

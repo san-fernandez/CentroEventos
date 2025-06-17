@@ -1,0 +1,120 @@
+@page "/evento/eliminar"
+@rendermode InteractiveServer
+@inject EventoDeportivoBajaUseCase CasoBaja
+@inject EventoDeportivoConsultaUseCase EventoConsulta
+@inject NavigationManager Navigation
+@inject IServicioUsuarioSesion Sesion
+
+<PageTitle>SGCD | Eventos</PageTitle>
+
+<h3>Eliminar Evento Deportivo</h3>
+
+@if (!visible)
+{
+    <label class="mt-2" for="inp">ID a eliminar:</label>
+    <InputNumber @bind-Value="idEvento" class="form-control" id="inp" />
+    <button class="btn btn-primary mt-2" @onclick="Buscar">Buscar</button>
+}
+else
+{
+    @if (e != null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Fecha Inicio</th>
+                    <th>Duracion</th>
+                    <th>Cupo Maximo</th>
+                    <th>ID del Responsable</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@e.Id</td>
+                    <td>@e.Nombre</td>
+                    <td>@e.Descripcion</td>
+                    <td>@e.FechaHoraInicio</td>
+                    <td>@e.DuracionHoras</td>
+                    <td>@e.CupoMaximo</td>
+                     <td>@e.ResponsableId</td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-danger mt-2" @onclick="Eliminar">Eliminar</button>
+    }
+}
+<br>
+<button class="btn btn-secondary mt-2" @onclick="Volver">Volver al menú</button>
+<br>
+<DialogoConfirmacion @ref=dialogo Mensaje=@error />
+
+@code {
+    EventoDeportivo? e = null;
+    int idEvento;
+    string error = "";
+    bool visible = false;
+    DialogoConfirmacion dialogo = null!;
+
+    void Buscar()
+    {
+        try
+        {
+            e = EventoConsulta.Ejecutar(idEvento);
+
+            if (e != null)
+            {
+                visible = true;
+                error = "";
+            }
+            else
+            {
+                error = $"No se encontró un Evento deportico con ID {idEvento}";
+                visible = false;
+                dialogo.Mostrar();
+            }
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+            visible = false;
+            dialogo.Mostrar();
+        }
+    }
+
+    void Eliminar()
+    {
+        try
+        {
+            if (Sesion.UsuarioActual == null)
+            {
+                error = "Debes iniciar sesión";
+                dialogo.Mostrar();
+                Navigation.NavigateTo("/login");
+                return;
+            }
+
+            if (e == null)
+            {
+                error = "No hay evento seleccionado para eliminar.";
+                dialogo.Mostrar();
+                return;
+            }
+
+            CasoBaja.Ejecutar(e.Id, Sesion.UsuarioActual.Id);
+            e = null;
+            visible = false;
+            error = "Evento Deportivo borrado correctamente";
+            dialogo.Mostrar();
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+            dialogo.Mostrar();
+        }
+    }
+
+    void Volver() => Navigation.NavigateTo("/home");
+}

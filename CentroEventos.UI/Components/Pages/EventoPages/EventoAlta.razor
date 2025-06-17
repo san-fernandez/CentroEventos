@@ -1,0 +1,91 @@
+@page "/evento/alta"
+@rendermode InteractiveServer
+@inject EventoDeportivoAltaUseCase CasoAlta
+@inject ListarPersonasUseCase ListarPersonas
+@inject NavigationManager Navigation
+@inject IRepositorioEventoDeportivo repositorioEvento
+@inject IServicioUsuarioSesion Sesion
+<PageTitle>SGCD | Alta de Evento Deportivo</PageTitle>
+
+<h3>Agregar Evento</h3>
+
+<form>
+    <label for="nombre">Nombre:</label>
+    <input class="form-control" id="nombre" placeholder="Nombre" @bind="Nombre"><br>
+
+    <label for="apellido">Descripcion:</label>
+    <input class="form-control" id="descripcion" placeholder="Descripcion" @bind="Descripcion"><br>
+
+    <label for="fechainicio">Fecha inicio:</label>
+    <input class="form-control" id="fechainicio" type="datetime-local" @bind="FechaHorainicio" /><br>
+
+    <label for="fecha inicio">DuracionHoras:</label>
+    <input class="form-control" id="duracion" placeholder="Duracion (horas)" @bind="DuracionHoras"><br>
+
+    <label for="cupo">Cupo Maximo:</label>
+    <input class="form-control" id="cupo" placeholder="Cupo Maximo" @bind="CupoMaximo"><br>
+
+    <label for="responsable">Responsable:</label>
+    <select class="form-select" id="responsable" @bind="ResponsableId">
+        <option value="">Seleccione un responsable</option>
+        @foreach (var persona in PersonasDisponibles)
+        {
+            <option value="@persona.Id">@persona.Nombre @persona.Apellido (@persona.DNI)</option>
+        }
+    </select>
+</form>
+
+<DialogoConfirmacion @ref=dialogo Mensaje=@error />
+<br>
+<button class="btn btn-primary" @onclick="Agregar">Aceptar</button><br>
+<button class="btn btn-secondary mt-2" @onclick="Volver">Volver al menú</button>
+
+@code {
+    string Descripcion = "";
+    string Nombre = "";
+    DateTime FechaHorainicio = DateTime.Now;
+    double DuracionHoras;
+    int CupoMaximo;
+    List<Persona> PersonasDisponibles = new();
+    int ResponsableId;
+    string error = "";
+    DialogoConfirmacion dialogo = null!;
+
+    void Agregar()
+    {
+        try
+        {
+            EventoDeportivo evento = new EventoDeportivo
+            {
+                Nombre = Nombre,
+                Descripcion = Descripcion,
+                FechaHoraInicio = FechaHorainicio,
+                DuracionHoras = DuracionHoras,
+                CupoMaximo = CupoMaximo,
+                ResponsableId = ResponsableId,
+            };
+            if (Sesion.UsuarioActual != null) {
+                CasoAlta.Ejecutar(evento, Sesion.UsuarioActual.Id);
+                error = "Evento Deportivo registrado correctamente";
+                dialogo.Mostrar();
+            } else {
+                error = "Debes iniciar sesión";
+                dialogo.Mostrar();
+                Navigation.NavigateTo("/login");
+            }
+            
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+            dialogo.Mostrar();
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        PersonasDisponibles = ListarPersonas.Ejecutar();
+        FechaHorainicio = DateTime.Now;
+    }
+    void Volver() => Navigation.NavigateTo("/home");
+}
