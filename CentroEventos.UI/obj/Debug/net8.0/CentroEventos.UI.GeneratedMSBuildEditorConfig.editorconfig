@@ -30,6 +30,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9Gb3JtTW9kRXZlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/FormModRes.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9Gb3JtTW9kUmVzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/FormModUsu.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9Gb3JtTW9kVXN1LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -100,6 +104,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/ReservaPages.razor/ReservaBaja.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9SZXNlcnZhUGFnZXMucmF6b3IvUmVzZXJ2YUJhamEucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/ReservaPages.razor/ReservaListar.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9SZXNlcnZhUGFnZXMucmF6b3IvUmVzZXJ2YUxpc3Rhci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/santi/Desktop/CentroEventos/CentroEventos.UI/Components/Pages/ReservaPages.razor/ReservaModificacion.razor]

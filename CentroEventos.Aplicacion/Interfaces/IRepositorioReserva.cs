@@ -11,6 +11,6 @@ public interface IRepositorioReserva {
     List<Reserva> ListarPresenteId(int IdEventoDeportivo);
     int ContarReservas(int Id);
     bool PersonaReserva(int IdPersona);
-    bool PersonaReservaEvento(int IdPersona, int IdEventoDeportivo);
+    bool PersonaReservaEvento(int IdPersona, int IdEventoDeportivo, int? idAExcluir = null);
     bool EventoDeportivoReserva(int IdEventoDeportivo);
 }

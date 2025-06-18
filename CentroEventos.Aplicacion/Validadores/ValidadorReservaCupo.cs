@@ -3,14 +3,21 @@ using CentroEventos.Aplicacion.Entidades;
 using CentroEventos.Aplicacion.Excepciones;
 using CentroEventos.Aplicacion.Interfaces;
 
-public class ValidadorReservaCupo {
-    public bool Validar(Reserva reserva, IRepositorioReserva repositorioReserva, IRepositorioEventoDeportivo repositorioEventoDeportivo, out string mensajeError) {
+public class ValidadorReservaCupo
+{
+    public bool Validar(Reserva reserva, IRepositorioReserva repositorioReserva, IRepositorioEventoDeportivo repositorioEventoDeportivo, out string mensajeError, bool excluirReserva = false)
+    {
         mensajeError = "";
-        if (repositorioReserva.ContarReservas(reserva.EventoDeportivoId) == repositorioEventoDeportivo.ObtenerCupoMaximo(reserva.EventoDeportivoId)) { 
+        int reservas = repositorioReserva.ContarReservas(reserva.EventoDeportivoId);
+        int cupoMaximo = repositorioEventoDeportivo.ObtenerCupoMaximo(reserva.EventoDeportivoId);
+        if (excluirReserva) reservas -= 1;
+        if (reservas == cupoMaximo)
+        {
             mensajeError += "No hay cupos disponibles";
         }
-        if (string.IsNullOrWhiteSpace(mensajeError)){
-          return true;
+        if (string.IsNullOrWhiteSpace(mensajeError))
+        {
+            return true;
         }
         return false;
     }

@@ -14,14 +14,15 @@ public class ReservaModificacionUseCase(IRepositorioReserva repositorioReserva, 
         if (!validadorReservaExiste.Validar(reserva, repositorioEvento, repositorioPersona, out string mensajeErrorEntidadNoEncontrada)) {
             throw new EntidadNotFoundException(mensajeErrorEntidadNoEncontrada);
         }
-        if (!validadorReservaCupo.Validar(reserva, repositorioReserva, repositorioEvento, out string mensajeErrorCupoExcedido)) {
+        if (!validadorReservaCupo.Validar(reserva, repositorioReserva, repositorioEvento, out string mensajeErrorCupoExcedido, true)) {
             throw new CupoExcedidoException(mensajeErrorCupoExcedido);
         }
-        if (!validadorReservaDuplicado.Validar(reserva, repositorioReserva, out string mensajeErrorPersonaDuplicada)) {
+        if (!validadorReservaDuplicado.Validar(reserva, repositorioReserva, out string mensajeErrorPersonaDuplicada))
+        {
             throw new DuplicadoException(mensajeErrorPersonaDuplicada);
         }
         var evento = repositorioEvento.ObtenerPorId(reserva.Id);
-        if (evento != null && evento.FechaHoraInicio <= DateTime.Now) {
+        if (evento != null && evento.FechaHoraInicio.AddHours(evento.DuracionHoras) <= DateTime.Now) {
             throw new OperacionInvalidaException("No se puede modificar una reserva de un evento ya ocurrido");
         }
         bool modificada = repositorioReserva.Modificar(reserva);

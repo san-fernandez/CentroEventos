@@ -96,11 +96,11 @@ public class RepositorioReserva : IRepositorioReserva
         }
     }
 
-    public bool PersonaReservaEvento(int IdPersona, int IdEventoDeportivo)
+    public bool PersonaReservaEvento(int IdPersona, int IdEventoDeportivo, int? idAExcluir)
     {
         using (var context = new CentroDeportivoContext())
         {
-            return context.Set<Reserva>().Any(r => r.PersonaId == IdPersona && r.EventoDeportivoId == IdEventoDeportivo);
+            return context.Set<Reserva>().Any(r => r.PersonaId == IdPersona && (!idAExcluir.HasValue || r.PersonaId != idAExcluir) && r.EventoDeportivoId == IdEventoDeportivo);
         }
     }
 

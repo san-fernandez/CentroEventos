@@ -44,6 +44,15 @@ else
                     }
                 </select>
             </div>
+            <div class="form-group mt-2">
+                <label for="estado">Estado de la reserva:</label>
+                <select class="form-select" id="estado" @bind="r.EstadoAsistencia">
+                @foreach (var estado in Enum.GetValues(typeof(Estado)).Cast<Estado>())
+                {
+                    <option value="@estado">@estado</option>
+                }
+                </select>
+            </div>
             <button class="btn btn-success mt-3" type="submit">Guardar cambios</button>
         </EditForm>
     }

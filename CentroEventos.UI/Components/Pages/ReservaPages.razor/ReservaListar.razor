@@ -1,0 +1,135 @@
+@page "/reserva/listar/"
+@rendermode InteractiveServer
+@using CentroEventos.UI.Components
+@inject ListarReservasUseCase ListRes
+@inject ReservaBajaUseCase BajRes
+@inject ReservaModificacionUseCase ModRes
+@inject NavigationManager Navigation
+@inject IServicioUsuarioSesion Sesion
+@inject IJSRuntime JSRuntime
+
+<FormModRes @ref="form" />
+<DialogoConfirmacion @ref="dialogo" Mensaje="@MensajeDialogo" MostrarEliminar="@MostrarEliminar" OnEliminar="ConfirmarEliminar" />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>PersonaID</th>
+            <th>EventoDeportivoID</th>
+            <th>Fecha Reserva</th>
+            <th>Estado Asistencia</th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in _lista)
+        {
+            <tr>
+                <td>@r.Id</td>
+                <td>@r.PersonaId</td>
+                <td>@r.EventoDeportivoId</td>
+                <td>@r.FechaAltaReserva</td>
+                <td>@r.EstadoAsistencia</td>
+                <td>
+                    <button class="btn btn-warning btn-sm me-1" @onclick="() => Modificar(r)">Editar</button>
+                    <button class="btn btn-danger btn-sm" @onclick="() => MostrarDialogoEliminar(r)">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-secondary mt-2" @onclick="Volver">Volver al menú</button>
+
+@code {
+    List<Reserva> _lista = new();
+    DialogoConfirmacion dialogo = null!;
+    FormModRes form = null!;
+    Reserva? reservaAEliminar;
+    string MensajeDialogo = "";
+    bool MostrarEliminar = false;
+
+    protected override void OnInitialized()
+    {
+        _lista = ListRes.Ejecutar();
+    }
+
+    public void Modificar(Reserva r)
+    {
+        form.OnConfirmado = EventCallback.Factory.Create<Reserva>(this, GuardarCambios);
+        form.R = r;
+        form.Mostrar();
+    }
+
+    public void GuardarCambios(Reserva r)
+    {
+        if (Sesion.UsuarioActual != null)
+        {
+            try
+            {
+                ModRes.Ejecutar(r, Sesion.UsuarioActual.Id);
+                var index = _lista.FindIndex(x => x.Id == r.Id);
+                if (index != -1)
+                {
+                    _lista[index] = r;
+                }
+
+                StateHasChanged();
+            }
+            catch (Exception ex)
+            {
+                MensajeDialogo = ex.Message;
+                MostrarEliminar = false;
+                dialogo.Mostrar();
+            }
+        }
+        else
+        {
+            MensajeDialogo = "Debes iniciar sesión";
+            MostrarEliminar = false;
+            dialogo.Mostrar();
+            Navigation.NavigateTo("/");
+        }
+    }
+
+
+    public void MostrarDialogoEliminar(Reserva r)
+    {
+        reservaAEliminar = r;
+        MensajeDialogo = $"¿Seguro que desea eliminar la reserva {r.Id} de evento deportivo{r.EventoDeportivoId}?";
+        MostrarEliminar = true;
+        dialogo.Mostrar();
+    }
+
+    public void ConfirmarEliminar()
+    {
+        if (reservaAEliminar != null)
+        {
+            if (Sesion.UsuarioActual != null)
+            {
+                try {
+                    BajRes.Ejecutar(reservaAEliminar.Id, Sesion.UsuarioActual.Id);
+                    _lista.Remove(reservaAEliminar);
+                    reservaAEliminar = null;
+                    StateHasChanged();
+                }
+                catch (Exception ex) {
+                    MensajeDialogo = ex.Message;
+                    MostrarEliminar = false;
+                    dialogo.Mostrar();
+                }
+            }
+            else
+            {
+                MensajeDialogo = "Debes iniciar sesión";
+                MostrarEliminar = false;
+                dialogo.Mostrar();
+                Navigation.NavigateTo("/");
+            }
+        }
+    }
+
+    void Volver() => Navigation.NavigateTo("/home");
+}
