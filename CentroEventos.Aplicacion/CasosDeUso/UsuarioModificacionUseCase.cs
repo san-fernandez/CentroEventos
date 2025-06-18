@@ -2,10 +2,9 @@ using CentroEventos.Aplicacion.Validadores;
 using CentroEventos.Aplicacion.Interfaces;
 using CentroEventos.Aplicacion.Excepciones;
 using CentroEventos.Aplicacion.Entidades;
-using CentroEventos.Aplicacion.Utilidades;
 
 namespace CentroEventos.Aplicacion.CasosDeUso;
-public class UsuarioModificacionUseCase(IRepositorioUsuario repositorio, IServicioAutorizacion servicioAutorizacion, ValidadorUsuario validador, ValidadorUsuarioDuplicado validadorUsuarioDuplicado)
+public class UsuarioModificacionUseCase(IRepositorioUsuario repositorio, IServicioAutorizacion servicioAutorizacion, IServicioHashHelper hashHelper, ValidadorUsuario validador, ValidadorUsuarioDuplicado validadorUsuarioDuplicado)
 {
     public void Ejecutar(Usuario usuario, int usuarioId)
     {
@@ -27,7 +26,7 @@ public class UsuarioModificacionUseCase(IRepositorioUsuario repositorio, IServic
 
         if (usuario.Contraseña != usuarioOriginal.Contraseña)
         {
-            usuario.Contraseña = HashHelper.CalcularSha256(usuario.Contraseña);
+            usuario.Contraseña = hashHelper.CalcularSha256(usuario.Contraseña);
         }
 
         if (!validadorUsuarioDuplicado.Validar(usuario, repositorio, out string mensajeErrorDuplicado))

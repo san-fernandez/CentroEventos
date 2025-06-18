@@ -1,11 +1,12 @@
 using System.Security.Cryptography;
 using System.Text;
+using CentroEventos.Aplicacion.Interfaces;
 
-namespace CentroEventos.Aplicacion.Utilidades;
+namespace CentroEventos.Aplicacion.Servicios;
 
-public static class HashHelper
+public class ServicioHashHelper : IServicioHashHelper
 {
-    public static string CalcularSha256(string texto)
+    public string CalcularSha256(string texto)
     {
         using (var sha256 = SHA256.Create())
         {

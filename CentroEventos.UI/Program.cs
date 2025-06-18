@@ -65,7 +65,8 @@ builder.Services
 
     // Servicios
     .AddScoped<IServicioAutorizacion, ServicioAutorizacion>()
-    .AddScoped<IServicioUsuarioSesion, ServicioUsuarioSesion>();
+    .AddScoped<IServicioUsuarioSesion, ServicioUsuarioSesion>()
+    .AddScoped<IServicioHashHelper, ServicioHashHelper>();
 
 var app = builder.Build();
 
