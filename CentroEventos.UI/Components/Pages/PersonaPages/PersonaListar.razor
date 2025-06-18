@@ -9,7 +9,7 @@
 @inject IJSRuntime JSRuntime
 
 <FormMod @ref="form" />
-<DialogoConfirmacion @ref="dialogo" Mensaje="@MensajeDialogo" MostrarEliminar="true" OnEliminar="ConfirmarEliminar" />
+<DialogoConfirmacion @ref="dialogo" Mensaje="@MensajeDialogo" MostrarEliminar="@MostrarEliminar" OnEliminar="ConfirmarEliminar" />
 
 <table class="table">
     <thead>
@@ -34,21 +34,24 @@
                 <td>@p.Telefono</td>
                 <td>@p.Email</td>
                 <td>
-                    <button class="btn btn-mod" @onclick="() => Modificar(p)">Editar</button>
-                    <button class="btn btn-baja" @onclick="() => MostrarDialogoEliminar(p)">Eliminar</button>
+                    <button class="btn btn-warning btn-sm me-1" @onclick="() => Modificar(p)">Editar</button>
+                    <button class="btn btn-danger btn-sm" @onclick="() => MostrarDialogoEliminar(p)">Eliminar</button>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
 <button class="btn btn-secondary mt-2" @onclick="Volver">Volver al menú</button>
 
 @code {
-    List<Persona> _lista = new List<Persona>();
+    List<Persona> _lista = new();
     DialogoConfirmacion dialogo = null!;
-    private FormMod form = null!;
-    private Persona? personaAEliminar;
+    FormMod form = null!;
+    Persona? personaAEliminar;
     string MensajeDialogo = "";
+    bool MostrarEliminar = false;
+
     protected override void OnInitialized()
     {
         _lista = ListPer.Ejecutar();
@@ -63,21 +66,41 @@
 
     public void GuardarCambios(Persona p)
     {
-        if (Sesion.UsuarioActual != null) {
-            ModPer.Ejecutar(p, Sesion.UsuarioActual.Id);
-            StateHasChanged();
-        } else {
-                MensajeDialogo = "Debes iniciar sesión";
-                dialogo.Mostrar();
-                Navigation.NavigateTo("/login");
+        if (Sesion.UsuarioActual != null)
+        {
+            try
+            {
+                ModPer.Ejecutar(p, Sesion.UsuarioActual.Id);
+                var index = _lista.FindIndex(x => x.Id == p.Id);
+                if (index != -1)
+                {
+                    _lista[index] = p;
+                }
+
+                StateHasChanged();
             }
-            
+            catch (Exception ex)
+            {
+                MensajeDialogo = ex.Message;
+                MostrarEliminar = false;
+                dialogo.Mostrar();
+            }
+        }
+        else
+        {
+            MensajeDialogo = "Debes iniciar sesión";
+            MostrarEliminar = false;
+            dialogo.Mostrar();
+            Navigation.NavigateTo("/");
+        }
     }
+
 
     public void MostrarDialogoEliminar(Persona p)
     {
         personaAEliminar = p;
         MensajeDialogo = $"¿Seguro que desea eliminar a {p.Nombre} {p.Apellido}?";
+        MostrarEliminar = true;
         dialogo.Mostrar();
     }
 
@@ -85,17 +108,29 @@
     {
         if (personaAEliminar != null)
         {
-            if (Sesion.UsuarioActual != null) {
-                RemPer.Ejecutar(personaAEliminar.Id, Sesion.UsuarioActual.Id);
-                _lista.Remove(personaAEliminar);
-                personaAEliminar = null;
-                StateHasChanged();
-            } else {
-                MensajeDialogo = "Debes iniciar sesión";
-                dialogo.Mostrar();
-                Navigation.NavigateTo("/login");
+            if (Sesion.UsuarioActual != null)
+            {
+                try {
+                    RemPer.Ejecutar(personaAEliminar.Id, Sesion.UsuarioActual.Id);
+                    _lista.Remove(personaAEliminar);
+                    personaAEliminar = null;
+                    StateHasChanged();
+                }
+                catch (Exception ex) {
+                    MensajeDialogo = ex.Message;
+                    MostrarEliminar = false;
+                    dialogo.Mostrar();
+                }
             }
-        }    
+            else
+            {
+                MensajeDialogo = "Debes iniciar sesión";
+                MostrarEliminar = false;
+                dialogo.Mostrar();
+                Navigation.NavigateTo("/");
+            }
+        }
     }
+
     void Volver() => Navigation.NavigateTo("/home");
 }

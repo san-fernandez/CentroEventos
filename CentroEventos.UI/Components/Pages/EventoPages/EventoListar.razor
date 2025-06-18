@@ -8,15 +8,16 @@
 @inject IServicioUsuarioSesion Sesion
 @inject IJSRuntime JSRuntime
 
-<FormModEve @ref="form" />
+<FormModEve @ref="form" OnConfirmado="GuardarCambios" Eve="_eventoParaEditar" />
+
 <DialogoConfirmacion @ref="dialogo" Mensaje="@MensajeDialogo" MostrarEliminar="@mostrarBotonEliminar" OnEliminar="ConfirmarEliminar" />
 
-<label>
+<label class="mb-3">
     <input type="checkbox" @bind="mostrarSoloCupos" @bind:after="ActualizarEventosMostrados" />
     Solo Cupos Disponibles
 </label>
 
-<table class="table">
+<table class="table table-striped table-hover">
     <thead>
         <tr>
             <th>ID</th>
@@ -35,29 +36,29 @@
             <tr>
                 <td>@eve.Id</td>
                 <td>@eve.Nombre</td>
-                <td>@eve.FechaHoraInicio</td>
+                <td>@eve.FechaHoraInicio.ToShortDateString() @eve.FechaHoraInicio.ToShortTimeString()</td> @* Formato de fecha y hora *@
                 <td>@eve.DuracionHoras</td>
                 <td>@eve.CupoMaximo</td>
                 <td>@eve.ResponsableId</td>
                 <td>@eve.Descripcion</td>
                 <td>
-                    <button class="btn btn-info" @onclick="() => VerAsistentes(eve)">Ver asistentes</button>
-                    <button class="btn btn-mod" @onclick="() => Modificar(eve)">Editar</button>
-                    <button class="btn btn-baja" @onclick="() => MostrarDialogoEliminar(eve)">Eliminar</button>
+                    <button class="btn btn-info btn-sm me-1" @onclick="() => VerAsistentes(eve)">Ver asistentes</button>
+                    <button class="btn btn-warning btn-sm me-1" @onclick="() => Modificar(eve)">Editar</button>
+                    <button class="btn btn-danger btn-sm" @onclick="() => MostrarDialogoEliminar(eve)">Eliminar</button>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<button class="btn btn-secondary mt-2" @onclick="Volver">Volver al menú</button>
+<button class="btn btn-secondary mt-3" @onclick="Volver">Volver al menú</button>
 
 @code {
     private List<EventoDeportivo> _eventosMostrados = new();
     private DialogoConfirmacion dialogo = null!;
     private FormModEve form = null!;
     private EventoDeportivo? EventoAEliminar;
-
+    private EventoDeportivo? _eventoParaEditar;
     private bool mostrarSoloCupos = false;
     private string MensajeDialogo = "";
     private bool mostrarBotonEliminar = true;
@@ -93,17 +94,25 @@
 
     public void Modificar(EventoDeportivo eve)
     {
-        form.OnConfirmado = EventCallback.Factory.Create<EventoDeportivo>(this, GuardarCambios);
-        form.Eve = eve;
+        _eventoParaEditar = eve;
         form.Mostrar();
     }
 
-    public void GuardarCambios(EventoDeportivo eve)
+    public void GuardarCambios(EventoDeportivo eveEditado)
     {
         if (Sesion.UsuarioActual != null)
         {
-            ModEve.Ejecutar(eve, Sesion.UsuarioActual.Id);
-            ActualizarEventosMostrados();
+            try
+            {
+                ModEve.Ejecutar(eveEditado, Sesion.UsuarioActual.Id);
+                ActualizarEventosMostrados();
+            }
+            catch (Exception ex)
+            {
+                MensajeDialogo = ex.Message;
+                mostrarBotonEliminar = false;
+                dialogo.Mostrar();
+            }
         }
         else
         {
@@ -117,7 +126,7 @@
     public void MostrarDialogoEliminar(EventoDeportivo eve)
     {
         EventoAEliminar = eve;
-        MensajeDialogo = $"¿Seguro que desea eliminar el evento {eve.Id}?";
+        MensajeDialogo = $"¿Seguro que desea eliminar el evento {eve.Id} - '{eve.Nombre}'?";
         mostrarBotonEliminar = true;
         dialogo.Mostrar();
     }
@@ -128,9 +137,18 @@
         {
             if (Sesion.UsuarioActual != null)
             {
-                RemEve.Ejecutar(EventoAEliminar.Id, Sesion.UsuarioActual.Id);
-                EventoAEliminar = null;
-                ActualizarEventosMostrados();
+                try
+                {
+                    RemEve.Ejecutar(EventoAEliminar.Id, Sesion.UsuarioActual.Id);
+                    EventoAEliminar = null;
+                    ActualizarEventosMostrados();
+                }
+                catch (Exception ex)
+                {
+                    MensajeDialogo = ex.Message;
+                    mostrarBotonEliminar = false;
+                    dialogo.Mostrar();
+                }
             }
             else
             {
@@ -141,6 +159,6 @@
             }
         }
     }
-    void Volver() => Navigation.NavigateTo("/home");
 
+    void Volver() => Navigation.NavigateTo("/home");
 }

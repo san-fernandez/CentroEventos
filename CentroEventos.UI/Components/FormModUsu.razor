@@ -1,0 +1,96 @@
+@rendermode InteractiveServer
+
+@if (_visible && _usuarioEditado != null)
+{
+    <div class="modal-backdrop fade show"></div> 
+
+    <div class="modal fade show d-block" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modificar Usuario ID: @_usuarioEditado.Id</h5>
+                    <button type="button" class="btn-close" @onclick="Cancelar" aria-label="Close"></button>
+                </div>
+                <EditForm Model="_usuarioEditado" OnValidSubmit="Guardar">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary class="alert alert-danger" />
+
+                    <div class="modal-body">
+                        <div class="form-group mt-2">
+                            <label for="nombreUsuario">Nombre</label>
+                            <InputText id="nombreUsuario" class="form-control" @bind-Value="_usuarioEditado.Nombre" />
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <label for="apellidoUsuario">Apellido</label>
+                            <InputText id="apellidoUsuario" class="form-control" @bind-Value="_usuarioEditado.Apellido" />
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <label for="emailUsuario">Email</label>
+                            <InputText id="emailUsuario" class="form-control" @bind-Value="_usuarioEditado.CorreoElectronico" />
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <label for="nuevaContrasenia">Nueva Contraseña (dejar vacío para no cambiar)</label>
+                            <InputText id="nuevaContrasenia" type="password" class="form-control" @bind-Value="_nuevaContrasenia" />
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success me-2">Confirmar</button>
+                        <button type="button" class="btn btn-secondary" @onclick="Cancelar">Cancelar</button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public Usuario? U { get; set; }
+
+    private bool _visible = false;
+    private Usuario? _usuarioEditado;
+    private string _nuevaContrasenia = string.Empty;
+
+    [Parameter]
+    public EventCallback<(Usuario usuario, string? nuevaContrasenia)> OnConfirmado { get; set; }
+
+    public void Mostrar()
+    {
+        if (U == null)
+        {
+            Console.WriteLine("Error: El usuario a editar es nulo en FormModUsu. No se puede mostrar el formulario.");
+            return;
+        }
+
+        _usuarioEditado = new Usuario
+        {
+            Id = U.Id,
+            Nombre = U.Nombre,
+            Apellido = U.Apellido,
+            CorreoElectronico = U.CorreoElectronico,
+            Contraseña = U.Contraseña
+        };
+        _nuevaContrasenia = string.Empty;
+
+        _visible = true;
+        StateHasChanged();
+    }
+
+    void Guardar()
+    {
+        _visible = false;
+        if (_usuarioEditado != null)
+        {
+            OnConfirmado.InvokeAsync((_usuarioEditado, string.IsNullOrWhiteSpace(_nuevaContrasenia) ? null : _nuevaContrasenia));
+        }
+    }
+
+    void Cancelar()
+    {
+        _visible = false;
+    }
+}

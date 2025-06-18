@@ -49,34 +49,33 @@
 
     void Agregar()
     {
-        try
+        if (PersonaId == 0 || EventoId == 0)
         {
-            if (PersonaId == 0 || EventoId == 0)
-            {
-                error = "Debe seleccionar una persona y un evento.";
-                dialogo.Mostrar();
-                return;
-            }
+            error = "Debe seleccionar una persona y un evento.";
+            dialogo.Mostrar();
+            return;
+        }
 
-            var reserva = new Reserva
-            {
-                PersonaId = PersonaId,
-                EventoDeportivoId = EventoId,
-            };
+        var reserva = new Reserva
+        {
+            PersonaId = PersonaId,
+            EventoDeportivoId = EventoId,
+        };
 
-            if (Sesion.UsuarioActual != null) {
+        if (Sesion.UsuarioActual != null) {
+            try {
                 AltaReserva.Ejecutar(reserva, Sesion.UsuarioActual.Id);
                 error = "Reserva registrada exitosamente";
                 dialogo.Mostrar();
             }
-        }
-        catch (Exception ex)
-        {
-            error = ex.Message;
-            dialogo.Mostrar();
+            catch (Exception ex)
+            {
+                error = ex.Message;
+                dialogo.Mostrar();
+            }
         }
     }
-
+    
     void Volver()
     {
         Navigation.NavigateTo("/home");

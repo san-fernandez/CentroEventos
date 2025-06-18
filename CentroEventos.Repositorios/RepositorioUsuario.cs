@@ -146,19 +146,19 @@ public class RepositorioUsuario : IRepositorioUsuario
         }
     }
 
-    public bool ExistePorCorreo(string correo)
+    public bool ExistePorCorreo(string correo, int? idAExcluir = null)
     {
         using (var context = new CentroDeportivoContext())
         {
-            return context.Set<Usuario>().Any(u => u.CorreoElectronico == correo);
+            return context.Set<Usuario>().Any(u => u.CorreoElectronico == correo && (!idAExcluir.HasValue || u.Id != idAExcluir));
         }
     }
 
-    public bool ExistePorContraseña(string contraseña)
+    public bool ExistePorContraseña(string contraseña, int? idAExcluir = null)
     {
         using (var context = new CentroDeportivoContext())
         {
-            return context.Set<Usuario>().Any(u => u.Contraseña == contraseña);
+            return context.Set<Usuario>().Any(u => u.Contraseña == contraseña && (!idAExcluir.HasValue || u.Id != idAExcluir));
         }
     }
 }

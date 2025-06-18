@@ -1,37 +1,37 @@
 @rendermode InteractiveServer
-@if (_visible && P != null)
+@if (_visible && _personaEditada != null)
 {
-    <EditForm Model="P" OnValidSubmit="Guardar">
+    <EditForm Model="_personaEditada" OnValidSubmit="Guardar">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
         <h3 class="mt-3">
-            Se va a modificar la Persona ID: @P.Id
+            Se va a modificar la Persona ID: @_personaEditada.Id
         </h3>
 
         <div class="form-group mt-2">
             <label>DNI</label>
-            <InputText class="form-control" @bind-Value="P.DNI" />
+            <InputText class="form-control" @bind-Value="_personaEditada.DNI" />
         </div>
 
         <div class="form-group mt-2">
             <label>Nombre</label>
-            <InputText class="form-control" @bind-Value="P.Nombre" />
+            <InputText class="form-control" @bind-Value="_personaEditada.Nombre" />
         </div>
 
         <div class="form-group mt-2">
             <label>Apellido</label>
-            <InputText class="form-control" @bind-Value="P.Apellido" />
+            <InputText class="form-control" @bind-Value="_personaEditada.Apellido" />
         </div>
 
         <div class="form-group mt-2">
             <label>Teléfono</label>
-            <InputText class="form-control" @bind-Value="P.Telefono" />
+            <InputText class="form-control" @bind-Value="_personaEditada.Telefono" />
         </div>
 
         <div class="form-group mt-2">
             <label>Email</label>
-            <InputText class="form-control" @bind-Value="P.Email" />
+            <InputText class="form-control" @bind-Value="_personaEditada.Email" />
         </div>
 
         <div class="mt-3">
@@ -41,25 +41,40 @@
     </EditForm>
 }
 
-
 @code {
     public Persona? P { get; set; }
 
     private bool _visible = false;
+    private Persona? _personaEditada;
 
-     public EventCallback<Persona> OnConfirmado { get; set; }
+    public EventCallback<Persona> OnConfirmado { get; set; }
 
-    public void Mostrar() {
+    public void Mostrar()
+    {
+        // Crear una copia para edición
+        _personaEditada = new Persona
+        {
+            Id = P!.Id,
+            DNI = P.DNI,
+            Nombre = P.Nombre,
+            Apellido = P.Apellido,
+            Telefono = P.Telefono,
+            Email = P.Email
+        };
+
         _visible = true;
         StateHasChanged();
     }
 
-    void Guardar() {
+    void Guardar()
+    {
         _visible = false;
-        OnConfirmado.InvokeAsync(P);
+        if (_personaEditada != null)
+            OnConfirmado.InvokeAsync(_personaEditada);
     }
 
-    void Cancelar() {
+    void Cancelar()
+    {
         _visible = false;
     }
 }

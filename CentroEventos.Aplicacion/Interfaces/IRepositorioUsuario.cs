@@ -8,8 +8,8 @@ public interface IRepositorioUsuario
     bool Eliminar(int id);
     Usuario? ObtenerPorId(int id);
     Usuario? ObtenerPorCorreo(string correo);
-    bool ExistePorCorreo(string correo);
-    bool ExistePorContraseña(string contraseña);
+    bool ExistePorCorreo(string correo, int? idAExcluir = null);
+    bool ExistePorContraseña(string contraseña, int? idAExcluir = null);
     List<Usuario> ObtenerTodos();
     bool UsuarioTienePermiso(int usuarioId, Permiso permisoBuscado);
     bool OtorgarPermiso(int usuarioId, Permiso permiso);

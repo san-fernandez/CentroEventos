@@ -1,0 +1,144 @@
+@page "/usuario/listar/"
+@rendermode InteractiveServer
+@using CentroEventos.UI.Components
+@inject ListarUsuariosUseCase ListUsu
+@inject UsuarioBajaUseCase RemUsu
+@inject UsuarioModificacionUseCase ModUsu
+@inject NavigationManager Navigation
+@inject IServicioUsuarioSesion Sesion
+@inject IJSRuntime JSRuntime
+
+<FormModUsu @ref="formUsuario" OnConfirmado="@GuardarCambiosUsuario" U="_usuarioParaEditar" />
+<DialogoConfirmacion @ref="dialogo" Mensaje="@MensajeDialogo" MostrarEliminar="@MostrarEliminar" OnEliminar="ConfirmarEliminar" />
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>APELLIDO</th>
+            <th>EMAIL</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var usu in _lista)
+        {
+            <tr>
+                <td>@usu.Id</td>
+                <td>@usu.Nombre</td>
+                <td>@usu.Apellido</td>
+                <td>@usu.CorreoElectronico</td>
+                <td>
+                    <button class="btn btn-warning btn-sm me-1" @onclick="() => Modificar(usu)">Editar</button>
+                    <button class="btn btn-danger btn-sm" @onclick="() => MostrarDialogoEliminar(usu)">Eliminar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-secondary mt-2" @onclick="Volver">Volver al menú</button>
+
+@code {
+    private List<Usuario> _lista = new();
+    private DialogoConfirmacion dialogo = null!;
+    private FormModUsu formUsuario = null!;
+    private Usuario? _usuarioParaEliminar; 
+    private Usuario? _usuarioParaEditar;
+    private string MensajeDialogo = "";
+    private bool MostrarEliminar = false;
+
+    protected override void OnInitialized()
+    {
+        _lista = ListUsu.Ejecutar();
+    }
+
+    public void Modificar(Usuario usu)
+    {
+        _usuarioParaEditar = usu; 
+        formUsuario.Mostrar();   
+    }
+
+    public void GuardarCambiosUsuario((Usuario usuario, string? nuevaContraseña) data)
+    {
+        if (Sesion.UsuarioActual == null)
+        {
+            MensajeDialogo = "Debes iniciar sesión para modificar usuarios.";
+            MostrarEliminar = false; 
+            dialogo.Mostrar();
+            Navigation.NavigateTo("/login"); 
+            return;
+        }
+        if (!string.IsNullOrWhiteSpace(data.nuevaContraseña))
+        {
+                data.usuario.Contraseña = data.nuevaContraseña;
+        }
+        try
+        {
+            ModUsu.Ejecutar(data.usuario, Sesion.UsuarioActual.Id);
+
+            var index = _lista.FindIndex(x => x.Id == data.usuario.Id);
+            if (index != -1)
+            {
+                _lista[index] = data.usuario;
+            }
+
+            StateHasChanged(); 
+            MensajeDialogo = "Usuario modificado correctamente.";
+            MostrarEliminar = false; 
+            dialogo.Mostrar();
+        }
+        catch (Exception ex)
+        {
+            MensajeDialogo = ex.Message;
+            MostrarEliminar = false;
+            dialogo.Mostrar();
+        }
+    }
+    public void MostrarDialogoEliminar(Usuario usu)
+    {
+        _usuarioParaEliminar = usu;
+        MensajeDialogo = $"¿Seguro que desea eliminar a {usu.Nombre} {usu.Apellido}?";
+        MostrarEliminar = true;
+        dialogo.Mostrar();
+    }
+
+    public void ConfirmarEliminar()
+    {
+        if (_usuarioParaEliminar == null)
+        {
+            MensajeDialogo = "Error: No se seleccionó ningún usuario para eliminar.";
+            MostrarEliminar = false;
+            dialogo.Mostrar();
+            return;
+        }
+
+        if (Sesion.UsuarioActual == null)
+        {
+            MensajeDialogo = "Debes iniciar sesión para eliminar usuarios.";
+            MostrarEliminar = false;
+            dialogo.Mostrar();
+            Navigation.NavigateTo("/login");
+            return;
+        }
+
+        try
+        {
+            RemUsu.Ejecutar(_usuarioParaEliminar.Id, Sesion.UsuarioActual.Id);
+            _lista.Remove(_usuarioParaEliminar);
+            _usuarioParaEliminar = null;
+            StateHasChanged();
+
+            MensajeDialogo = "Usuario eliminado correctamente.";
+            MostrarEliminar = false;
+            dialogo.Mostrar();
+        }
+        catch (Exception ex)
+        {
+            MensajeDialogo = ex.Message;
+            MostrarEliminar = false;
+            dialogo.Mostrar();
+        }
+    }
+    void Volver() => Navigation.NavigateTo("/home");
+}

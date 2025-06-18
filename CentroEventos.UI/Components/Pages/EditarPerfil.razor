@@ -114,7 +114,6 @@ else
 
             ModificarUsuario.Ejecutar(usuarioEditado, usuario.Id);
 
-            // Actualizar sesión
             Sesion.IniciarSesion(usuarioEditado);
             usuario = usuarioEditado;
             perfil.NuevaContraseña = "";
