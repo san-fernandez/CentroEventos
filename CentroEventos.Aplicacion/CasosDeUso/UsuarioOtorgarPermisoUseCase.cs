@@ -1,4 +1,5 @@
 using CentroEventos.Aplicacion.Entidades;
+using CentroEventos.Aplicacion.Excepciones;
 using CentroEventos.Aplicacion.Interfaces;
 
 namespace CentroEventos.Aplicacion.CasosDeUso;
@@ -10,10 +11,11 @@ public class OtorgarPermisoAUsuarioUseCase(IRepositorioUsuario repositorio)
         var usuario = repositorio.ObtenerPorId(usuarioId);
         if (usuario == null)
             throw new Exception("Usuario no encontrado.");
-        if (!usuario.Permisos.Contains(permiso))
+        if (usuario.Permisos.Contains(permiso))
         {
-            usuario.Permisos.Add(permiso);
-            repositorio.Modificar(usuario);
+            throw new DuplicadoException("El usuario ya tiene este permiso");
         }
+        usuario.Permisos.Add(permiso);
+        repositorio.Modificar(usuario);
     }
 }

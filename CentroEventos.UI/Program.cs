@@ -22,6 +22,8 @@ builder.Services
     .AddTransient<UsuarioLoginUseCase>()
     .AddTransient<UsuarioRegistroUseCase>()
     .AddTransient<ListarUsuariosUseCase>()
+    .AddTransient<OtorgarPermisoAUsuarioUseCase>()
+    .AddTransient<QuitarPermisoAUsuarioUseCase>()
 
     // Casos de uso Persona
     .AddTransient<PersonaAltaUseCase>()

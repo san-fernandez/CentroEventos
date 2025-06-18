@@ -76,7 +76,7 @@ public class RepositorioReserva : IRepositorioReserva
     {
         using (var context = new CentroDeportivoContext())
         {
-            return context.Set<Reserva>().Where(r => r.EventoDeportivoId == IdEventoDeportivo).ToList();
+            return context.Set<Reserva>().Where(r => r.EventoDeportivoId == IdEventoDeportivo && r.EstadoAsistencia==Estado.Presente).ToList();
         }
     }
 

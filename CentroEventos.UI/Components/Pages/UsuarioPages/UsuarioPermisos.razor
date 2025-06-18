@@ -1,0 +1,181 @@
+@page "/usuario/permiso/"
+@rendermode InteractiveServer
+@using CentroEventos.UI.Components
+@using CentroEventos.Aplicacion.Entidades
+@inject ListarUsuariosUseCase ListUsu
+@inject OtorgarPermisoAUsuarioUseCase OtorgarPermisoUC 
+@inject QuitarPermisoAUsuarioUseCase QuitarPermisoUC
+@inject NavigationManager Navigation
+@inject IServicioUsuarioSesion Sesion
+@inject IServicioAutorizacion ServicioAutorizacion
+@inject IJSRuntime JSRuntime
+
+<h3>Administración de Permisos de Usuarios</h3>
+
+<DialogoConfirmacion @ref="dialogo" Mensaje="@MensajeDialogo" />
+
+@if (puedeAdministrarPermisos)
+{
+    <div class="mb-3">
+        <label for="permisoSelector" class="form-label">Seleccionar Permiso a Gestionar:</label>
+        <select id="permisoSelector" class="form-select" @bind="permisoSeleccionado">
+            <option value="">-- Seleccione un permiso --</option>
+            @foreach (var p in _todosLosPermisos)
+            {
+                <option value="@p.ToString()">@p.ToString()</option>
+            }
+        </select>
+        @if (mostrarError)
+        {
+            <div class="text-danger mt-1">@error</div>
+        }
+    </div>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>APELLIDO</th>
+                <th>EMAIL</th>
+                <th>PERMISOS ACTUALES</th>
+                <th>ACCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var usu in _lista)
+            {
+                <tr>
+                    <td>@usu.Id</td>
+                    <td>@usu.Nombre</td>
+                    <td>@usu.Apellido</td>
+                    <td>@usu.CorreoElectronico</td>
+                    <td>
+                        @if (usu.Id == 1)
+                        {
+                            <span>Todos los permisos</span>
+                        }
+                        else if (usu.Permisos != null && usu.Permisos.Any())
+                        {
+                            @string.Join(", ", usu.Permisos.Select(p => p.ToString()))
+                        }
+                        else
+                        {
+                            <span>Ninguno</span>
+                        }
+                    </td>
+                    <td>
+                        @if (usu.Id != 1) // O usu.EsAdministrador si creás esa propiedad
+                        {
+                            <button class="btn btn-success btn-sm me-1" @onclick="() => OtorgarPermiso(usu)">Otorgar</button>
+                            <button class="btn btn-danger btn-sm" @onclick="() => QuitarPermiso(usu)">Quitar</button>
+                        }
+                        else
+                        {
+                            <span class="text-muted">No editable</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button class="btn btn-secondary mt-3" @onclick="Volver">Volver al menú</button>
+}
+else
+{
+    <div class="alert alert-danger" role="alert">
+        Acceso denegado. No tienes permisos para administrar usuarios.
+    </div>
+    <button class="btn btn-secondary mt-3" @onclick="Volver">Volver al menú</button>
+}
+
+@code {
+    private List<Usuario> _lista = new();
+    private DialogoConfirmacion dialogo = null!;
+
+    private Permiso permisoSeleccionado = Permiso.EventoAlta;
+    private List<Permiso> _todosLosPermisos = new(); 
+
+    private int IdUsuario = 0;
+    private bool puedeAdministrarPermisos = false; 
+    private string MensajeDialogo = "";
+    private bool mostrarError = false;
+    private string error = "";
+    protected override void OnInitialized()
+    {
+        IdUsuario = Sesion.UsuarioActual?.Id ?? 0;
+
+        puedeAdministrarPermisos = IdUsuario == 1;
+
+        if (puedeAdministrarPermisos)
+        {
+            ActualizarListaUsuarios();
+            _todosLosPermisos = Enum.GetValues<Permiso>().ToList();
+        }
+    }
+
+    private void ActualizarListaUsuarios()
+    {
+        _lista = ListUsu.Ejecutar();
+        StateHasChanged();
+    }
+
+    private void OtorgarPermiso(Usuario usuarioObjetivo)
+    {
+        MensajeDialogo = "";
+        mostrarError = false;
+        error = "";
+
+        if (IdUsuario == 0)
+        {
+            MensajeDialogo = "Debes iniciar sesión para realizar esta acción.";
+            dialogo.Mostrar();
+            Navigation.NavigateTo("/login");
+            return;
+        }
+
+        try
+        {
+            OtorgarPermisoUC.Ejecutar(usuarioObjetivo.Id, permisoSeleccionado);
+            ActualizarListaUsuarios();
+            MensajeDialogo = $"Permiso '{permisoSeleccionado.ToString()}' otorgado a {usuarioObjetivo.Nombre} {usuarioObjetivo.Apellido} correctamente.";
+            dialogo.Mostrar();
+        }
+        catch (Exception ex)
+        {
+            MensajeDialogo = ex.Message;
+            dialogo.Mostrar();
+        }
+    }
+
+    private void QuitarPermiso(Usuario usuarioObjetivo)
+    {
+        MensajeDialogo = "";
+        error = "";
+        mostrarError = false;
+
+
+        if (IdUsuario == 0)
+        {
+            MensajeDialogo = "Debes iniciar sesión para realizar esta acción.";
+            dialogo.Mostrar();
+            Navigation.NavigateTo("/login");
+            return;
+        }
+
+        try
+        {
+            QuitarPermisoUC.Ejecutar(usuarioObjetivo.Id, permisoSeleccionado);
+            ActualizarListaUsuarios();
+            MensajeDialogo = $"Permiso '{permisoSeleccionado.ToString()}' quitado a {usuarioObjetivo.Nombre} {usuarioObjetivo.Apellido} correctamente.";
+            dialogo.Mostrar();
+        }
+        catch (Exception ex)
+        {
+            MensajeDialogo = ex.Message;
+            dialogo.Mostrar();
+        }
+    }
+    private void Volver() => Navigation.NavigateTo("/home");
+}
