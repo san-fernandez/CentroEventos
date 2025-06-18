@@ -6,12 +6,15 @@
                 Se va a modificar al Evento ID: @(Eve != null ? Eve.Id.ToString() : "N/A")
             </h3>
             <div>
-                <input placeholder="Nombre Evento" @bind="Eve.Nombre" class="form-control">
-                <input placeholder="Fecha/hora Inicio" @bind="Eve.FechaHoraInicio" class="form-control">
-                <input placeholder="Duracion (hs)" @bind="Eve.DuracionHoras" class="form-control">
-                <input placeholder="Cupo Maximo" @bind="Eve.CupoMaximo" class="form-control">
-                <input placeholder="ID del Responsable" @bind="Eve.ResponsableId" class="form-control">
-                <textarea placeholder="Descripcion" @bind="Eve.Descripcion" class="form-control"></textarea>
+                @if (Eve != null)
+                {
+                    <input placeholder="Nombre Evento" @bind="Eve.Nombre" class="form-control">
+                    <input placeholder="Fecha/hora Inicio" @bind="Eve.FechaHoraInicio" class="form-control">
+                    <input placeholder="Duracion (hs)" @bind="Eve.DuracionHoras" class="form-control">
+                    <input placeholder="Cupo Maximo" @bind="Eve.CupoMaximo" class="form-control">
+                    <input placeholder="ID del Responsable" @bind="Eve.ResponsableId" class="form-control">
+                    <textarea placeholder="Descripcion" @bind="Eve.Descripcion" class="form-control"></textarea>
+                }
                 <button class="btn btn-primary" @onclick="Guardar">Confirmar</button>
                 <button class="btn btn-primary" @onclick="Cancelar">Cancelar</button>
             </div>

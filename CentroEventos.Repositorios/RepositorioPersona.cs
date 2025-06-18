@@ -70,19 +70,19 @@ public class RepositorioPersona : IRepositorioPersona
         }
     }
 
-    public bool ExisteConDNI(string DNI)
+    public bool ExisteConDNI(string DNI, int? idAExcluir = null)
     {
         using (var context = new CentroDeportivoContext())
         {
-            return context.Set<Persona>().Any(x => x.DNI == DNI);
+            return context.Personas.Any(p => p.DNI == DNI && (!idAExcluir.HasValue || p.Id != idAExcluir));
         }
     }
 
-    public bool ExisteConEmail(string email)
+    public bool ExisteConEmail(string email, int? idAExcluir = null)
     {
         using (var context = new CentroDeportivoContext())
         {
-            return context.Set<Persona>().Any(x => x.Email == email);
+            return context.Personas.Any(p => p.Email == email && (!idAExcluir.HasValue || p.Id != idAExcluir));
         }
     }
 

@@ -1,0 +1,58 @@
+@page "/evento/asistentes/{idEvento:int}"
+@inject ListarAsistenciaAEventoUseCase ListarAsistencia
+
+<h3>Asistentes al evento</h3>
+
+@if (asistentes == null)
+{
+    <p>Cargando...</p>
+}
+else if (!asistentes.Any())
+{
+    <p>No hay asistentes para este evento.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>DNI</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var persona in asistentes)
+            {
+                <tr>
+                    <td>@persona.Nombre</td>
+                    <td>@persona.Apellido</td>
+                    <td>@persona.DNI</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<DialogoConfirmacion @ref="dialogo" Mensaje="@mensaje" />
+
+@code {
+    [Parameter] public int idEvento { get; set; }
+
+    List<Persona>? asistentes = null;
+    string mensaje = "";
+    DialogoConfirmacion dialogo = null!;
+
+    protected override void OnInitialized()
+    {
+        try
+        {
+            asistentes = ListarAsistencia.Ejecutar(idEvento);
+        }
+        catch (Exception ex)
+        {
+            mensaje = ex.Message;
+            dialogo.Mostrar();
+        }
+    }
+}

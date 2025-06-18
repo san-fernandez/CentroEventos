@@ -10,7 +10,7 @@ public class ListarAsistenciaAEventoUseCase (IRepositorioEventoDeportivo reposit
         if (evento == null) {
             throw new EntidadNotFoundException(idEvento);
         }
-        if (!(evento.FechaHoraInicio < DateTime.Now)) {
+        if (!(evento.FechaHoraInicio.AddHours(evento.DuracionHoras) < DateTime.Now)) {
             throw new ValidacionException($"El evento con ID {idEvento} aún no ha ocurrido.");
         }
         var reservas = repositorioReserva.ListarPresenteId(idEvento);

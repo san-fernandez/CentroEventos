@@ -41,6 +41,7 @@
         }
     </tbody>
 </table>
+<button class="btn btn-secondary mt-2" @onclick="Volver">Volver al menú</button>
 
 @code {
     List<Persona> _lista = new List<Persona>();
@@ -96,4 +97,5 @@
             }
         }    
     }
+    void Volver() => Navigation.NavigateTo("/home");
 }

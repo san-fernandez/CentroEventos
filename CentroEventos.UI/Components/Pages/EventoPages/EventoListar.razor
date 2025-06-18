@@ -9,7 +9,7 @@
 @inject IJSRuntime JSRuntime
 
 <FormModEve @ref="form" />
-<DialogoConfirmacion @ref="dialogo" Mensaje="@MensajeDialogo" MostrarEliminar="true" OnEliminar="ConfirmarEliminar" />
+<DialogoConfirmacion @ref="dialogo" Mensaje="@MensajeDialogo" MostrarEliminar="@mostrarBotonEliminar" OnEliminar="ConfirmarEliminar" />
 
 <label>
     <input type="checkbox" @bind="mostrarSoloCupos" @bind:after="ActualizarEventosMostrados" />
@@ -22,11 +22,11 @@
             <th>ID</th>
             <th>NOMBRE</th>
             <th>Fecha Inicio</th>
-            <th>Duracion (hs.)</th>
-            <th>Cupo Maximo</th>
+            <th>Duración (hs.)</th>
+            <th>Cupo Máximo</th>
             <th>Responsable ID</th>
-            <th>Descripcion</th>
-            <th></th>
+            <th>Descripción</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -41,6 +41,7 @@
                 <td>@eve.ResponsableId</td>
                 <td>@eve.Descripcion</td>
                 <td>
+                    <button class="btn btn-info" @onclick="() => VerAsistentes(eve)">Ver asistentes</button>
                     <button class="btn btn-mod" @onclick="() => Modificar(eve)">Editar</button>
                     <button class="btn btn-baja" @onclick="() => MostrarDialogoEliminar(eve)">Eliminar</button>
                 </td>
@@ -48,6 +49,8 @@
         }
     </tbody>
 </table>
+
+<button class="btn btn-secondary mt-2" @onclick="Volver">Volver al menú</button>
 
 @code {
     private List<EventoDeportivo> _eventosMostrados = new();
@@ -57,6 +60,7 @@
 
     private bool mostrarSoloCupos = false;
     private string MensajeDialogo = "";
+    private bool mostrarBotonEliminar = true;
 
     protected override void OnInitialized()
     {
@@ -71,6 +75,20 @@
             _eventosMostrados = ListEve.Ejecutar();
 
         StateHasChanged();
+    }
+
+    void VerAsistentes(EventoDeportivo evento)
+    {
+        if (evento.FechaHoraInicio.AddHours(evento.DuracionHoras) <= DateTime.Now)
+        {
+            Navigation.NavigateTo($"/evento/asistentes/{evento.Id}");
+        }
+        else
+        {
+            MensajeDialogo = "Solo se pueden ver los asistentes de eventos finalizados.";
+            mostrarBotonEliminar = false;
+            dialogo.Mostrar();
+        }
     }
 
     public void Modificar(EventoDeportivo eve)
@@ -90,6 +108,7 @@
         else
         {
             MensajeDialogo = "Debes iniciar sesión";
+            mostrarBotonEliminar = false;
             dialogo.Mostrar();
             Navigation.NavigateTo("/login");
         }
@@ -99,6 +118,7 @@
     {
         EventoAEliminar = eve;
         MensajeDialogo = $"¿Seguro que desea eliminar el evento {eve.Id}?";
+        mostrarBotonEliminar = true;
         dialogo.Mostrar();
     }
 
@@ -115,8 +135,12 @@
             else
             {
                 MensajeDialogo = "Debes iniciar sesión";
+                mostrarBotonEliminar = false;
+                dialogo.Mostrar();
                 Navigation.NavigateTo("/login");
             }
         }
     }
+    void Volver() => Navigation.NavigateTo("/home");
+
 }

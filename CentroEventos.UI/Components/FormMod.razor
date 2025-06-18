@@ -1,22 +1,46 @@
 @rendermode InteractiveServer
-@if(_visible) {
-    <div>
-        <div>
-            <h3>
-                Se va a modificar la Persona ID: @(P != null ? P.Id.ToString() : "N/A")
-            </h3>
-            <div>
-                <input placeholder="Nombre" @bind="P!.Nombre" class="form-control" disabled="@((P == null))">
-                <input placeholder="Apellido" @bind="P!.Apellido" class="form-control" disabled="@((P == null))">
-                <input placeholder="Dni" @bind="P!.DNI" class="form-control" disabled="@((P == null))">
-                <input placeholder="Telefono" @bind="P!.Telefono" class="form-control" disabled="@((P == null))">
-                <input placeholder="Email" @bind="P!.Email" class="form-control" disabled="@((P == null))">
-                <button class="btn btn-primary" @onclick="Guardar">Confirmar</button>
-                <button class="btn btn-primary" @onclick="Cancelar">Cancelar</button>
-            </div>
+@if (_visible && P != null)
+{
+    <EditForm Model="P" OnValidSubmit="Guardar">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <h3 class="mt-3">
+            Se va a modificar la Persona ID: @P.Id
+        </h3>
+
+        <div class="form-group mt-2">
+            <label>DNI</label>
+            <InputText class="form-control" @bind-Value="P.DNI" />
         </div>
-    </div>
+
+        <div class="form-group mt-2">
+            <label>Nombre</label>
+            <InputText class="form-control" @bind-Value="P.Nombre" />
+        </div>
+
+        <div class="form-group mt-2">
+            <label>Apellido</label>
+            <InputText class="form-control" @bind-Value="P.Apellido" />
+        </div>
+
+        <div class="form-group mt-2">
+            <label>Teléfono</label>
+            <InputText class="form-control" @bind-Value="P.Telefono" />
+        </div>
+
+        <div class="form-group mt-2">
+            <label>Email</label>
+            <InputText class="form-control" @bind-Value="P.Email" />
+        </div>
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-success me-2">Confirmar</button>
+            <button type="button" class="btn btn-secondary" @onclick="Cancelar">Cancelar</button>
+        </div>
+    </EditForm>
 }
+
 
 @code {
     public Persona? P { get; set; }
