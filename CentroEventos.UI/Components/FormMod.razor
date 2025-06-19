@@ -51,9 +51,12 @@
 
     public void Mostrar()
     {
+        if (P == null) {
+            return;
+        }
         _personaEditada = new Persona
         {
-            Id = P!.Id,
+            Id = P.Id,
             DNI = P.DNI,
             Nombre = P.Nombre,
             Apellido = P.Apellido,

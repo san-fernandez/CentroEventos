@@ -60,10 +60,12 @@
 
     public void Mostrar()
     {
-
+        if (U == null) {
+            return;
+        }
         _usuarioEditado = new Usuario
         {
-            Id = U!.Id,
+            Id = U.Id,
             Nombre = U.Nombre,
             Apellido = U.Apellido,
             CorreoElectronico = U.CorreoElectronico,

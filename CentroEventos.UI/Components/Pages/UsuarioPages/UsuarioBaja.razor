@@ -84,9 +84,9 @@ else
         {
             if (Sesion.UsuarioActual == null)
             {
+                Navigation.NavigateTo("/");
                 error = "Debes iniciar sesión";
                 dialogo.Mostrar();
-                Navigation.NavigateTo("/login");
                 return;
             }
 

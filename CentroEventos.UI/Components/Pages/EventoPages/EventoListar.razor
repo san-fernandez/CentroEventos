@@ -116,10 +116,10 @@
         }
         else
         {
+            Navigation.NavigateTo("/");
             MensajeDialogo = "Debes iniciar sesión";
             mostrarBotonEliminar = false;
             dialogo.Mostrar();
-            Navigation.NavigateTo("/login");
         }
     }
 
@@ -152,10 +152,10 @@
             }
             else
             {
+                Navigation.NavigateTo("/");
                 MensajeDialogo = "Debes iniciar sesión";
                 mostrarBotonEliminar = false;
                 dialogo.Mostrar();
-                Navigation.NavigateTo("/login");
             }
         }
     }

@@ -129,9 +129,9 @@ else
 
         if (IdUsuario == 0)
         {
+            Navigation.NavigateTo("/");
             MensajeDialogo = "Debes iniciar sesión para realizar esta acción.";
             dialogo.Mostrar();
-            Navigation.NavigateTo("/login");
             return;
         }
 
@@ -158,9 +158,9 @@ else
 
         if (IdUsuario == 0)
         {
+            Navigation.NavigateTo("/");
             MensajeDialogo = "Debes iniciar sesión para realizar esta acción.";
             dialogo.Mostrar();
-            Navigation.NavigateTo("/login");
             return;
         }
 

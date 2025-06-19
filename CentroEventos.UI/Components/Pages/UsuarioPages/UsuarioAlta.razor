@@ -48,9 +48,9 @@
                 error = "Usuario registrado correctamente";
                 dialogo.Mostrar();
             } else {
+                Navigation.NavigateTo("/");
                 error = "Debes iniciar sesión";
                 dialogo.Mostrar();
-                Navigation.NavigateTo("/login");
             }
         }
         catch (Exception ex)

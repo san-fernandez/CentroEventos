@@ -56,17 +56,19 @@
     public void Modificar(Usuario usu)
     {
         _usuarioParaEditar = usu; 
-        formUsuario.Mostrar();   
+        if (_usuarioParaEditar != null) {
+            formUsuario.Mostrar();   
+        }
     }
 
     public void GuardarCambiosUsuario((Usuario usuario, string? nuevaContraseña) data)
     {
         if (Sesion.UsuarioActual == null)
         {
+            Navigation.NavigateTo("/"); 
             MensajeDialogo = "Debes iniciar sesión para modificar usuarios.";
             MostrarEliminar = false; 
             dialogo.Mostrar();
-            Navigation.NavigateTo("/login"); 
             return;
         }
         if (!string.IsNullOrWhiteSpace(data.nuevaContraseña))
@@ -115,10 +117,10 @@
 
         if (Sesion.UsuarioActual == null)
         {
+            Navigation.NavigateTo("/");
             MensajeDialogo = "Debes iniciar sesión para eliminar usuarios.";
             MostrarEliminar = false;
             dialogo.Mostrar();
-            Navigation.NavigateTo("/login");
             return;
         }
 

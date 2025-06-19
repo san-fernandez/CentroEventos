@@ -74,6 +74,11 @@
                 dialogo.Mostrar();
             }
         }
+        else {
+            Navigation.NavigateTo("/");
+            error = "Debes iniciar sesion";
+            dialogo.Mostrar();
+        }
     }
     
     void Volver()

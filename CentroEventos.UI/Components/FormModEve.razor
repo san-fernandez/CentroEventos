@@ -68,10 +68,12 @@
     }
     public void Mostrar()
     {
-
+        if (Eve == null) {
+            return;
+        }
         _eventoEditado = new EventoDeportivo
         {
-            Id = Eve!.Id,
+            Id = Eve.Id,
             Nombre = Eve.Nombre,
             FechaHoraInicio = Eve.FechaHoraInicio,
             DuracionHoras = Eve.DuracionHoras,

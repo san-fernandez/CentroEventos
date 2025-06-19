@@ -114,9 +114,9 @@ else
         {
             if (Sesion.UsuarioActual == null)
             {
+                Navigation.NavigateTo("/");
                 mensaje = "Debes iniciar sesión";
                 dialogo.Mostrar();
-                Navigation.NavigateTo("/login");
                 return;
             }
 

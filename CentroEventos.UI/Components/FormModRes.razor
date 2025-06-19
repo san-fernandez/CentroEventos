@@ -70,10 +70,12 @@
     }
     public void Mostrar()
     {
-
+        if (R == null) {
+            return;
+        }
         _reservaEditada = new Reserva
         {
-            Id = R!.Id,
+            Id = R.Id,
             PersonaId = R.PersonaId,
             EventoDeportivoId = R.EventoDeportivoId,
             FechaAltaReserva = R.FechaAltaReserva,
