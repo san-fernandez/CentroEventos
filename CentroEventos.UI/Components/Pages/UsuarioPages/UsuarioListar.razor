@@ -89,6 +89,9 @@
             MensajeDialogo = "Usuario modificado correctamente.";
             MostrarEliminar = false; 
             dialogo.Mostrar();
+            if (data.usuario.Id == Sesion.UsuarioActual.Id) {
+                Sesion.IniciarSesion(data.usuario);
+            }
         }
         catch (Exception ex)
         {

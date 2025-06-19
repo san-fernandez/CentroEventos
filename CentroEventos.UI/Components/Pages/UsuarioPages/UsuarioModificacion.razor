@@ -111,10 +111,12 @@ else
             {
                 u.Contraseña = nuevaContraseña;
             }
-
             CasoModificacion.Ejecutar(u, Sesion.UsuarioActual.Id);
             mensaje = "Usuario modificado correctamente.";
             dialogo.Mostrar();
+            if (u.Id == Sesion.UsuarioActual.Id) {
+                Sesion.IniciarSesion(u);
+            }
         }
         catch (Exception ex)
         {

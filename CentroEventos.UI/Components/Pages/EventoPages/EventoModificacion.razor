@@ -51,7 +51,7 @@ else
 
             <div class="form-group mt-2">
                 <label for="responsable">Responsable:</label>
-                <select class="form-select" id="responsable" @bind="ResponsableId">
+                <select class="form-select" id="responsable" @bind="e.ResponsableId">
                 <option value="">Seleccione un responsable</option>
                 @foreach (var persona in PersonasDisponibles)
                 {
@@ -73,7 +73,6 @@ else
     EventoDeportivo? e = null;
     int idEvento;
     List<Persona> PersonasDisponibles = new();
-    int ResponsableId;
     string mensaje = "";
     bool visible = false;
     DialogoConfirmacion dialogo = null!;

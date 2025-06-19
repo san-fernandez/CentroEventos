@@ -5,7 +5,7 @@ using CentroEventos.Aplicacion.Entidades;
 
 namespace CentroEventos.Aplicacion.CasosDeUso;
 
-public class EventoDeportivoModificacionUseCase(IRepositorioEventoDeportivo repositorio, IRepositorioReserva repositorioReserva, IServicioAutorizacion servicioAutorizacion, ValidadorEventoDeportivo validadorEventoDeportivo) {
+public class EventoDeportivoModificacionUseCase(IRepositorioEventoDeportivo repositorio, IRepositorioReserva repositorioReserva, IRepositorioPersona repositorioPersona, IServicioAutorizacion servicioAutorizacion, ValidadorEventoDeportivo validadorEventoDeportivo, ValidadorEventoDeportivoExistePersona validadorEventoDeportivoExistePersona) {
     public void Ejecutar(EventoDeportivo evento, int usuarioId) {
         
         if (!servicioAutorizacion.PoseeElPermiso(usuarioId, Permiso.EventoModificacion))
@@ -15,7 +15,9 @@ public class EventoDeportivoModificacionUseCase(IRepositorioEventoDeportivo repo
         if (!validadorEventoDeportivo.Validar(evento, out string mensajeError)) {
             throw new ValidacionException(mensajeError);
         }
-        
+        if (!validadorEventoDeportivoExistePersona.Validar(evento, repositorioPersona, out string mensajePersonaNoExiste)) {
+            throw new EntidadNotFoundException(evento.ResponsableId);
+        }  
         var eventoOriginal = repositorio.ObtenerPorId(evento.Id);
         if (eventoOriginal != null && eventoOriginal.FechaHoraInicio <= DateTime.Now) {
             throw new OperacionInvalidaException("No se puede modificar un evento ya ocurrido");
