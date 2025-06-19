@@ -20,6 +20,10 @@ public class ReservaAltaUseCase (IRepositorioReserva repositorioReserva, IReposi
         if (!validadorReservaDuplicado.Validar(reserva, repositorioReserva, out string mensajeErrorPersonaDuplicada)) {
             throw new DuplicadoException(mensajeErrorPersonaDuplicada);
         }
+        var evento = repositorioEvento.ObtenerPorId(reserva.EventoDeportivoId);
+        if (evento != null && evento.FechaHoraInicio.AddHours(evento.DuracionHoras) <= DateTime.Now) {
+            throw new OperacionInvalidaException("No se hacer una reserva de un evento ya ocurrido");
+        }
         reserva.EstadoAsistencia = Estado.Pendiente;
         reserva.FechaAltaReserva = DateTime.Now;
         repositorioReserva.Agregar(reserva);
