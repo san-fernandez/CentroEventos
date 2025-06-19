@@ -109,10 +109,6 @@ O bien, descargar el archivo ZIP desde GitHub y extraerlo en una carpeta local:
 
 ### 👤 Gestión de Personas
 
-#### 📋 Listado de Personas
-
-![Listado Personas](./Screenshots/Personas_Listado.png)
-
 #### ➕ Crear Persona
 
 ![Alta Persona](./Screenshots/Personas_Alta.png)
@@ -120,6 +116,10 @@ O bien, descargar el archivo ZIP desde GitHub y extraerlo en una carpeta local:
 #### ✏️ Editar Persona
 
 ![Editar Persona](./Screenshots/Personas_Edicion.png)
+
+#### 📋 Listado de Personas
+
+![Listado Personas](./Screenshots/Personas_Listado.png)
 
 #### 🗑️ Eliminar Persona
 
@@ -129,10 +129,6 @@ O bien, descargar el archivo ZIP desde GitHub y extraerlo en una carpeta local:
 
 ### 🏆 Gestión de Eventos
 
-#### 📋 Listado de Eventos
-
-![Listado Eventos](./Screenshots/Eventos_Listado.png)
-
 #### ➕ Crear Evento
 
 ![Alta Evento](./Screenshots/Eventos_Alta.png)
@@ -140,6 +136,10 @@ O bien, descargar el archivo ZIP desde GitHub y extraerlo en una carpeta local:
 #### ✏️ Editar Evento
 
 ![Editar Evento](./Screenshots/Eventos_Edicion.png)
+
+#### 📋 Listado de Eventos
+
+![Listado Eventos](./Screenshots/Eventos_Listado.png)
 
 #### 🗑️ Eliminar Evento
 
@@ -149,10 +149,6 @@ O bien, descargar el archivo ZIP desde GitHub y extraerlo en una carpeta local:
 
 ### 📅 Gestión de Reservas
 
-#### 📋 Listado de Reservas
-
-![Listado Reservas](./Screenshots/Reservas_Listado.png)
-
 #### ➕ Crear Reserva
 
 ![Alta Reserva](./Screenshots/Reservas_Alta.png)
@@ -160,6 +156,10 @@ O bien, descargar el archivo ZIP desde GitHub y extraerlo en una carpeta local:
 #### ✏️ Editar Reserva
 
 ![Editar Reserva](./Screenshots/Reservas_Edicion.png)
+
+#### 📋 Listado de Reservas
+
+![Listado Reservas](./Screenshots/Reservas_Listado.png)
 
 #### 🗑️ Eliminar Reserva
 
@@ -169,10 +169,6 @@ O bien, descargar el archivo ZIP desde GitHub y extraerlo en una carpeta local:
 
 ### 👥 Gestión de Usuarios
 
-#### 📋 Listado de Usuarios
-
-![Listado Usuarios](./Screenshots/Usuarios_Listado.png)
-
 #### ➕ Crear Usuario
 
 ![Alta Usuario](./Screenshots/Usuarios_Alta.png)
@@ -180,6 +176,10 @@ O bien, descargar el archivo ZIP desde GitHub y extraerlo en una carpeta local:
 #### ✏️ Editar Usuario
 
 ![Editar Usuario](./Screenshots/Usuarios_Edicion.png)
+
+#### 📋 Listado de Usuarios
+
+![Listado Usuarios](./Screenshots/Usuarios_Listado.png)
 
 #### 🗑️ Eliminar Usuario
 
