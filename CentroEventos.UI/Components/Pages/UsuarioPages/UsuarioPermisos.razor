@@ -65,7 +65,7 @@
                         }
                     </td>
                     <td>
-                        @if (usu.Id != 1) // O usu.EsAdministrador si creás esa propiedad
+                        @if (usu.Id != 1)
                         {
                             <button class="btn btn-success btn-sm me-1" @onclick="() => OtorgarPermiso(usu)">Otorgar</button>
                             <button class="btn btn-danger btn-sm" @onclick="() => QuitarPermiso(usu)">Quitar</button>

@@ -68,14 +68,10 @@
     }
     public void Mostrar()
     {
-        if (Eve == null)
-        {
-            Console.WriteLine("Error: El evento a editar es nulo.");
-            return;
-        }
+
         _eventoEditado = new EventoDeportivo
         {
-            Id = Eve.Id,
+            Id = Eve!.Id,
             Nombre = Eve.Nombre,
             FechaHoraInicio = Eve.FechaHoraInicio,
             DuracionHoras = Eve.DuracionHoras,

@@ -60,15 +60,10 @@
 
     public void Mostrar()
     {
-        if (U == null)
-        {
-            Console.WriteLine("Error: El usuario a editar es nulo en FormModUsu. No se puede mostrar el formulario.");
-            return;
-        }
 
         _usuarioEditado = new Usuario
         {
-            Id = U.Id,
+            Id = U!.Id,
             Nombre = U.Nombre,
             Apellido = U.Apellido,
             CorreoElectronico = U.CorreoElectronico,
