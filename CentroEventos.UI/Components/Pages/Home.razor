@@ -64,6 +64,7 @@
     </div>
 
     <!-- GESTIÓN DE USUARIOS (si tiene permisos) -->
+    @if (PuedeGestionarUsuarios) {
     <div class="card mt-5 shadow-sm rounded-4">
         <div class="card-body">
             <h5 class="card-title">Gestión de Usuarios</h5>
@@ -88,6 +89,7 @@
             </div>
         </div>
     </div>
+    }
 
     <!-- PERFIL Y CIERRE DE SESIÓN -->
     <div class="mt-5 d-flex flex-column flex-md-row gap-3">
@@ -109,6 +111,7 @@
     bool PuedeEliminarUsuario;
     bool PuedeModificarUsuario;
     bool PuedeAdministrarPermisos;
+    bool PuedeGestionarUsuarios;
 
     protected override void OnInitialized()
     {
@@ -118,6 +121,7 @@
             PuedeEliminarUsuario = Autorizacion.PoseeElPermiso(usuario.Id, Permiso.UsuarioBaja);
             PuedeModificarUsuario = Autorizacion.PoseeElPermiso(usuario.Id, Permiso.UsuarioModificacion);
             PuedeAdministrarPermisos = Sesion.UsuarioActual != null && Sesion.UsuarioActual.Id == 1;
+            PuedeGestionarUsuarios = (PuedeCrearUsuario || PuedeEliminarUsuario || PuedeModificarUsuario || PuedeAdministrarPermisos);
         }
     }
 
