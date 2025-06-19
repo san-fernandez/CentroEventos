@@ -100,7 +100,7 @@ public class RepositorioReserva : IRepositorioReserva
     {
         using (var context = new CentroDeportivoContext())
         {
-            return context.Set<Reserva>().Any(r => r.PersonaId == IdPersona && (!idAExcluir.HasValue || r.PersonaId != idAExcluir) && r.EventoDeportivoId == IdEventoDeportivo);
+            return context.Set<Reserva>().Any(r => r.PersonaId == IdPersona && (!idAExcluir.HasValue || r.Id != idAExcluir) && r.EventoDeportivoId == IdEventoDeportivo);
         }
     }
 

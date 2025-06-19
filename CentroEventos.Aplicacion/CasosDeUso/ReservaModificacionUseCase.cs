@@ -17,11 +17,11 @@ public class ReservaModificacionUseCase(IRepositorioReserva repositorioReserva, 
         if (!validadorReservaCupo.Validar(reserva, repositorioReserva, repositorioEvento, out string mensajeErrorCupoExcedido, true)) {
             throw new CupoExcedidoException(mensajeErrorCupoExcedido);
         }
-        if (!validadorReservaDuplicado.Validar(reserva, repositorioReserva, out string mensajeErrorPersonaDuplicada))
+        if (!validadorReservaDuplicado.Validar(reserva, repositorioReserva, out string mensajeErrorPersonaDuplicada, reserva.Id))
         {
             throw new DuplicadoException(mensajeErrorPersonaDuplicada);
         }
-        var evento = repositorioEvento.ObtenerPorId(reserva.Id);
+        var evento = repositorioEvento.ObtenerPorId(reserva.EventoDeportivoId);
         if (evento != null && evento.FechaHoraInicio.AddHours(evento.DuracionHoras) <= DateTime.Now) {
             throw new OperacionInvalidaException("No se puede modificar una reserva de un evento ya ocurrido");
         }
