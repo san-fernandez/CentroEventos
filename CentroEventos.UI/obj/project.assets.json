@@ -531,10 +531,6 @@
       "CentroEventos.Aplicacion/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "9.0.6",
-          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.6"
-        },
         "compile": {
           "bin/placeholder/CentroEventos.Aplicacion.dll": {}
         },
@@ -546,7 +542,9 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "CentroEventos.Aplicacion": "1.0.0"
+          "CentroEventos.Aplicacion": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "9.0.6",
+          "Microsoft.EntityFrameworkCore.Sqlite": "9.0.6"
         },
         "compile": {
           "bin/placeholder/CentroEventos.Repositorios.dll": {}
