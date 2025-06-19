@@ -94,8 +94,8 @@ O bien, descargar el archivo ZIP desde GitHub y extraerlo en una carpeta local:
 
 - Login y Registro de nuevos usuarios
 
-![Login](./Screenshots/Pantalla_Login.png)
-![Registro](./Screenshots/Pantalla_Registro.png)
+![Login](./Screenshots/Pantalla_Login.jpg)
+![Registro](./Screenshots/Pantalla_Registro.jpg)
 
 ---
 
@@ -103,7 +103,7 @@ O bien, descargar el archivo ZIP desde GitHub y extraerlo en una carpeta local:
 
 - Una vez iniciado, el usuario será dirigido al menú principal. Según los permisos asignados, podrá acceder a las siguientes secciones:
 
-![Menú Principal](./Screenshots/Menu_Principal.png)
+![Menú Principal](./Screenshots/Menu_Principal.jpg)
 
 ---
 
@@ -111,19 +111,19 @@ O bien, descargar el archivo ZIP desde GitHub y extraerlo en una carpeta local:
 
 #### ➕ Crear Persona
 
-![Alta Persona](./Screenshots/Personas_Alta.png)
+![Alta Persona](./Screenshots/Personas_Alta.jpg)
 
 #### ✏️ Editar Persona
 
-![Editar Persona](./Screenshots/Personas_Edicion.png)
+![Editar Persona](./Screenshots/Personas_Edicion.jpg)
 
 #### 📋 Listado de Personas
 
-![Listado Personas](./Screenshots/Personas_Listado.png)
+![Listado Personas](./Screenshots/Personas_Listado.jpg)
 
 #### 🗑️ Eliminar Persona
 
-![Eliminar Persona](./Screenshots/Personas_Eliminar.png)
+![Eliminar Persona](./Screenshots/Personas_Eliminar.jpg)
 
 ---
 
@@ -131,19 +131,19 @@ O bien, descargar el archivo ZIP desde GitHub y extraerlo en una carpeta local:
 
 #### ➕ Crear Evento
 
-![Alta Evento](./Screenshots/Eventos_Alta.png)
+![Alta Evento](./Screenshots/Eventos_Alta.jpg)
 
 #### ✏️ Editar Evento
 
-![Editar Evento](./Screenshots/Eventos_Edicion.png)
+![Editar Evento](./Screenshots/Eventos_Edicion.jpg)
 
 #### 📋 Listado de Eventos
 
-![Listado Eventos](./Screenshots/Eventos_Listado.png)
+![Listado Eventos](./Screenshots/Eventos_Listado.jpg)
 
 #### 🗑️ Eliminar Evento
 
-![Eliminar Evento](./Screenshots/Eventos_Eliminar.png)
+![Eliminar Evento](./Screenshots/Eventos_Eliminar.jpg)
 
 ---
 
@@ -151,19 +151,19 @@ O bien, descargar el archivo ZIP desde GitHub y extraerlo en una carpeta local:
 
 #### ➕ Crear Reserva
 
-![Alta Reserva](./Screenshots/Reservas_Alta.png)
+![Alta Reserva](./Screenshots/Reservas_Alta.jpg)
 
 #### ✏️ Editar Reserva
 
-![Editar Reserva](./Screenshots/Reservas_Edicion.png)
+![Editar Reserva](./Screenshots/Reservas_Edicion.jpg)
 
 #### 📋 Listado de Reservas
 
-![Listado Reservas](./Screenshots/Reservas_Listado.png)
+![Listado Reservas](./Screenshots/Reservas_Listado.jpg)
 
 #### 🗑️ Eliminar Reserva
 
-![Eliminar Reserva](./Screenshots/Reservas_Eliminar.png)
+![Eliminar Reserva](./Screenshots/Reservas_Eliminar.jpg)
 
 ---
 
@@ -171,19 +171,19 @@ O bien, descargar el archivo ZIP desde GitHub y extraerlo en una carpeta local:
 
 #### ➕ Crear Usuario
 
-![Alta Usuario](./Screenshots/Usuarios_Alta.png)
+![Alta Usuario](./Screenshots/Usuarios_Alta.jpg)
 
 #### ✏️ Editar Usuario
 
-![Editar Usuario](./Screenshots/Usuarios_Edicion.png)
+![Editar Usuario](./Screenshots/Usuarios_Edicion.jpg)
 
 #### 📋 Listado de Usuarios
 
-![Listado Usuarios](./Screenshots/Usuarios_Listado.png)
+![Listado Usuarios](./Screenshots/Usuarios_Listado.jpg)
 
 #### 🗑️ Eliminar Usuario
 
-![Eliminar Usuario](./Screenshots/Usuarios_Eliminar.png)
+![Eliminar Usuario](./Screenshots/Usuarios_Eliminar.jpg)
 
 ---
 
@@ -191,7 +191,7 @@ O bien, descargar el archivo ZIP desde GitHub y extraerlo en una carpeta local:
 
 - Permite dar y quitar permisos a los usuarios
 
-![Administrar Permisos](./Screenshots/Admin_Permisos.png)
+![Administrar Permisos](./Screenshots/Admin_Permisos.jpg)
 
 ---
 
@@ -199,7 +199,7 @@ O bien, descargar el archivo ZIP desde GitHub y extraerlo en una carpeta local:
 
 - Disponible para todos los usuarios
 
-![Editar Perfil](./Screenshots/Perfil_Edicion.png)
+![Editar Perfil](./Screenshots/Perfil_Edicion.jpg)
 
 ---
 
