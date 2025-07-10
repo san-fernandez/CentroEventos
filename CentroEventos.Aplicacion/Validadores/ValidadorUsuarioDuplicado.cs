@@ -9,9 +9,6 @@ public class ValidadorUsuarioDuplicado {
         {
             mensajeError += "Ese email ya está en uso\n";
         }
-        if (repo.ExistePorContraseña(usuario.Contraseña, usuario.Id)){
-            mensajeError += "Esa contraseña ya está en uso\n";
-        }
         if (string.IsNullOrWhiteSpace(mensajeError)){
             return true;   
         }
